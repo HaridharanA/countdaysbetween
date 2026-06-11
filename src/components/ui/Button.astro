@@ -1,0 +1,27 @@
+---
+interface Props {
+  type?: "button" | "submit";
+  variant?: "primary" | "secondary";
+  id?: string;
+  class?: string;
+}
+
+const { type = "button", variant = "primary", id, class: className } = Astro.props;
+
+const variants = {
+  primary: "bg-primary text-on-primary hover:bg-ink/90",
+  secondary: "bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2",
+};
+---
+
+<button
+  type={type}
+  id={id}
+  class:list={[
+    "h-10 rounded-pill px-lg text-sm font-medium transition-all active:scale-95",
+    variants[variant],
+    className,
+  ]}
+>
+  <slot />
+</button>

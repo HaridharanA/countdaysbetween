@@ -1,0 +1,106 @@
+---
+import Input from "./ui/Input.astro";
+import Button from "./ui/Button.astro";
+import { formatDateForInput } from "../utils/date";
+
+const today = formatDateForInput(new Date());
+const nextMonth = new Date();
+nextMonth.setMonth(nextMonth.getMonth() + 1);
+const defaultEnd = formatDateForInput(nextMonth);
+---
+
+<div class="card-shadow-lg rounded-xl bg-canvas p-xl md:p-3xl">
+  <div class="grid grid-cols-1 gap-xl md:grid-cols-2">
+    <Input label="Start Date" type="date" id="start-date" value={today} required />
+    <Input label="End Date" type="date" id="end-date" value={defaultEnd} required />
+  </div>
+
+  <div class="mt-xl flex items-center justify-between gap-md border-t border-hairline pt-xl">
+    <div class="flex items-center gap-sm">
+      <input type="checkbox" id="include-end-date" class="h-4 w-4 accent-primary" />
+      <label for="include-end-date" class="text-sm text-body">Include end date (add 1 day)</label>
+    </div>
+    <Button id="calculate-btn">Calculate Days</Button>
+  </div>
+
+  <div id="results" class="mt-3xl hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div class="grid grid-cols-1 gap-lg border-t border-hairline pt-3xl md:grid-cols-3">
+      <div class="flex flex-col gap-xs">
+        <span class="text-xs font-medium uppercase tracking-wider text-mute font-mono">Total Days</span>
+        <span id="result-days" class="text-4xl font-semibold tracking-tighter">0</span>
+      </div>
+      <div class="flex flex-col gap-xs">
+        <span class="text-xs font-medium uppercase tracking-wider text-mute font-mono">Business Days</span>
+        <span id="result-business" class="text-4xl font-semibold tracking-tighter">0</span>
+      </div>
+      <div class="flex flex-col gap-xs">
+        <span class="text-xs font-medium uppercase tracking-wider text-mute font-mono">Weeks</span>
+        <span id="result-weeks" class="text-4xl font-semibold tracking-tighter text-link">0</span>
+      </div>
+    </div>
+
+    <div class="mt-xl grid grid-cols-1 gap-lg md:grid-cols-2">
+      <div class="rounded-lg bg-canvas-soft p-lg border border-hairline">
+        <p class="text-sm text-body">Result breakdown:</p>
+        <p id="result-breakdown" class="mt-sm font-medium">...</p>
+      </div>
+      <div class="rounded-lg bg-canvas-soft p-lg border border-hairline">
+        <p class="text-sm text-body">Percentage of year:</p>
+        <p id="result-percentage" class="mt-sm font-medium text-violet">...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { calculateDateDiff } from "../utils/date";
+
+  const calculateBtn = document.getElementById('calculate-btn');
+  const resultsDiv = document.getElementById('results');
+  
+  const startDateInput = document.getElementById('start-date') as HTMLInputElement;
+  const endDateInput = document.getElementById('end-date') as HTMLInputElement;
+  const includeEndDateCheckbox = document.getElementById('include-end-date') as HTMLInputElement;
+
+  const resultDays = document.getElementById('result-days');
+  const resultBusiness = document.getElementById('result-business');
+  const resultWeeks = document.getElementById('result-weeks');
+  const resultBreakdown = document.getElementById('result-breakdown');
+  const resultPercentage = document.getElementById('result-percentage');
+
+  function calculate() {
+    const start = new Date(startDateInput.value);
+    const end = new Date(endDateInput.value);
+    
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) return;
+
+    let diff = calculateDateDiff(start, end);
+    
+    if (includeEndDateCheckbox.checked) {
+      diff.days += 1;
+      // Add one more business day if the end date is a weekday
+      if (end.getDay() !== 0 && end.getDay() !== 6) {
+        diff.businessDays += 1;
+      }
+    }
+
+    // Update UI
+    if (resultDays) resultDays.innerText = diff.days.toLocaleString();
+    if (resultBusiness) resultBusiness.innerText = diff.businessDays.toLocaleString();
+    if (resultWeeks) resultWeeks.innerText = diff.weeks.toLocaleString();
+    
+    if (resultBreakdown) {
+      resultBreakdown.innerText = `${diff.months} months, or ${diff.weeks} weeks and ${diff.days % 7} days.`;
+    }
+    
+    if (resultPercentage) {
+      const pct = ((diff.days / 365) * 100).toFixed(2);
+      resultPercentage.innerText = `${pct}% of a common year.`;
+    }
+
+    resultsDiv?.classList.remove('hidden');
+    resultsDiv?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  calculateBtn?.addEventListener('click', calculate);
+</script>
