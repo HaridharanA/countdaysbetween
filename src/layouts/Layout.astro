@@ -12,13 +12,37 @@ const { title, description = "Calculate days between dates easily." } = Astro.pr
 <!doctype html>
 <html lang="en">
 	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FKG8KSWV3M"></script>
+		<script is:inline>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'G-FKG8KSWV3M');
+		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} | Count Days Between</title>
+		
+		<title>{title} | Days Between Dates</title>
 		<meta name="description" content={description} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL('/favicon.svg', Astro.url)} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL('/favicon.svg', Astro.url)} />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
@@ -89,9 +113,10 @@ const { title, description = "Calculate days between dates easily." } = Astro.pr
 					</div>
 					<div class="flex flex-col gap-3">
 						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Company</span>
-						<a href="#" class="text-sm text-body hover:text-ink">About</a>
-						<a href="#" class="text-sm text-body hover:text-ink">Privacy</a>
-						<a href="#" class="text-sm text-body hover:text-ink">Terms</a>
+						<a href="/about" class="text-sm text-body hover:text-ink">About</a>
+						<a href="/privacy-policy" class="text-sm text-body hover:text-ink">Privacy</a>
+						<a href="/terms" class="text-sm text-body hover:text-ink">Terms</a>
+						<a href="/contact" class="text-sm text-body hover:text-ink">Contact</a>
 					</div>
 					<div class="flex flex-col gap-3">
 						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Subscribe</span>

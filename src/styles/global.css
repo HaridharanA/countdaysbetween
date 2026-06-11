@@ -29,12 +29,12 @@
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
-  --spacing-2xl: 40px;
-  --spacing-3xl: 48px;
-  --spacing-4xl: 64px;
-  --spacing-5xl: 96px;
-  --spacing-6xl: 128px;
-  --spacing-section: 192px;
+  --space-2xl: 40px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+  --space-5xl: 96px;
+  --space-6xl: 128px;
+  --space-section: 192px;
 
   --radius-xs: 4px;
   --radius-sm: 6px;
@@ -115,4 +115,20 @@
   .dark .card-shadow-lg {
     box-shadow: 0px 0px 0px 1px #ffffff14 inset;
   }
+}
+
+* {
+  min-width: 0;
+}
+
+.prose-content p,
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content li {
+  width: 100% !important;
+  max-width: 100% !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
 }

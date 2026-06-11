@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout 
+	title="Server Error" 
+	description="An unexpected error occurred. Please try again later.">
+	<section class="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
+		<div class="prose-content w-full">
+			<span class="text-6xl font-bold text-error mb-4 block">500</span>
+			<h1 class="text-4xl md:text-5xl font-semibold tracking-tighter mb-6" style="width:100%; max-width:100%">Server Error</h1>
+			<p class="text-lg text-body mb-10 mx-auto" style="width:100%; max-width:500px">
+				Something went wrong on our end. We're working on it, please try again in a few moments.
+			</p>
+			<a href="/" class="h-12 inline-flex items-center rounded-pill bg-primary px-8 text-on-primary font-medium hover:bg-primary/90 transition-colors">
+				Back to Homepage
+			</a>
+		</div>
+	</section>
+</Layout>

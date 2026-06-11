@@ -6,13 +6,15 @@ import { formatDateForInput } from "../utils/date";
 const today = formatDateForInput(new Date());
 ---
 
-<Layout title="Date Countdown Calculator" description="Calculate how many days until a future event or date.">
+<Layout 
+	title="Countdown Between Dates" 
+	description="Calculate how many days until a future event. Use our date duration calculator to count days between today and any future milestone or holiday.">
 	<section class="mb-12 w-full">
 		<a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
-		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6">
+		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6 max-w-4xl">
 			Countdown <span class="text-violet">Calculator.</span>
 		</h1>
-		<p class="text-lg text-body max-w-2xl">
+		<p class="text-lg text-body mb-8" style="max-width:600px">
 			Find out exactly how many days are left until your next big milestone, holiday, or event.
 		</p>
 	</section>

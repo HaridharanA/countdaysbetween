@@ -3,13 +3,15 @@ import Layout from "../layouts/Layout.astro";
 import Calculator from "../components/Calculator.astro";
 ---
 
-<Layout title="Business Days Calculator" description="Count how many working days are between two dates, excluding weekends.">
+<Layout 
+	title="Business Days Between Dates" 
+	description="Count how many business days or working days between two dates. Automatically excludes weekends and helps you calculate date duration for work projects.">
 	<section class="mb-12 w-full">
 		<a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
-		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6">
+		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6 max-w-4xl">
 			Business Days <span class="text-link">Calculator.</span>
 		</h1>
-		<p class="text-lg text-body max-w-2xl">
+		<p class="text-lg text-body mb-8" style="max-width:600px">
 			Focus specifically on working days. Our tool automatically excludes Saturdays and Sundays to help you plan your work week.
 		</p>
 	</section>
@@ -18,19 +20,19 @@ import Calculator from "../components/Calculator.astro";
 		<Calculator />
 	</section>
 
-	<section class="max-w-3xl mb-24 w-full">
+	<section class="mb-24 w-full">
 		<h2 class="text-2xl font-semibold mb-4">How it works</h2>
-		<p class="text-body mb-8">
+		<p class="text-body mb-8" style="max-width:700px">
 			The business days calculator counts the number of Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays between two dates. This is particularly useful for project management, payroll calculations, and service level agreements (SLAs).
 		</p>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			<div class="p-6 rounded-lg border border-hairline bg-canvas">
 				<h4 class="font-semibold mb-2">Weekends Excluded</h4>
-				<p class="text-sm text-body">Standard business days are Monday through Friday. Saturdays and Sundays are never counted.</p>
+				<p class="text-sm text-body" style="max-width:none">Standard business days are Monday through Friday. Saturdays and Sundays are never counted.</p>
 			</div>
 			<div class="p-6 rounded-lg border border-hairline bg-canvas">
 				<h4 class="font-semibold mb-2">End Date Options</h4>
-				<p class="text-sm text-body">You can choose whether to include the end date in your calculation, which adds one day if it's a weekday.</p>
+				<p class="text-sm text-body" style="max-width:none">You can choose whether to include the end date in your calculation, which adds one day if it's a weekday.</p>
 			</div>
 		</div>
 	</section>
