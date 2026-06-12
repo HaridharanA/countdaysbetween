@@ -1,0 +1,179 @@
+---
+---
+
+<section class="w-full h-full">
+  <div class="rounded-3xl p-8 md:p-12 bg-gradient-to-br from-indigo-50 to-purple-100 dark:from-slate-900 dark:to-purple-950/30 border border-indigo-100/50 dark:border-purple-900/20 shadow-xl shadow-indigo-200/20 h-full mx-auto lg:mx-0 w-full max-w-[700px] lg:max-w-none">
+    <div class="text-center mb-10">
+      <span class="text-4xl mb-4 block">👯</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-purple-100 mb-4">Famous Birthday Twins</h2>
+      <p class="text-lg text-slate-600 dark:text-purple-200/70">Ever wondered who shares your special day? Let's find out!</p>
+    </div>
+
+    <div class="flex flex-col items-center gap-8 w-full text-center">
+      <div class="flex flex-row justify-center items-center gap-4 w-full mx-auto max-w-[300px] lg:max-w-[400px]">
+        <div class="flex flex-col items-center flex-1">
+          <label for="month-input" class="block text-sm font-medium text-slate-700 dark:text-purple-200 mb-2" style="white-space: nowrap;">Month 📅</label>
+          <select id="month-input" class="w-full h-12 px-4 rounded-lg border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm" style="border-radius:8px;">
+            <option value="0">January</option>
+            <option value="1">February</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4">May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">September</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+          </select>
+        </div>
+        <div class="flex flex-col items-center">
+          <label for="day-input" class="block text-sm font-medium text-slate-700 dark:text-purple-200 mb-2" style="white-space: nowrap;">Day 🔢</label>
+          <input 
+            type="number" 
+            id="day-input" 
+            min="1" 
+            max="31" 
+            placeholder="1"
+            class="h-12 px-4 rounded-lg border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm"
+            style="width:80px; border-radius:8px; padding:8px 12px;"
+          />
+        </div>
+      </div>
+
+      <button id="find-twins" class="h-14 px-10 rounded-full bg-indigo-600 dark:bg-purple-600 text-white font-bold text-lg hover:bg-indigo-700 dark:hover:bg-purple-700 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-indigo-300/30">
+        Reveal my twins! ✨
+      </button>
+
+      <div id="twins-results" class="hidden w-full space-y-6">
+        <h3 class="text-2xl font-bold text-center text-slate-800 dark:text-purple-100 mb-8">You share a birthday with...</h3>
+        <div id="twins-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <!-- Twin cards go here -->
+        </div>
+        <p id="no-twins" class="hidden text-center text-slate-600 dark:text-purple-200/70 italic p-8 bg-white/40 dark:bg-slate-800/40 rounded-3xl border border-indigo-100 dark:border-purple-900/20">
+          Oops! We couldn't find a famous twin in our database for that day, but you're still a star! ⭐
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  interface Twin {
+    name: string;
+    profession: string;
+    year: number;
+    month: number;
+    day: number;
+  }
+
+  const monthSelect = document.getElementById('month-input') as HTMLSelectElement;
+  const dayInput = document.getElementById('day-input') as HTMLInputElement;
+  const findButton = document.getElementById('find-twins') as HTMLButtonElement;
+  const resultsContainer = document.getElementById('twins-results');
+  const twinsGrid = document.getElementById('twins-grid');
+  const noTwins = document.getElementById('no-twins');
+
+  findButton?.addEventListener('click', async () => {
+    const selectedMonth = parseInt(monthSelect.value);
+    const selectedDay = parseInt(dayInput.value);
+
+    if (isNaN(selectedDay) || selectedDay < 1 || selectedDay > 31) {
+      alert("Please enter a valid day! 🌸");
+      return;
+    }
+
+    // Loading state
+    findButton.disabled = true;
+    
+    if (resultsContainer) resultsContainer.classList.remove('hidden');
+    if (twinsGrid) {
+      twinsGrid.innerHTML = `
+        <div class="col-span-full loading-container" style="display:flex; flex-direction:column; align-items:center; gap:12px; padding:24px;">
+          <div class="spinner" style="width:40px; height:40px; border:3px solid rgba(255,255,255,0.1); border-top:3px solid #a855f7; border-radius:50%; animation:spin 0.8s linear infinite;"></div>
+          <p style="color:rgba(100,116,139,0.8); font-size:14px; margin:0;" class="dark:text-purple-200/60">Finding your birthday twins... ✨</p>
+        </div>
+      `;
+    }
+
+    try {
+      const month = String(selectedMonth + 1).padStart(2, '0');
+      const day = String(selectedDay).padStart(2, '0');
+      const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/births/${month}/${day}`;
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('API fetch failed');
+      
+      const data = await response.json();
+      // Select 3 random ones for better variety, or slice as requested
+      const births = data.births.sort(() => 0.5 - Math.random()).slice(0, 3);
+      
+      if (twinsGrid) {
+        twinsGrid.innerHTML = '';
+        if (births.length > 0) {
+          if (noTwins) {
+            noTwins.classList.add('hidden');
+            noTwins.textContent = "Oops! We couldn't find a famous twin in our database for that day, but you're still a star! ⭐";
+          }
+          
+          births.forEach((birth: any, index: number) => {
+            const card = document.createElement('div');
+            card.className = `bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100 dark:border-purple-900/30 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500`;
+            card.style.animationDelay = `${index * 150}ms`;
+            
+            // Wikipedia 'text' usually contains "Name, Description"
+            const [name, ...descParts] = birth.text.split(', ');
+            const description = descParts.join(', ') || 'Famous figure';
+
+            card.innerHTML = `
+              <div class="text-3xl mb-4">🌟</div>
+              <h4 class="text-xl font-bold text-slate-800 dark:text-purple-100 mb-1">${name}</h4>
+              <p class="text-indigo-600 dark:text-purple-400 font-medium mb-4">${description}</p>
+              <div class="text-sm text-slate-500 dark:text-purple-200/60">Born in ${birth.year}</div>
+            `;
+            twinsGrid.appendChild(card);
+          });
+        } else {
+          if (noTwins) noTwins.classList.remove('hidden');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching twins:', error);
+      if (noTwins) {
+        noTwins.textContent = "Sorry, we had trouble connecting to Wikipedia. Please try again later! 🌐";
+        noTwins.classList.remove('hidden');
+      }
+    } finally {
+      findButton.disabled = false;
+      resultsContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
+</script>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-in-from-bottom-4 {
+    from { transform: translateY(1rem); }
+    to { transform: translateY(0); }
+  }
+  .animate-in {
+    animation-fill-mode: both;
+  }
+  .fade-in {
+    animation-name: fade-in;
+  }
+  .slide-in-from-bottom-4 {
+    animation-name: slide-in-from-bottom-4;
+  }
+  .duration-500 {
+    animation-duration: 500ms;
+  }
+</style>

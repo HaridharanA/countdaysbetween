@@ -1,0 +1,161 @@
+---
+---
+
+<section class="w-full h-full">
+  <div class="rounded-3xl p-8 md:p-12 bg-gradient-to-br from-orange-50 to-rose-100 dark:from-slate-900 dark:to-rose-950/30 border border-orange-100/50 dark:border-rose-900/20 shadow-xl shadow-orange-200/20 h-full mx-auto lg:mx-0 w-full max-w-[700px] lg:max-w-none">
+    <div class="text-center mb-10">
+      <span class="text-4xl mb-4 block">🎂</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-rose-100 mb-4">How many days have you lived?</h2>
+      <p class="text-lg text-slate-600 dark:text-rose-200/70">Every single day is a milestone. Let's see your grand total!</p>
+    </div>
+
+    <div class="flex flex-col items-center gap-8 w-full text-center">
+      <div class="w-full mx-auto max-w-[300px] lg:max-w-[400px]">
+        <label for="birthday-input" class="block text-sm font-medium text-slate-700 dark:text-rose-200 mb-2" style="white-space: nowrap;">When's your birthday? ✨</label>
+        <input 
+          type="date" 
+          id="birthday-input" 
+          class="w-full h-12 px-4 rounded-lg border border-orange-200 dark:border-rose-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-orange-400 dark:focus:border-rose-500 focus:ring-0 transition-all outline-none text-base shadow-sm"
+          style="padding:8px 12px; border-radius:8px;"
+        />
+      </div>
+
+      <div id="life-stats" class="hidden w-full grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div class="md:col-span-2 bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 text-center border border-orange-100 dark:border-rose-900/30 shadow-sm">
+          <p class="text-slate-500 dark:text-rose-200/60 font-medium mb-1 uppercase tracking-wider text-sm">You have graced the Earth for</p>
+          <div id="days-lived" class="text-6xl md:text-7xl font-black text-orange-500 dark:text-rose-400 tabular-nums">0</div>
+          <p class="text-2xl font-bold text-slate-700 dark:text-rose-100 mt-1">beautiful days</p>
+          
+          <div class="mt-8 pt-8 border-t border-orange-50 dark:border-rose-900/20">
+            <p class="text-slate-500 dark:text-rose-200/60 text-sm mb-2">Total seconds lived (and counting!):</p>
+            <div id="seconds-lived" class="text-3xl font-bold text-slate-800 dark:text-white tabular-nums">0</div>
+          </div>
+        </div>
+
+        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20">
+          <div class="flex items-center gap-4 mb-3">
+            <span class="text-2xl">🗓️</span>
+            <h3 class="font-bold text-slate-800 dark:text-rose-100">Time Breakdown</h3>
+          </div>
+          <ul class="space-y-2 text-slate-600 dark:text-rose-200/70">
+            <li>✨ <span id="weeks-lived" class="font-bold text-slate-800 dark:text-white">0</span> weeks</li>
+            <li>✨ <span id="months-lived" class="font-bold text-slate-800 dark:text-white">0</span> months</li>
+            <li>✨ <span id="hours-lived" class="font-bold text-slate-800 dark:text-white">0</span> hours (approx.)</li>
+          </ul>
+        </div>
+
+        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20 flex flex-col justify-center">
+          <div class="flex items-center gap-4 mb-3">
+            <span class="text-2xl">🌍</span>
+            <h3 class="font-bold text-slate-800 dark:text-rose-100">Fun Fact</h3>
+          </div>
+          <p id="leap-years-msg" class="text-slate-600 dark:text-rose-200/70 italic leading-relaxed">
+            Pick a date to see your journey!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const birthdayInput = document.getElementById('birthday-input') as HTMLInputElement;
+  const statsContainer = document.getElementById('life-stats');
+  const daysDisplay = document.getElementById('days-lived');
+  const secondsDisplay = document.getElementById('seconds-lived');
+  const weeksDisplay = document.getElementById('weeks-lived');
+  const monthsDisplay = document.getElementById('months-lived');
+  const hoursDisplay = document.getElementById('hours-lived');
+  const leapYearsMsg = document.getElementById('leap-years-msg');
+
+  let timerInterval: number | null = null;
+
+  function isLeapYear(year: number) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  }
+
+  function calculateStats() {
+    const birthDate = new Date(birthdayInput.value);
+    if (isNaN(birthDate.getTime())) return;
+
+    const now = new Date();
+    const diffMs = now.getTime() - birthDate.getTime();
+    
+    if (diffMs < 0) {
+      if (statsContainer) statsContainer.classList.add('hidden');
+      return;
+    }
+
+    if (statsContainer) statsContainer.classList.remove('hidden');
+
+    const diffSecs = Math.floor(diffMs / 1000);
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffWeeks = Math.floor(diffDays / 7);
+    
+    // Monthly calculation
+    let months = (now.getFullYear() - birthDate.getFullYear()) * 12;
+    months -= birthDate.getMonth();
+    months += now.getMonth();
+    if (now.getDate() < birthDate.getDate()) months--;
+
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+    // Leap years count
+    let leapYears = 0;
+    for (let y = birthDate.getFullYear(); y <= now.getFullYear(); y++) {
+      if (isLeapYear(y)) {
+        // Need to check if the birth happened before Feb 29 or after Feb 29
+        const feb29 = new Date(y, 1, 29);
+        if (feb29 >= birthDate && feb29 <= now) {
+          leapYears++;
+        }
+      }
+    }
+
+    if (daysDisplay) daysDisplay.textContent = diffDays.toLocaleString();
+    if (weeksDisplay) weeksDisplay.textContent = diffWeeks.toLocaleString();
+    if (monthsDisplay) monthsDisplay.textContent = months.toLocaleString();
+    if (hoursDisplay) hoursDisplay.textContent = diffHours.toLocaleString();
+    
+    if (leapYearsMsg) {
+      leapYearsMsg.innerHTML = `You've seen <span class="font-bold text-orange-500 dark:text-rose-400">${leapYears}</span> leap years pass by! The Earth has spun a lot since you arrived. 🚀`;
+    }
+
+    // Start live counter
+    if (timerInterval) clearInterval(timerInterval);
+    
+    const updateSeconds = () => {
+      const currentNow = new Date();
+      const currentDiffSecs = Math.floor((currentNow.getTime() - birthDate.getTime()) / 1000);
+      if (secondsDisplay) secondsDisplay.textContent = currentDiffSecs.toLocaleString();
+    };
+    
+    updateSeconds();
+    timerInterval = window.setInterval(updateSeconds, 1000);
+  }
+
+  birthdayInput?.addEventListener('change', calculateStats);
+</script>
+
+<style>
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-in-from-bottom-4 {
+    from { transform: translateY(1rem); }
+    to { transform: translateY(0); }
+  }
+  .animate-in {
+    animation-fill-mode: both;
+  }
+  .fade-in {
+    animation-name: fade-in;
+  }
+  .slide-in-from-bottom-4 {
+    animation-name: slide-in-from-bottom-4;
+  }
+  .duration-700 {
+    animation-duration: 700ms;
+  }
+</style>

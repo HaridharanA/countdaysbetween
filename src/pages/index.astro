@@ -1,11 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Calculator from "../components/Calculator.astro";
+import LifeCounter from "../components/LifeCounter.astro";
+import BirthdayTwins from "../components/BirthdayTwins.astro";
 ---
 
 <Layout 
 	title="Days Between Dates" 
-	description="Easily calculate days between dates. Count how many days between two dates, including or excluding weekends and business days. Fast and free tool.">
+	description="Free days between dates calculator. Calculate business days, countdown to events, find out how many days you've lived, and discover your famous birthday twins!">
 	<section class="mb-16 w-full">
     <div class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-link border border-hairline mb-6">
         Introducing CountDays v1.0
@@ -21,6 +23,11 @@ import Calculator from "../components/Calculator.astro";
 	<section id="tool" class="mb-24 w-full">
 		<Calculator />
 	</section>
+
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24 w-full">
+		<LifeCounter />
+		<BirthdayTwins />
+	</div>
 
 	<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 w-full">
 		<div class="card-shadow rounded-lg bg-canvas p-6 flex flex-col gap-4">
@@ -56,7 +63,7 @@ import Calculator from "../components/Calculator.astro";
 		<div class="prose-content w-full">
 			<h2 class="text-3xl font-bold mb-6" style="width:100%; max-width:800px">Mastering Date Math: How to Calculate Days Between Dates</h2>
 			<p style="width:100%; max-width:800px">
-				Whether you're planning a project, tracking a deadline, or simply curious about a milestone, knowing the exact <strong>number of days between dates</strong> is a common requirement. While it might seem like simple arithmetic, factors like leap years, time zones, and working schedules can make manual calculations surprisingly complex. Our <strong>date duration calculator</strong> is designed to strip away that complexity, providing you with instant, accurate results every time.
+				Whether you're planning a project, tracking a deadline, or simply curious about a milestone—like asking yourself, "<strong>how many days have I lived?</strong>"—knowing the exact <strong>number of days between dates</strong> is a common requirement. While it might seem like simple arithmetic, factors like leap years, time zones, and working schedules can make manual calculations surprisingly complex. Our <strong>date duration calculator</strong> (and specialized <strong>days lived calculator</strong>) is designed to strip away that complexity, providing you with instant, accurate results every time.
 			</p>
 
 			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px">How to Calculate Days Between Dates Effectively</h3>
@@ -85,6 +92,8 @@ import Calculator from "../components/Calculator.astro";
 			</p>
 			<ul class="list-disc pl-6 space-y-2">
 				<li><strong>Event Planning:</strong> Determining exactly how long you have left until a wedding, graduation, or vacation.</li>
+				<li><strong>Life Milestones:</strong> Checking "<strong>how many days old am I?</strong>" to celebrate a 10,000-day milestone.</li>
+				<li><strong>Social Discovery:</strong> Using a <strong>birthday twin finder</strong> to find <strong>famous people born on my birthday</strong> and your <strong>celebrity birthday twins</strong>.</li>
 				<li><strong>Project Management:</strong> Tracking the duration of a specific sprint or phase.</li>
 				<li><strong>Health Tracking:</strong> Monitoring the length of a fitness challenge or recovery period.</li>
 				<li><strong>Legal and Finance:</strong> Calculating the time elapsed for interest accrual or statute of limitations.</li>
