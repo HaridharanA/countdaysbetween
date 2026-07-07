@@ -32,17 +32,18 @@ const { title, description = "Calculate days between dates easily." } = Astro.pr
 		
 		<title>{title} | Days Between Dates</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:url" content={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL('/favicon.svg', Astro.url)} />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:url" content={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={new URL('/favicon.svg', Astro.url)} />
@@ -91,8 +92,6 @@ const { title, description = "Calculate days between dates easily." } = Astro.pr
 						<svg id="sun-icon" class="hidden dark:block" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 						<svg id="moon-icon" class="block dark:hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 					</button>
-
-					<a href="#" class="hidden md:block rounded-sm bg-primary px-3 py-1 text-sm font-medium text-on-primary">Sign Up</a>
 				</div>
 			</div>
 		</nav>
@@ -110,11 +109,6 @@ const { title, description = "Calculate days between dates easily." } = Astro.pr
 						<a href="/timeline-wars" class="text-sm text-body hover:text-ink">Timeline Wars 🎮</a>
 						<a href="/business-days" class="text-sm text-body hover:text-ink">Business Days</a>
 						<a href="/countdown" class="text-sm text-body hover:text-ink">Countdown</a>
-					</div>
-					<div class="flex flex-col gap-3">
-						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Resources</span>
-						<a href="#" class="text-sm text-body hover:text-ink">Blog</a>
-						<a href="#" class="text-sm text-body hover:text-ink">Documentation</a>
 					</div>
 					<div class="flex flex-col gap-3">
 						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Company</span>
