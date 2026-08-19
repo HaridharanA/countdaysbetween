@@ -3,7 +3,9 @@
 
 <div id="custom-countdown-builder" class="w-full mb-16 rounded-3xl p-8 md:p-12 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-canvas dark:from-slate-900 dark:via-purple-950/20 dark:to-canvas border border-indigo-100/70 dark:border-purple-900/30 card-shadow-lg" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
   <div class="text-center mb-8" style="width:100%;">
-    <span class="text-4xl mb-3 block">✨</span>
+    <div class="mx-auto h-12 w-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center border border-indigo-500/20 mb-3 shadow-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div>
     <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-ink mb-2">
       Create Your Own Custom Countdown
     </h2>
@@ -23,7 +25,7 @@
           id="custom-event-name"
           placeholder="e.g., Trip to Tokyo, Sarah's Wedding"
           required
-          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
+          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors shadow-sm"
         />
       </div>
 
@@ -35,14 +37,14 @@
           type="date"
           id="custom-event-date"
           required
-          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
+          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors shadow-sm"
         />
       </div>
     </div>
 
     <div>
       <label class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
-        Choose an Icon
+        Choose an Event Icon
       </label>
       <div id="emoji-picker" class="flex flex-wrap gap-2">
         {["🎉", "✈️", "💍", "🎓", "🎂", "🚀", "🏖️", "🎸", "👶", "🏠", "🏆", "🌟"].map((emoji, index) => (
@@ -62,7 +64,7 @@
       id="create-countdown-btn"
       class="w-full h-14 rounded-full bg-primary text-on-primary font-bold text-base hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
     >
-      <span>🚀 Generate Shareable Countdown</span>
+      <span>Generate Shareable Countdown →</span>
     </button>
   </form>
 
@@ -100,7 +102,7 @@
           id="copy-share-link"
           class="h-11 px-6 rounded-full bg-link text-white font-medium text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-sm"
         >
-          <span>📋</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
           <span id="copy-btn-text">Copy Share Link</span>
         </button>
 
@@ -111,7 +113,6 @@
           rel="noopener noreferrer"
           class="h-11 px-6 rounded-full bg-[#25D366] text-white font-medium text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-sm"
         >
-          <span>💬</span>
           <span>Share to WhatsApp</span>
         </a>
       </div>
