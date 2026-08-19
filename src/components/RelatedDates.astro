@@ -1,0 +1,69 @@
+---
+import holidays from "../data/holidays.json";
+
+interface Props {
+  currentSlug: string;
+  holidayKey: string;
+  year: number;
+  category: string;
+}
+
+const { currentSlug, holidayKey, year, category } = Astro.props;
+
+// 1. Find same holiday in other years
+const otherYears = holidays.filter(
+  (h) => h.holidayKey === holidayKey && h.slug !== currentSlug
+);
+
+// 2. Find other holidays in the same year or same category
+const sameYearHolidays = holidays.filter(
+  (h) => h.year === year && h.holidayKey !== holidayKey
+).slice(0, 6);
+---
+
+<div class="w-full mb-16" style="width:100%; max-width:800px; margin:0 auto;">
+  {otherYears.length > 0 && (
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+        Countdowns for Other Years
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {otherYears.map((h) => (
+          <a
+            href={`/days-until/${h.slug}/`}
+            class="flex items-center justify-between p-5 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all group card-shadow"
+          >
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">{h.icon}</span>
+              <div>
+                <h3 class="font-semibold text-ink group-hover:text-link transition-colors">{h.name}</h3>
+                <p class="text-xs text-mute">{h.dayOfWeek}, {h.date}</p>
+              </div>
+            </div>
+            <span class="text-xs font-semibold text-link group-hover:translate-x-1 transition-transform">View →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {sameYearHolidays.length > 0 && (
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+        Other Major Countdowns in {year}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {sameYearHolidays.map((h) => (
+          <a
+            href={`/days-until/${h.slug}/`}
+            class="flex flex-col p-5 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all group card-shadow"
+          >
+            <span class="text-3xl mb-3">{h.icon}</span>
+            <h3 class="font-semibold text-ink group-hover:text-link transition-colors text-sm mb-1">{h.name}</h3>
+            <p class="text-xs text-mute mt-auto">{h.dayOfWeek}, {h.date}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+</div>

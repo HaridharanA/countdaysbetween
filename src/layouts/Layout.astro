@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { title, description = "Calculate days between dates easily." } = Astro.props;
+const pageTitle = title.includes("|") ? title : `${title} | Days Between Dates`;
 ---
 
 <!doctype html>
@@ -30,21 +31,21 @@ const { title, description = "Calculate days between dates easily." } = Astro.pr
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
 		
-		<title>{title} | Days Between Dates</title>
+		<title>{pageTitle}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
-		<meta property="og:title" content={title} />
+		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL('/favicon.svg', Astro.url)} />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
-		<meta property="twitter:title" content={title} />
+		<meta property="twitter:title" content={pageTitle} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={new URL('/favicon.svg', Astro.url)} />
 

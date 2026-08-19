@@ -6,16 +6,16 @@ import BirthdayTwins from "../components/BirthdayTwins.astro";
 ---
 
 <Layout 
-	title="Days Between Dates" 
-	description="Free days between dates calculator. Calculate business days, countdown to events, find out how many days you've lived, and discover your famous birthday twins!">
+	title="Days Between Dates Calculator | Exact Days, Weeks & Months" 
+	description="Calculate the exact number of days, weeks, and months between two dates. Fast, free, and accurate. Includes leap year handling.">
 	<section class="mb-16 w-full">
     <div class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-link border border-hairline mb-6">
         Introducing CountDays v1.0
     </div>
-    <h1 class="text-5xl md:text-7xl font-semibold tracking-tighter leading-tight mb-6 max-w-4xl">
+    <h1 class="text-5xl md:text-7xl font-semibold tracking-tighter leading-tight mb-6" style="width:100%; max-width:800px;">
         The simplest way to calculate <span class="text-link">days between dates.</span>
     </h1>
-    <p class="text-lg md:text-xl text-body mb-8" style="max-width:600px">
+    <p class="text-lg md:text-xl text-body mb-8" style="width:100%; max-width:600px;">
         A clean, fast, and modern tool to calculate duration, business days, and time breakdowns. No ads, no clutter.
     </p>
     <div class="flex flex-wrap gap-4 mb-12">
@@ -103,124 +103,89 @@ import BirthdayTwins from "../components/BirthdayTwins.astro";
 		</div>
 	</section>
 
-	<section class="max-w-4xl mb-24 w-full mx-auto prose dark:prose-invert">
-		<div class="prose-content w-full">
-			<h2 class="text-3xl font-bold mb-6" style="width:100%; max-width:800px">Mastering Date Math: How to Calculate Days Between Dates</h2>
-			<p style="width:100%; max-width:800px">
-				Whether you're planning a project, tracking a deadline, or simply curious about a milestone—like asking yourself, "<strong>how many days have I lived?</strong>"—knowing the exact <strong>number of days between dates</strong> is a common requirement. While it might seem like simple arithmetic, factors like leap years, time zones, and working schedules can make manual calculations surprisingly complex. Our <strong>date duration calculator</strong> (and specialized <strong>days lived calculator</strong>) is designed to strip away that complexity, providing you with instant, accurate results every time.
+	<section class="mb-24 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin:0 auto;">
+		<div class="prose-content w-full" style="width:100%;">
+			<h2 class="text-3xl font-bold mb-6" style="width:100%; max-width:800px;">Mastering Date Math: How to Calculate Days Between Dates</h2>
+			<p style="width:100%; max-width:800px;">
+				Whether you're planning a project sprint, tracking contract deadlines, calculating legal notice periods, or simply curious about a milestone—like finding out "<strong>how many days have I lived?</strong>"—knowing the exact <strong>number of days between dates</strong> is an essential daily need. While simple date subtraction sounds straightforward, factors like leap years, varying month lengths, and working schedules can introduce unexpected calculation errors. Our <strong>days between dates calculator</strong> handles all calendar math instantly with 100% precision.
 			</p>
 
-			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px">How to Calculate Days Between Dates Effectively</h3>
-			<p style="width:100%; max-width:800px">
-				To <strong>calculate days between dates</strong>, you typically subtract the start date from the end date. However, the most frequent question we hear is whether to include the end date in that count. For most administrative tasks, the "difference" doesn't include the final day, but for project planning, you might need to count every single day of effort. Our tool allows you to toggle this preference, ensuring you <strong>count days between dates</strong> exactly how your specific situation requires.
+			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px;">How to Calculate Days Between Dates: Step-by-Step</h3>
+			<p style="width:100%; max-width:800px;">
+				Calculating the duration between any two dates on our calculator takes just four quick steps:
+			</p>
+			<ol class="list-decimal pl-6 space-y-2" style="width:100%; max-width:800px;">
+				<li><strong>Select your Start Date:</strong> Enter or pick the starting point of your interval.</li>
+				<li><strong>Select your End Date:</strong> Choose your target milestone, deadline, or past event date.</li>
+				<li><strong>Choose End Date Inclusion:</strong> By default, the calculator measures the elapsed duration (excluding the last day). Check <em>"Include end date (add 1 day)"</em> if both the first and last day represent full active days.</li>
+				<li><strong>Click "Calculate Days":</strong> Instantly view the total calendar days, working business days, full weeks, approximate months, and total percentage of a year.</li>
+			</ol>
+
+			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px;">How Leap Years Affect Date Calculations</h3>
+			<p style="width:100%; max-width:800px;">
+				A standard calendar year has 365 days, but an astronomical solar year is approximately 365.2422 days long. To keep our calendar aligned with Earth's orbit around the sun, the Gregorian calendar adds an extra leap day—<strong>February 29th</strong>—every four years (years divisible by 4, except century years unless also divisible by 400, such as 2000).
+			</p>
+			<p style="width:100%; max-width:800px;">
+				When calculating durations manually or using simple formulas (like multiplying years by 365), failing to account for leap days produces an off-by-one error. Our calculator uses standardized UTC calendar normalization to automatically count every February 29 that falls within your specified date range.
 			</p>
 
-			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px">Why Accuracy Matters in Date Calculations</h3>
-			<p style="width:100%; max-width:800px">
-				When you need to know <strong>how many days between two dates</strong>, accuracy is paramount. A single-day error in a legal contract or a financial calculation can have significant consequences. Using a dedicated tool rather than manual counting prevents human error. For professionals working in finance or logistics, knowing the precise <strong>date duration</strong> is essential for calculating interest, shipping times, or contract expiration dates.
+			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px;">Counting Business Days vs. Calendar Days</h3>
+			<p style="width:100%; max-width:800px;">
+				In project management, billing, and employment contracts, raw calendar days are often not enough. You frequently need to know <strong>how many business days between two dates</strong>. Our calculator automatically filters out Saturdays and Sundays, giving you the exact count of Monday-through-Friday working days to help you plan project timelines and delivery schedules with confidence.
 			</p>
 
-			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px">Counting Business and Working Days</h3>
-			<p style="width:100%; max-width:800px">
-				In the professional world, the raw count isn't always enough. You often need to know <strong>how many business days between two dates</strong>. This means excluding Saturdays and Sundays. For international projects, you might even need to consider <strong>how many working days between two dates</strong> while accounting for regional holidays. Our calculator simplifies this by providing a dedicated mode to automatically filter out weekends, helping you stay on top of your work-week planning without the headache of manual filtering.
+			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px;">Excel Formulas vs. Online Date Calculator</h3>
+			<p style="width:100%; max-width:800px;">
+				In spreadsheet tools like Microsoft Excel or Google Sheets, finding date differences usually requires formulas such as <code>=DATEDIF(start_date, end_date, "d")</code> or <code>=NETWORKDAYS(start_date, end_date)</code> for working days. While effective, spreadsheets require manual setup and formula memorization. CountDays gives you the same mathematical precision on any browser or mobile device with zero setup.
 			</p>
 
-			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px">Excel Days Between Dates: A Common Alternative</h3>
-			<p style="width:100%; max-width:800px">
-				Many users turn to spreadsheet software like Microsoft Excel to handle these tasks. Using <strong>Excel for days between dates</strong> usually involves the `DATEDIF` function or simple subtraction (e.g., `=B1-A1`). While powerful, Excel requires specific formatting and knowledge of formulas. Our web-based tool offers a "no-formula" alternative that is accessible from any device, providing the same precision without the need for software installations or complex syntax.
-			</p>
-
-			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px">Common Use Cases for a Date Calculator</h3>
-			<p style="width:100%; max-width:800px">
-				Why would you need to <strong>calculate days between dates</strong>? Here are a few common scenarios:
-			</p>
-			<ul class="list-disc pl-6 space-y-2">
-				<li><strong>Event Planning:</strong> Determining exactly how long you have left until a wedding, graduation, or vacation.</li>
-				<li><strong>Life Milestones:</strong> Checking "<strong>how many days old am I?</strong>" to celebrate a 10,000-day milestone.</li>
-				<li><strong>Social Discovery:</strong> Using a <strong>birthday twin finder</strong> to find <strong>famous people born on my birthday</strong> and your <strong>celebrity birthday twins</strong>.</li>
-				<li><strong>Project Management:</strong> Tracking the duration of a specific sprint or phase.</li>
-				<li><strong>Health Tracking:</strong> Monitoring the length of a fitness challenge or recovery period.</li>
-				<li><strong>Legal and Finance:</strong> Calculating the time elapsed for interest accrual or statute of limitations.</li>
+			<h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%; max-width:800px;">Common Use Cases</h3>
+			<ul class="list-disc pl-6 space-y-2" style="width:100%; max-width:800px;">
+				<li><strong>Project & Sprint Planning:</strong> Estimating working days available between sprint kick-off and delivery.</li>
+				<li><strong>Legal & Financial Deadlines:</strong> Tracking statutory notice windows, loan interest accruals, or contract expiration dates.</li>
+				<li><strong>Life Milestones:</strong> Celebrating your 10,000th day alive with our <a href="#tool" class="text-link hover:underline">Days Lived</a> counter.</li>
+				<li><strong>Event Countdowns:</strong> Finding exact days remaining until holidays, weddings, exams, or vacations.</li>
 			</ul>
-			<p class="mt-4" style="width:100%; max-width:800px">
-				Whatever your reason, our goal is to provide the most intuitive experience possible. By focusing on speed and clarity, we've built a <strong>date duration calculator</strong> that gets out of your way and gives you the answers you need in seconds.
-			</p>
 		</div>
 	</section>
 
-	<section class="max-w-4xl mb-24 w-full mx-auto mt-24">
-		<div class="prose-content w-full">
-			<h2 class="text-3xl font-bold mb-10 text-center" style="width:100%; max-width:800px">Frequently Asked Questions</h2>
-			<div class="space-y-10">
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many days between dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						The number of days between two dates is calculated by subtracting the start date from the end date. Our calculator provides this count instantly, allowing you to include or exclude the start and end dates based on your specific needs.
+	<section class="mb-24 w-full mt-24" style="width:100%; max-width:800px; margin:0 auto;">
+		<div class="prose-content w-full" style="width:100%;">
+			<h2 class="text-3xl font-bold mb-10 text-center" style="width:100%; max-width:800px;">Frequently Asked Questions</h2>
+			<div class="space-y-8" style="width:100%;">
+				<div class="border-b border-hairline pb-6">
+					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">How do I calculate the days between two dates?</h3>
+					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+						To calculate the days between two dates, select your start date and end date in the input fields above and click "Calculate Days". The calculator instantly computes total elapsed calendar days, working business days, full weeks, and percentage of the year.
 					</p>
 				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many days between two dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						To find the exact duration between two dates, you can use our free calculator. It accounts for leap years and different month lengths to give you a precise count of the total time elapsed.
+				<div class="border-b border-hairline pb-6">
+					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">How does the calculator handle leap years?</h3>
+					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+						The calculator automatically accounts for February 29th in leap years (every 4 years, adhering to Gregorian calendar rules). If your selected date range spans across a leap day, it is included in the total day count for 100% mathematical accuracy.
 					</p>
 				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How to calculate days between dates in Excel?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						In Excel, you can simply subtract two date cells (e.g., <code>=B1-A1</code>) or use the <code>=DATEDIF(start_date, end_date, "d")</code> function. Our online tool offers a quicker, visual alternative without the need for complex formulas.
+				<div class="border-b border-hairline pb-6">
+					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">Should I include or exclude the end date in my calculation?</h3>
+					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+						By default, date difference measures elapsed time (excluding the final day, so today to tomorrow equals 1 day). If you need to count both the start day and the end day as full active working or calendar days, check the "Include end date (add 1 day)" box.
 					</p>
 				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many business days between two dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						Business days are typically Monday through Friday. Our calculator includes a dedicated "Business Days" mode that automatically excludes Saturdays and Sundays to give you the precise number of working days for any period.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many working days between two dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						Working days usually refer to non-weekend days. You can calculate these by finding the total number of days and subtracting the number of weekend days. Our tool performs this calculation for you automatically with a single click.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many calendar days between two dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						Calendar days include every single day on the calendar, including weekends and holidays. This is the default mode of our calculator, providing a total count of all 24-hour periods between your selected start and end dates.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many days between 2 dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						Finding the days between 2 dates is simple with our tool. Just select your start and end points, and we'll show you the result in days, weeks, months, or even as a countdown for future events.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How to calculate days between two dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						You can calculate days between two dates manually by counting on a calendar or using basic math, but for long periods, it's best to use an automated tool. Our calculator handles leap years and complex intervals instantly to ensure accuracy.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many days between dates calculator — is this free?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						Yes, our "How many days between dates" calculator is 100% free to use. There are no ads, no registration required, and no limits on how many calculations you can perform.
-					</p>
-				</div>
-				<div>
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px">How many days are there between two dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px">
-						There are several ways to count days, such as including or excluding the start and end dates. Our tool gives you the flexibility to choose the counting method that fits your specific needs, ensuring you always get the correct answer.
+				<div class="border-b border-hairline pb-6">
+					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">How do you calculate business days and exclude weekends?</h3>
+					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+						Business days are calculated by iterating through every day in your selected interval and counting only Mondays through Fridays, while automatically skipping Saturdays and Sundays. If you toggle "Include end date", the end date is also added if it falls on a weekday.
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section class="bg-primary rounded-2xl p-8 md:p-16 text-center flex flex-col items-center gap-8 overflow-hidden relative w-full">
+	<section class="bg-primary rounded-2xl p-8 md:p-16 text-center flex flex-col items-center gap-8 overflow-hidden relative w-full mb-16">
 		<div class="mesh-gradient absolute inset-0 opacity-30"></div>
 		<div class="z-10">
 			<h2 class="text-3xl md:text-5xl font-semibold text-on-primary tracking-tight mb-4">Ready to start calculating?</h2>
-<p class="text-on-primary/70" style="max-width:500px; margin:0 auto;">Join thousands of users who prefer a cleaner experience for their date math needs.</p>
+			<p class="text-on-primary/70" style="width:100%; max-width:500px; margin:0 auto;">Join thousands of users who prefer a clean, ad-free experience for their date math needs.</p>
 		</div>
 		<div class="flex flex-wrap justify-center gap-4 z-10">
 			<a href="#tool" class="h-12 flex items-center rounded-pill bg-on-primary px-8 text-primary font-medium hover:bg-on-primary/90 transition-colors">Get Started</a>
@@ -231,87 +196,57 @@ import BirthdayTwins from "../components/BirthdayTwins.astro";
 	<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
-			"@type": "FAQPage",
-			"mainEntity": [
+			"@graph": [
 				{
-					"@type": "Question",
-					"name": "How many days between dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "The number of days between two dates is calculated by subtracting the start date from the end date. Our calculator provides this count instantly, allowing you to include or exclude the start and end dates based on your specific needs."
+					"@type": "WebApplication",
+					"name": "CountDays - Days Between Dates Calculator",
+					"url": "https://www.countdaysbetween.com/",
+					"description": "Calculate the exact number of days, weeks, and months between two dates. Fast, free, and accurate. Includes leap year handling.",
+					"applicationCategory": "UtilityApplication",
+					"operatingSystem": "All",
+					"browserRequirements": "Requires JavaScript",
+					"offers": {
+						"@type": "Offer",
+						"price": "0",
+						"priceCurrency": "USD"
 					}
 				},
 				{
-					"@type": "Question",
-					"name": "How many days between two dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "To find the exact duration between two dates, you can use our free calculator. It accounts for leap years and different month lengths to give you a precise count of the total time elapsed."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How to calculate days between dates in Excel?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "In Excel, you can simply subtract two date cells (e.g., =B1-A1) or use the =DATEDIF(start_date, end_date, \"d\") function. Our online tool offers a quicker, visual alternative without the need for complex formulas."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How many business days between two dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "Business days are typically Monday through Friday. Our calculator includes a dedicated \"Business Days\" mode that automatically excludes Saturdays and Sundays to give you the precise number of working days for any period."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How many working days between two dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "Working days usually refer to non-weekend days. You can calculate these by finding the total number of days and subtracting the number of weekend days. Our tool performs this calculation for you automatically with a single click."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How many calendar days between two dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "Calendar days include every single day on the calendar, including weekends and holidays. This is the default mode of our calculator, providing a total count of all 24-hour periods between your selected start and end dates."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How many days between 2 dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "Finding the days between 2 dates is simple with our tool. Just select your start and end points, and we'll show you the result in days, weeks, months, or even as a countdown for future events."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How to calculate days between two dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "You can calculate days between two dates manually by counting on a calendar or using basic math, but for long periods, it's best to use an automated tool. Our calculator handles leap years and complex intervals instantly to ensure accuracy."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How many days between dates calculator — is this free?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "Yes, our \"How many days between dates\" calculator is 100% free to use. There are no ads, no registration required, and no limits on how many calculations you can perform."
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "How many days are there between two dates?",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "There are several ways to count days, such as including or excluding the start and end dates. Our tool gives you the flexibility to choose the counting method that fits your specific needs, ensuring you always get the correct answer."
-					}
+					"@type": "FAQPage",
+					"mainEntity": [
+						{
+							"@type": "Question",
+							"name": "How do I calculate the days between two dates?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "To calculate the days between two dates, select your start date and end date in the input fields above and click \"Calculate Days\". The calculator instantly computes total elapsed calendar days, working business days, full weeks, and percentage of the year."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "How does the calculator handle leap years?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "The calculator automatically accounts for February 29th in leap years (every 4 years, adhering to Gregorian calendar rules). If your selected date range spans across a leap day, it is included in the total day count for 100% mathematical accuracy."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "Should I include or exclude the end date in my calculation?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "By default, date difference measures elapsed time (excluding the final day, so today to tomorrow equals 1 day). If you need to count both the start day and the end day as full active working or calendar days, check the \"Include end date (add 1 day)\" box."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "How do you calculate business days and exclude weekends?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Business days are calculated by iterating through every day in your selected interval and counting only Mondays through Fridays, while automatically skipping Saturdays and Sundays. If you toggle \"Include end date\", the end date is also added if it falls on a weekday."
+							}
+						}
+					]
 				}
 			]
 		}

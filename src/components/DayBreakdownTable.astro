@@ -1,0 +1,95 @@
+---
+interface Props {
+  targetDate: string;
+  eventName: string;
+  dayOfWeek: string;
+}
+
+const { targetDate, eventName, dayOfWeek } = Astro.props;
+
+// Build-time calculation baseline
+const target = new Date(targetDate + "T00:00:00Z");
+const now = new Date();
+const todayUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+const targetUTC = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth(), target.getUTCDate()));
+
+const diffMs = targetUTC.getTime() - todayUTC.getTime();
+const totalDays = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+
+let businessDays = 0;
+let weekendDays = 0;
+const current = new Date(todayUTC);
+while (current < targetUTC) {
+  const day = current.getUTCDay();
+  if (day === 0 || day === 6) {
+    weekendDays++;
+  } else {
+    businessDays++;
+  }
+  current.setUTCDate(current.getUTCDate() + 1);
+}
+
+const weeks = Math.floor(totalDays / 7);
+const remainingDays = totalDays % 7;
+const totalHours = totalDays * 24;
+const isUpcoming = totalDays > 0;
+---
+
+<div class="w-full mb-16" style="width:100%; max-width:800px; margin:0 auto;">
+  <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+    Time & Working Days Breakdown
+  </h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+    <div class="p-6 rounded-2xl bg-canvas border border-hairline card-shadow">
+      <span class="text-xs uppercase font-mono tracking-wider text-mute block mb-1">Total Calendar Days</span>
+      <span class="text-3xl md:text-4xl font-bold text-primary tabular-nums">{totalDays.toLocaleString()}</span>
+      <p class="text-xs text-body mt-2">All 24-hour periods</p>
+    </div>
+
+    <div class="p-6 rounded-2xl bg-canvas border border-hairline card-shadow">
+      <span class="text-xs uppercase font-mono tracking-wider text-mute block mb-1">Business / Working Days</span>
+      <span class="text-3xl md:text-4xl font-bold text-link tabular-nums">{businessDays.toLocaleString()}</span>
+      <p class="text-xs text-body mt-2">Monday through Friday</p>
+    </div>
+
+    <div class="p-6 rounded-2xl bg-canvas border border-hairline card-shadow">
+      <span class="text-xs uppercase font-mono tracking-wider text-mute block mb-1">Weekend Days</span>
+      <span class="text-3xl md:text-4xl font-bold text-violet tabular-nums">{weekendDays.toLocaleString()}</span>
+      <p class="text-xs text-body mt-2">Saturdays & Sundays</p>
+    </div>
+  </div>
+
+  <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas card-shadow">
+    <table class="w-full text-left text-sm" style="width:100%;">
+      <thead class="bg-canvas-soft border-b border-hairline text-xs uppercase font-mono text-mute">
+        <tr>
+          <th class="px-6 py-4">Metric</th>
+          <th class="px-6 py-4 text-right">Value</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-hairline">
+        <tr>
+          <td class="px-6 py-4 font-medium text-ink">Target Date</td>
+          <td class="px-6 py-4 text-right text-body">{targetDate} ({dayOfWeek})</td>
+        </tr>
+        <tr>
+          <td class="px-6 py-4 font-medium text-ink">Weeks & Days</td>
+          <td class="px-6 py-4 text-right text-body">{weeks} weeks and {remainingDays} days</td>
+        </tr>
+        <tr>
+          <td class="px-6 py-4 font-medium text-ink">Total Hours</td>
+          <td class="px-6 py-4 text-right text-body">approx. {totalHours.toLocaleString()} hours</td>
+        </tr>
+        <tr>
+          <td class="px-6 py-4 font-medium text-ink">Percentage of a Year</td>
+          <td class="px-6 py-4 text-right text-body">{((totalDays / 365) * 100).toFixed(1)}% of a standard year</td>
+        </tr>
+        <tr>
+          <td class="px-6 py-4 font-medium text-ink">Day of the Week</td>
+          <td class="px-6 py-4 text-right font-semibold text-link">{dayOfWeek}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

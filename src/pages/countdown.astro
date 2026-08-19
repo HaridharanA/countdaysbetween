@@ -1,40 +1,106 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Calculator from "../components/Calculator.astro";
-import { formatDateForInput } from "../utils/date";
+import holidays from "../data/holidays.json";
 
-const today = formatDateForInput(new Date());
+const holidays2026 = holidays.filter((h) => h.year === 2026);
+const holidays2027 = holidays.filter((h) => h.year === 2027);
+const holidays2028 = holidays.filter((h) => h.year === 2028);
 ---
 
 <Layout 
-	title="Countdown Between Dates" 
-	description="Calculate how many days until a future event. Use our date duration calculator to count days between today and any future milestone or holiday.">
-	<section class="mb-12 w-full">
+	title="Countdown Between Dates | Live Holiday & Event Countdowns" 
+	description="Calculate how many days until any future event. Browse live countdown timers for major US holidays and events across 2026, 2027, and 2028.">
+	
+	<section class="mb-12 w-full" style="width:100%; max-width:800px; margin:0 auto;">
 		<a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
-		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6 max-w-4xl">
+		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6" style="width:100%;">
 			Countdown <span class="text-violet">Calculator.</span>
 		</h1>
-		<p class="text-lg text-body mb-8" style="max-width:600px">
-			Find out exactly how many days are left until your next big milestone, holiday, or event.
+		<p class="text-lg text-body mb-8" style="width:100%; max-width:600px;">
+			Find out exactly how many days, hours, and minutes are left until your next big milestone, holiday, or event.
 		</p>
 	</section>
 
-	<section id="tool" class="mb-24 w-full">
+	<section id="tool" class="mb-24 w-full" style="width:100%; max-width:800px; margin:0 auto;">
 		<Calculator />
 	</section>
 
-	<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24 w-full">
-		<div class="p-6 rounded-lg border border-hairline bg-canvas flex flex-col gap-2 hover:border-link transition-colors cursor-pointer" onclick="document.getElementById('start-date').value = new Date().toISOString().split('T')[0]; document.getElementById('end-date').value = '2026-12-25'; document.getElementById('calculate-btn').click();">
-			<h4 class="font-semibold">Days until Christmas</h4>
-			<p class="text-sm text-body">Calculate time left for the holiday season.</p>
+	<!-- 2026 Countdowns -->
+	<section class="mb-20 w-full" style="width:100%; max-width:800px; margin:0 auto;">
+		<div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
+			<div>
+				<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">2026 Holiday Countdowns</h2>
+				<p class="text-sm text-mute mt-1">Live countdown timers and calendar breakdowns for 2026</p>
+			</div>
+			<span class="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold font-mono text-primary">2026</span>
 		</div>
-		<div class="p-6 rounded-lg border border-hairline bg-canvas flex flex-col gap-2 hover:border-violet transition-colors cursor-pointer" onclick="document.getElementById('start-date').value = new Date().toISOString().split('T')[0]; document.getElementById('end-date').value = '2027-01-01'; document.getElementById('calculate-btn').click();">
-			<h4 class="font-semibold">Days until New Year</h4>
-			<p class="text-sm text-body">Countdown to 2027.</p>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+			{holidays2026.map((h) => (
+				<a 
+					href={`/days-until/${h.slug}/`}
+					class="flex items-center gap-3 p-4 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all group card-shadow"
+				>
+					<span class="text-2xl flex-shrink-0">{h.icon}</span>
+					<div class="min-w-0 flex-1">
+						<h3 class="font-semibold text-sm text-ink group-hover:text-link transition-colors truncate">{h.holidayName}</h3>
+						<p class="text-xs text-mute truncate">{h.dayOfWeek}, {h.date}</p>
+					</div>
+				</a>
+			))}
 		</div>
-		<div class="p-6 rounded-lg border border-hairline bg-canvas flex flex-col gap-2 hover:border-success transition-colors cursor-pointer" onclick="document.getElementById('start-date').value = new Date().toISOString().split('T')[0]; document.getElementById('end-date').value = '2026-06-21'; document.getElementById('calculate-btn').click();">
-			<h4 class="font-semibold">Days until Summer Solstice</h4>
-			<p class="text-sm text-body">The longest day of the year.</p>
+	</section>
+
+	<!-- 2027 Countdowns -->
+	<section class="mb-20 w-full" style="width:100%; max-width:800px; margin:0 auto;">
+		<div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
+			<div>
+				<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">2027 Holiday Countdowns</h2>
+				<p class="text-sm text-mute mt-1">Plan ahead for major milestones in 2027</p>
+			</div>
+			<span class="rounded-full bg-violet/10 px-3 py-1 text-xs font-bold font-mono text-violet">2027</span>
+		</div>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+			{holidays2027.map((h) => (
+				<a 
+					href={`/days-until/${h.slug}/`}
+					class="flex items-center gap-3 p-4 rounded-2xl bg-canvas border border-hairline hover:border-violet transition-all group card-shadow"
+				>
+					<span class="text-2xl flex-shrink-0">{h.icon}</span>
+					<div class="min-w-0 flex-1">
+						<h3 class="font-semibold text-sm text-ink group-hover:text-violet transition-colors truncate">{h.holidayName}</h3>
+						<p class="text-xs text-mute truncate">{h.dayOfWeek}, {h.date}</p>
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+
+	<!-- 2028 Countdowns -->
+	<section class="mb-20 w-full" style="width:100%; max-width:800px; margin:0 auto;">
+		<div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
+			<div>
+				<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">2028 Holiday Countdowns (Leap Year)</h2>
+				<p class="text-sm text-mute mt-1">Upcoming holiday schedule for the 2028 leap year</p>
+			</div>
+			<span class="rounded-full bg-success/10 px-3 py-1 text-xs font-bold font-mono text-success">2028</span>
+		</div>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+			{holidays2028.map((h) => (
+				<a 
+					href={`/days-until/${h.slug}/`}
+					class="flex items-center gap-3 p-4 rounded-2xl bg-canvas border border-hairline hover:border-success transition-all group card-shadow"
+				>
+					<span class="text-2xl flex-shrink-0">{h.icon}</span>
+					<div class="min-w-0 flex-1">
+						<h3 class="font-semibold text-sm text-ink group-hover:text-success transition-colors truncate">{h.holidayName}</h3>
+						<p class="text-xs text-mute truncate">{h.dayOfWeek}, {h.date}</p>
+					</div>
+				</a>
+			))}
 		</div>
 	</section>
 </Layout>
