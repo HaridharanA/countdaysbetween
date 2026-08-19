@@ -23,7 +23,7 @@ const pageDescription = "Calculate your exact chronological age down to the seco
   <!-- Interactive Age Calculator Form -->
   <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <div class="p-8 md:p-10 rounded-3xl bg-canvas border border-hairline card-shadow-lg">
-      <form id="age-calc-form" class="space-y-6" onsubmit="event.preventDefault();">
+      <form id="age-calc-form" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label for="age-birth-date" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
@@ -60,7 +60,7 @@ const pageDescription = "Calculate your exact chronological age down to the seco
       </form>
 
       <!-- Live Age Output Dashboard -->
-      <div id="age-results-box" class="hidden mt-8 pt-8 border-t border-hairline animate-in fade-in duration-500">
+      <div id="age-results-box" class="mt-8 pt-8 border-t border-hairline animate-in fade-in duration-500">
         <!-- Main Primary Age -->
         <div class="text-center mb-8">
           <span class="text-xs uppercase font-mono tracking-widest text-mute block mb-2">Your Exact Chronological Age</span>
@@ -94,7 +94,7 @@ const pageDescription = "Calculate your exact chronological age down to the seco
 
         <!-- 10,000-Day Milestone & Astrological Traits -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="p-5 rounded-2xl bg-gradient-to-br from-rose-50 to-orange-50 dark:from-rose-950/30 dark:to-orange-950/20 border border-rose-100 dark:border-rose-900/30">
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-rose-50 to-orange-50 dark:from-rose-950/30 dark:to-orange-950/20 border border-rose-100 dark:border-rose-900/30 text-left">
             <div class="flex items-center gap-2 mb-2">
               <span class="text-xl">🏆</span>
               <h4 class="font-bold text-ink text-sm">Next Big Milestone</h4>
@@ -107,10 +107,10 @@ const pageDescription = "Calculate your exact chronological age down to the seco
             </p>
           </div>
 
-          <div class="p-5 rounded-2xl bg-canvas-soft border border-hairline">
+          <div class="p-5 rounded-2xl bg-canvas-soft border border-hairline text-left">
             <div class="flex items-center gap-2 mb-2">
               <span class="text-xl">⭐</span>
-              <h4 class="font-bold text-ink text-sm">Astrological & Cosmic Sign</h4>
+              <h4 class="font-bold text-ink text-sm">Astrological Sign</h4>
             </div>
             <p id="astrology-headline" class="text-sm font-semibold text-ink mb-1">
               --
@@ -197,11 +197,10 @@ const pageDescription = "Calculate your exact chronological age down to the seco
 </Layout>
 
 <script>
-  function initAgeCalculator() {
+  function setupAgeCalc() {
+    const form = document.getElementById('age-calc-form') as HTMLFormElement;
     const birthInput = document.getElementById('age-birth-date') as HTMLInputElement;
     const targetInput = document.getElementById('age-target-date') as HTMLInputElement;
-    const calcBtn = document.getElementById('btn-calculate-age');
-    const resultsBox = document.getElementById('age-results-box');
 
     const primaryAgeStr = document.getElementById('primary-age-str');
     const nextBdayStr = document.getElementById('next-bday-countdown-str');
@@ -216,7 +215,6 @@ const pageDescription = "Calculate your exact chronological age down to the seco
 
     let timerInterval: number | null = null;
 
-    // Default target date to today, default birth date to 25 years ago
     if (targetInput && !targetInput.value) {
       targetInput.value = new Date().toISOString().split('T')[0];
     }
@@ -258,27 +256,29 @@ const pageDescription = "Calculate your exact chronological age down to the seco
       return animals[(year - 4) % 12];
     }
 
-    function calculateAge() {
+    function updateCalculations() {
       if (!birthInput || !birthInput.value || !targetInput || !targetInput.value) return;
 
-      const birth = new Date(birthInput.value + "T00:00:00");
-      const target = new Date(targetInput.value + "T00:00:00");
+      const [bY, bM, bD] = birthInput.value.split('-').map(Number);
+      const [tY, tM, tD] = targetInput.value.split('-').map(Number);
 
-      const diffMs = target.getTime() - birth.getTime();
+      const birthUTC = new Date(Date.UTC(bY, bM - 1, bD));
+      const targetUTC = new Date(Date.UTC(tY, tM - 1, tD));
+
+      const diffMs = targetUTC.getTime() - birthUTC.getTime();
       if (diffMs < 0) {
-        alert("Target date must be after your birth date!");
+        if (primaryAgeStr) primaryAgeStr.innerText = "Target date must be after birth date";
         return;
       }
 
-      // Exact years, months, days
-      let years = target.getFullYear() - birth.getFullYear();
-      let months = target.getMonth() - birth.getMonth();
-      let days = target.getDate() - birth.getDate();
+      let years = tY - bY;
+      let months = tM - bM;
+      let days = tD - bD;
 
       if (days < 0) {
         months--;
-        const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
-        days += prevMonth.getDate();
+        const prevMonth = new Date(Date.UTC(tY, tM - 1, 0));
+        days += prevMonth.getUTCDate();
       }
       if (months < 0) {
         years--;
@@ -287,42 +287,42 @@ const pageDescription = "Calculate your exact chronological age down to the seco
 
       const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
       const totalWeeks = Math.floor(totalDays / 7);
-      const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const totalHours = totalDays * 24;
 
       if (primaryAgeStr) {
         primaryAgeStr.innerText = `${years} Years, ${months} Months, ${days} Days`;
       }
 
       // Next Birthday
-      const nextBday = new Date(target.getFullYear(), birth.getMonth(), birth.getDate());
-      if (nextBday < target) {
-        nextBday.setFullYear(target.getFullYear() + 1);
+      let nextBdayUTC = new Date(Date.UTC(tY, bM - 1, bD));
+      if (nextBdayUTC < targetUTC) {
+        nextBdayUTC = new Date(Date.UTC(tY + 1, bM - 1, bD));
       }
-      const daysToBday = Math.ceil((nextBday.getTime() - target.getTime()) / (1000 * 60 * 60 * 24));
-      if (nextBdayCountdownStr) {
-        nextBdayCountdownStr.innerText = daysToBday === 0 
+      const daysToBday = Math.ceil((nextBdayUTC.getTime() - targetUTC.getTime()) / (1000 * 60 * 60 * 24));
+      if (nextBdayStr) {
+        nextBdayStr.innerText = daysToBday === 0 
           ? "🎉 Today is your Birthday! Happy Birthday!" 
-          : `🎉 ${daysToBday} days until your next birthday (${nextBday.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })})`;
+          : `🎉 ${daysToBday} days until next birthday (${nextBdayUTC.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })})`;
       }
 
       if (statDays) statDays.innerText = totalDays.toLocaleString();
       if (statWeeks) statWeeks.innerText = totalWeeks.toLocaleString();
       if (statHours) statHours.innerText = totalHours.toLocaleString();
 
-      // Milestone
-      const milestones = [1000, 2500, 5000, 7500, 10000, 15000, 20000, 25000, 30000];
-      const nextMilestone = milestones.find(m => m > totalDays) || (Math.ceil(totalDays / 5000) * 5000);
-      const milestoneDate = new Date(birth.getTime() + (nextMilestone * 24 * 60 * 60 * 1000));
+      // Next Milestone
+      const milestoneSteps = [1000, 2500, 5000, 7500, 10000, 15000, 20000, 25000, 30000];
+      const nextMilestone = milestoneSteps.find(m => m > totalDays) || (Math.ceil(totalDays / 5000) * 5000);
+      const milestoneDate = new Date(birthUTC.getTime() + (nextMilestone * 24 * 60 * 60 * 1000));
       const daysLeftMilestone = nextMilestone - totalDays;
 
       if (milestoneHead && milestoneSub) {
         milestoneHead.innerText = `${nextMilestone.toLocaleString()}th Day on Earth`;
-        milestoneSub.innerText = `Falls on ${milestoneDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })} (in ${daysLeftMilestone.toLocaleString()} days)`;
+        milestoneSub.innerText = `Falls on ${milestoneDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })} (in ${daysLeftMilestone.toLocaleString()} days)`;
       }
 
       // Astrology
-      const zSign = getZodiac(birth.getMonth() + 1, birth.getDate());
-      const cSign = getChineseZodiac(birth.getFullYear());
+      const zSign = getZodiac(bM, bD);
+      const cSign = getChineseZodiac(bY);
       if (astroHead && astroSub) {
         astroHead.innerText = `${zSign}`;
         astroSub.innerText = `Chinese Zodiac: ${cSign}`;
@@ -331,22 +331,27 @@ const pageDescription = "Calculate your exact chronological age down to the seco
       // Live ticking seconds
       if (timerInterval) clearInterval(timerInterval);
       const updateLiveSecs = () => {
-        const nowSec = Math.floor((new Date().getTime() - birth.getTime()) / 1000);
+        const now = new Date();
+        const nowSec = Math.floor((now.getTime() - birthUTC.getTime()) / 1000);
         if (statSecs) statSecs.innerText = nowSec.toLocaleString();
       };
       updateLiveSecs();
       timerInterval = window.setInterval(updateLiveSecs, 1000);
-
-      resultsBox?.classList.remove('hidden');
     }
 
-    [birthInput, targetInput].forEach(el => {
-      el?.addEventListener('change', calculateAge);
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      updateCalculations();
     });
 
-    calculateAge();
+    [birthInput, targetInput].forEach(el => {
+      el?.addEventListener('input', updateCalculations);
+      el?.addEventListener('change', updateCalculations);
+    });
+
+    updateCalculations();
   }
 
-  initAgeCalculator();
-  document.addEventListener('astro:page-load', initAgeCalculator);
+  setupAgeCalc();
+  document.addEventListener('astro:page-load', setupAgeCalc);
 </script>

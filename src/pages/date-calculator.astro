@@ -22,25 +22,25 @@ const pageDescription = "Calculate the exact future or past calendar date by add
     <!-- Quick Presets -->
     <div class="flex flex-wrap items-center gap-2 pt-2">
       <span class="text-xs font-semibold uppercase tracking-wider text-mute">Quick Presets:</span>
-      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="30">
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-unit="days" data-amount="30">
         +30 Days
       </button>
-      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="60">
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-unit="days" data-amount="60">
         +60 Days
       </button>
-      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors" data-op="add" data-days="90">
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors" data-op="add" data-unit="days" data-amount="90">
         +90 Days (Visa / Legal)
       </button>
-      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="180">
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-unit="days" data-amount="180">
         +180 Days
       </button>
-      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="365">
-        +1 Year (365 Days)
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-unit="years" data-amount="1">
+        +1 Year
       </button>
-      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="sub" data-days="30">
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="sub" data-unit="days" data-amount="30">
         -30 Days Ago
       </button>
-      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="sub" data-days="90">
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="sub" data-unit="days" data-amount="90">
         -90 Days Ago
       </button>
     </div>
@@ -49,100 +49,79 @@ const pageDescription = "Calculate the exact future or past calendar date by add
   <!-- Interactive Calculator Card -->
   <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <div class="p-8 md:p-10 rounded-3xl bg-canvas border border-hairline card-shadow-lg">
-      <form id="date-calc-form" class="space-y-6" onsubmit="event.preventDefault();">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label for="start-date-input" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
-              Start Date 📅
-            </label>
-            <input
-              type="date"
-              id="start-date-input"
-              required
-              class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors shadow-sm"
-            />
-          </div>
+      <form id="date-calc-form" class="space-y-6">
+        <!-- 1. Start Date -->
+        <div>
+          <label for="start-date-input" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+            1. Select Starting Date 📅
+          </label>
+          <input
+            type="date"
+            id="start-date-input"
+            required
+            class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors shadow-sm"
+          />
+        </div>
 
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
-              Operation ⚙️
-            </label>
-            <div class="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                id="btn-op-add"
-                class="h-12 rounded-xl border font-bold text-sm flex items-center justify-center gap-1.5 transition-all border-link bg-link text-white shadow-sm"
+        <!-- 2. Operation Toggle -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+            2. Choose Operation ⚙️
+          </label>
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              id="btn-op-add"
+              class="h-12 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition-all border-link bg-link text-white shadow-sm"
+            >
+              <span>➕ Add Time (Future Date)</span>
+            </button>
+            <button
+              type="button"
+              id="btn-op-sub"
+              class="h-12 rounded-xl border font-bold text-sm flex items-center justify-center gap-2 transition-all border-hairline bg-canvas-soft text-body hover:border-link"
+            >
+              <span>➖ Subtract Time (Past Date)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Quantity & Unit -->
+        <div>
+          <label for="input-amount" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+            3. How Much Time to Add / Subtract? ⏱️
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <input
+                type="number"
+                id="input-amount"
+                min="0"
+                value="30"
+                required
+                placeholder="Enter number (e.g. 30)"
+                class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-base font-bold outline-none focus:border-link transition-colors shadow-sm"
+              />
+            </div>
+            <div>
+              <select
+                id="select-unit"
+                class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm font-semibold outline-none focus:border-link transition-colors shadow-sm"
               >
-                <span>➕ Add</span>
-              </button>
-              <button
-                type="button"
-                id="btn-op-sub"
-                class="h-12 rounded-xl border font-bold text-sm flex items-center justify-center gap-1.5 transition-all border-hairline bg-canvas-soft text-body hover:border-link"
-              >
-                <span>➖ Subtract</span>
-              </button>
+                <option value="days">Days</option>
+                <option value="weeks">Weeks</option>
+                <option value="months">Months</option>
+                <option value="years">Years</option>
+              </select>
             </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div>
-            <label for="input-years" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
-              Years
-            </label>
-            <input
-              type="number"
-              id="input-years"
-              min="0"
-              placeholder="0"
-              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
-            />
-          </div>
-          <div>
-            <label for="input-months" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
-              Months
-            </label>
-            <input
-              type="number"
-              id="input-months"
-              min="0"
-              placeholder="0"
-              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
-            />
-          </div>
-          <div>
-            <label for="input-weeks" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
-              Weeks
-            </label>
-            <input
-              type="number"
-              id="input-weeks"
-              min="0"
-              placeholder="0"
-              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
-            />
-          </div>
-          <div>
-            <label for="input-days" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
-              Days
-            </label>
-            <input
-              type="number"
-              id="input-days"
-              min="0"
-              value="30"
-              placeholder="30"
-              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors font-bold"
-            />
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 pt-2">
+        <div class="flex items-center gap-3 pt-1">
           <input
             type="checkbox"
             id="checkbox-business-only"
-            class="h-4 w-4 rounded border-hairline text-link focus:ring-link"
+            class="h-4 w-4 rounded border-hairline text-link focus:ring-link cursor-pointer"
           />
           <label for="checkbox-business-only" class="text-sm font-medium text-ink cursor-pointer">
             Count business days only (skip Saturdays & Sundays)
@@ -160,7 +139,11 @@ const pageDescription = "Calculate the exact future or past calendar date by add
 
       <!-- Live Calculated Output -->
       <div id="calc-result-box" class="mt-8 pt-8 border-t border-hairline text-center animate-in fade-in duration-500">
-        <span class="text-xs uppercase font-mono tracking-widest text-mute block mb-1">Calculated Target Date</span>
+        <!-- Plain English Summary -->
+        <p id="plain-english-summary" class="text-sm md:text-base font-medium text-mute mb-2">
+          30 days after today is:
+        </p>
+        
         <div id="result-target-date" class="text-3xl md:text-5xl font-black text-primary tracking-tight mb-2">
           --
         </div>
@@ -284,18 +267,17 @@ const pageDescription = "Calculate the exact future or past calendar date by add
 </Layout>
 
 <script>
-  function initDateCalculator() {
+  function setupDateCalc() {
+    const form = document.getElementById('date-calc-form') as HTMLFormElement;
     const startDateInput = document.getElementById('start-date-input') as HTMLInputElement;
     const btnAdd = document.getElementById('btn-op-add') as HTMLButtonElement;
     const btnSub = document.getElementById('btn-op-sub') as HTMLButtonElement;
-    const inputYears = document.getElementById('input-years') as HTMLInputElement;
-    const inputMonths = document.getElementById('input-months') as HTMLInputElement;
-    const inputWeeks = document.getElementById('input-weeks') as HTMLInputElement;
-    const inputDays = document.getElementById('input-days') as HTMLInputElement;
+    const inputAmount = document.getElementById('input-amount') as HTMLInputElement;
+    const selectUnit = document.getElementById('select-unit') as HTMLSelectElement;
     const checkBizOnly = document.getElementById('checkbox-business-only') as HTMLInputElement;
-    const calcBtn = document.getElementById('calculate-date-btn');
     const presetBtns = document.querySelectorAll('.preset-btn');
 
+    const plainEnglishSummary = document.getElementById('plain-english-summary');
     const resTarget = document.getElementById('result-target-date');
     const resWeekday = document.getElementById('result-weekday');
     const resSpan = document.getElementById('result-span-days');
@@ -304,7 +286,6 @@ const pageDescription = "Calculate the exact future or past calendar date by add
 
     let currentOp = "add";
 
-    // Default to today
     if (startDateInput && !startDateInput.value) {
       startDateInput.value = new Date().toISOString().split('T')[0];
     }
@@ -331,11 +312,10 @@ const pageDescription = "Calculate the exact future or past calendar date by add
     presetBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         const op = btn.getAttribute('data-op') || "add";
-        const days = parseInt(btn.getAttribute('data-days') || "30");
-        if (inputYears) inputYears.value = "";
-        if (inputMonths) inputMonths.value = "";
-        if (inputWeeks) inputWeeks.value = "";
-        if (inputDays) inputDays.value = String(days);
+        const unit = btn.getAttribute('data-unit') || "days";
+        const amount = parseInt(btn.getAttribute('data-amount') || "30");
+        if (inputAmount) inputAmount.value = String(amount);
+        if (selectUnit) selectUnit.value = unit;
         if (checkBizOnly) checkBizOnly.checked = false;
         setOp(op);
       });
@@ -345,20 +325,20 @@ const pageDescription = "Calculate the exact future or past calendar date by add
       if (!startDateInput || !startDateInput.value) return;
       const [year, month, day] = startDateInput.value.split('-').map(Number);
       let target = new Date(Date.UTC(year, month - 1, day));
-
-      const years = parseInt(inputYears?.value || "0") || 0;
-      const months = parseInt(inputMonths?.value || "0") || 0;
-      const weeks = parseInt(inputWeeks?.value || "0") || 0;
-      const days = parseInt(inputDays?.value || "0") || 0;
+      const amount = parseInt(inputAmount?.value || "0") || 0;
+      const unit = selectUnit?.value || "days";
       const bizOnly = checkBizOnly?.checked || false;
 
       const sign = currentOp === "add" ? 1 : -1;
 
       if (bizOnly) {
-        // Business days only calculation (iterate weekdays)
-        let totalBizDays = (years * 260) + (months * 21) + (weeks * 5) + days;
+        let totalDays = amount;
+        if (unit === "weeks") totalDays = amount * 5;
+        if (unit === "months") totalDays = amount * 21;
+        if (unit === "years") totalDays = amount * 260;
+
         let counted = 0;
-        while (counted < totalBizDays) {
+        while (counted < totalDays) {
           target.setUTCDate(target.getUTCDate() + sign);
           const dow = target.getUTCDay();
           if (dow !== 0 && dow !== 6) {
@@ -366,10 +346,15 @@ const pageDescription = "Calculate the exact future or past calendar date by add
           }
         }
       } else {
-        if (years !== 0) target.setUTCFullYear(target.getUTCFullYear() + (sign * years));
-        if (months !== 0) target.setUTCMonth(target.getUTCMonth() + (sign * months));
-        const extraDays = (weeks * 7) + days;
-        if (extraDays !== 0) target.setUTCDate(target.getUTCDate() + (sign * extraDays));
+        if (unit === "days") {
+          target.setUTCDate(target.getUTCDate() + (sign * amount));
+        } else if (unit === "weeks") {
+          target.setUTCDate(target.getUTCDate() + (sign * amount * 7));
+        } else if (unit === "months") {
+          target.setUTCMonth(target.getUTCMonth() + (sign * amount));
+        } else if (unit === "years") {
+          target.setUTCFullYear(target.getUTCFullYear() + (sign * amount));
+        }
       }
 
       const formatted = target.toLocaleDateString('en-US', {
@@ -390,14 +375,30 @@ const pageDescription = "Calculate the exact future or past calendar date by add
       const dayOfYear = Math.floor((target.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24)) + 1;
       const weekOfYear = Math.ceil(dayOfYear / 7);
 
+      const startFormatted = startUtc.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'UTC'
+      });
+
+      if (plainEnglishSummary) {
+        const opWord = currentOp === "add" ? "after" : "before";
+        plainEnglishSummary.innerText = `${amount} ${unit} ${opWord} ${startFormatted} is:`;
+      }
       if (resTarget) resTarget.innerText = formatted;
       if (resWeekday) resWeekday.innerText = `Falls on a ${weekdayStr}`;
-      if (resSpan) resSpan.innerText = `${diffDays.toLocaleString()} days`;
+      if (resSpan) resSpan.innerText = `${diffDays.toLocaleString()} calendar days`;
       if (resDayOfYear) resDayOfYear.innerText = `Day ${dayOfYear} of ${target.getUTCFullYear()}`;
       if (resWeekOfYear) resWeekOfYear.innerText = `Week ${weekOfYear}`;
     }
 
-    [startDateInput, inputYears, inputMonths, inputWeeks, inputDays, checkBizOnly].forEach((el) => {
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      calculate();
+    });
+
+    [startDateInput, inputAmount, selectUnit, checkBizOnly].forEach((el) => {
       el?.addEventListener('input', calculate);
       el?.addEventListener('change', calculate);
     });
@@ -405,6 +406,6 @@ const pageDescription = "Calculate the exact future or past calendar date by add
     calculate();
   }
 
-  initDateCalculator();
-  document.addEventListener('astro:page-load', initDateCalculator);
+  setupDateCalc();
+  document.addEventListener('astro:page-load', setupDateCalc);
 </script>
