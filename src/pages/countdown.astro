@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Calculator from "../components/Calculator.astro";
+import CustomCountdown from "../components/CustomCountdown.astro";
+import YearProgress from "../components/YearProgress.astro";
 import holidays from "../data/holidays.json";
 
 const holidays2026 = holidays.filter((h) => h.year === 2026);
@@ -12,22 +13,43 @@ const holidays2028 = holidays.filter((h) => h.year === 2028);
 	title="Countdown Between Dates | Live Holiday & Event Countdowns" 
 	description="Calculate how many days until any future event. Browse live countdown timers for major US holidays and events across 2026, 2027, and 2028.">
 	
-	<section class="mb-12 w-full" style="width:100%; max-width:800px; margin:0 auto;">
+	<section class="mb-12 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
 		<a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
 		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6" style="width:100%;">
-			Countdown <span class="text-violet">Calculator.</span>
+			Countdown <span class="text-violet">Hub.</span>
 		</h1>
-		<p class="text-lg text-body mb-8" style="width:100%; max-width:600px;">
-			Find out exactly how many days, hours, and minutes are left until your next big milestone, holiday, or event.
+		<p class="text-lg text-body mb-6" style="width:100%; max-width:600px;">
+			Find out exactly how many days, hours, and minutes are left until your next big milestone, holiday, or personal event.
 		</p>
+		
+		<!-- Year Quick Jump Chips -->
+		<div class="flex flex-wrap items-center gap-3 pt-2">
+			<span class="text-xs font-semibold uppercase tracking-wider text-mute">Jump to:</span>
+			<a href="#custom-builder" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-canvas-soft border border-hairline hover:border-link text-ink transition-colors">
+				✨ Custom Timer
+			</a>
+			<a href="#holidays-2026" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors">
+				2026 Countdowns ({holidays2026.length})
+			</a>
+			<a href="#holidays-2027" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-violet/10 text-violet border border-violet/20 hover:bg-violet/20 transition-colors">
+				2027 Countdowns ({holidays2027.length})
+			</a>
+			<a href="#holidays-2028" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-success/10 text-success border border-success/20 hover:bg-success/20 transition-colors">
+				2028 (Leap Year) ({holidays2028.length})
+			</a>
+		</div>
 	</section>
 
-	<section id="tool" class="mb-24 w-full" style="width:100%; max-width:800px; margin:0 auto;">
-		<Calculator />
-	</section>
+	<!-- Custom Countdown Shareable Generator -->
+	<div id="custom-builder" class="scroll-mt-24">
+		<CustomCountdown />
+	</div>
+
+	<!-- Live Year Progress Indicator -->
+	<YearProgress />
 
 	<!-- 2026 Countdowns -->
-	<section class="mb-20 w-full" style="width:100%; max-width:800px; margin:0 auto;">
+	<section id="holidays-2026" class="mb-20 w-full scroll-mt-24" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
 		<div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
 			<div>
 				<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">2026 Holiday Countdowns</h2>
@@ -53,7 +75,7 @@ const holidays2028 = holidays.filter((h) => h.year === 2028);
 	</section>
 
 	<!-- 2027 Countdowns -->
-	<section class="mb-20 w-full" style="width:100%; max-width:800px; margin:0 auto;">
+	<section id="holidays-2027" class="mb-20 w-full scroll-mt-24" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
 		<div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
 			<div>
 				<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">2027 Holiday Countdowns</h2>
@@ -79,7 +101,7 @@ const holidays2028 = holidays.filter((h) => h.year === 2028);
 	</section>
 
 	<!-- 2028 Countdowns -->
-	<section class="mb-20 w-full" style="width:100%; max-width:800px; margin:0 auto;">
+	<section id="holidays-2028" class="mb-20 w-full scroll-mt-24" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
 		<div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
 			<div>
 				<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">2028 Holiday Countdowns (Leap Year)</h2>
@@ -101,6 +123,23 @@ const holidays2028 = holidays.filter((h) => h.year === 2028);
 					</div>
 				</a>
 			))}
+		</div>
+	</section>
+
+	<!-- Clean CTA to 2-Date Calculator -->
+	<section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+		<div class="p-8 rounded-3xl bg-canvas-soft border border-hairline flex flex-col sm:flex-row items-center justify-between gap-6">
+			<div class="text-left" style="width:100%;">
+				<h3 class="text-xl font-bold text-ink mb-1">Need a two-date duration calculation?</h3>
+				<p class="text-sm text-body">Calculate exact days, working business days, or weeks between any two custom calendar dates.</p>
+			</div>
+			<a
+				href="/#tool"
+				class="flex-shrink-0 h-12 flex items-center rounded-pill bg-primary px-8 text-on-primary font-medium hover:scale-105 transition-all shadow-md"
+				style="white-space: nowrap;"
+			>
+				Open Days Calculator →
+			</a>
 		</div>
 	</section>
 </Layout>

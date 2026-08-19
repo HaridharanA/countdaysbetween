@@ -32,24 +32,38 @@
           </div>
         </div>
 
-        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20">
+        <!-- Next Big Life Milestone Card -->
+        <div class="md:col-span-2 bg-gradient-to-r from-orange-500/10 to-rose-500/10 dark:from-orange-500/20 dark:to-rose-500/20 rounded-2xl p-6 border border-orange-200/50 dark:border-rose-800/30 text-left">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-2xl">🏆</span>
+            <h3 class="font-bold text-slate-800 dark:text-rose-100 text-base">Your Next Big Life Milestone</h3>
+          </div>
+          <p id="next-milestone-text" class="text-sm md:text-base font-semibold text-orange-600 dark:text-rose-300">
+            Calculating your next milestone...
+          </p>
+          <p id="milestone-countdown" class="text-xs text-slate-600 dark:text-rose-200/70 mt-1">
+            ...
+          </p>
+        </div>
+
+        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20 text-left">
           <div class="flex items-center gap-4 mb-3">
             <span class="text-2xl">🗓️</span>
             <h3 class="font-bold text-slate-800 dark:text-rose-100">Time Breakdown</h3>
           </div>
-          <ul class="space-y-2 text-slate-600 dark:text-rose-200/70">
+          <ul class="space-y-2 text-slate-600 dark:text-rose-200/70 text-sm">
             <li>✨ <span id="weeks-lived" class="font-bold text-slate-800 dark:text-white">0</span> weeks</li>
             <li>✨ <span id="months-lived" class="font-bold text-slate-800 dark:text-white">0</span> months</li>
             <li>✨ <span id="hours-lived" class="font-bold text-slate-800 dark:text-white">0</span> hours (approx.)</li>
           </ul>
         </div>
 
-        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20 flex flex-col justify-center">
+        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20 flex flex-col justify-center text-left">
           <div class="flex items-center gap-4 mb-3">
             <span class="text-2xl">🌍</span>
             <h3 class="font-bold text-slate-800 dark:text-rose-100">Fun Fact</h3>
           </div>
-          <p id="leap-years-msg" class="text-slate-600 dark:text-rose-200/70 italic leading-relaxed">
+          <p id="leap-years-msg" class="text-slate-600 dark:text-rose-200/70 italic leading-relaxed text-sm">
             Pick a date to see your journey!
           </p>
         </div>
@@ -67,6 +81,8 @@
   const monthsDisplay = document.getElementById('months-lived');
   const hoursDisplay = document.getElementById('hours-lived');
   const leapYearsMsg = document.getElementById('leap-years-msg');
+  const nextMilestoneText = document.getElementById('next-milestone-text');
+  const milestoneCountdown = document.getElementById('milestone-countdown');
 
   let timerInterval: number | null = null;
 
@@ -75,7 +91,7 @@
   }
 
   function calculateStats() {
-    const birthDate = new Date(birthdayInput.value);
+    const birthDate = new Date(birthdayInput.value + "T00:00:00");
     if (isNaN(birthDate.getTime())) return;
 
     const now = new Date();
@@ -104,12 +120,29 @@
     let leapYears = 0;
     for (let y = birthDate.getFullYear(); y <= now.getFullYear(); y++) {
       if (isLeapYear(y)) {
-        // Need to check if the birth happened before Feb 29 or after Feb 29
         const feb29 = new Date(y, 1, 29);
         if (feb29 >= birthDate && feb29 <= now) {
           leapYears++;
         }
       }
+    }
+
+    // Milestone thresholds: 1,000, 2,500, 5,000, 7,500, 10,000, 12,500, 15,000, 20,000, 25,000, 30,000
+    const milestoneSteps = [1000, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000, 40000];
+    const nextMilestoneDays = milestoneSteps.find(m => m > diffDays) || (Math.ceil(diffDays / 5000) * 5000);
+    
+    const milestoneDate = new Date(birthDate.getTime() + (nextMilestoneDays * 24 * 60 * 60 * 1000));
+    const daysUntilMilestone = nextMilestoneDays - diffDays;
+
+    if (nextMilestoneText && milestoneCountdown) {
+      const formattedMilestoneDate = milestoneDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      nextMilestoneText.innerHTML = `Your <span class="font-black underline">${nextMilestoneDays.toLocaleString()}th Day on Earth</span> will be on <span class="font-bold">${formattedMilestoneDate}</span>!`;
+      milestoneCountdown.innerHTML = `Only <strong class="text-orange-500 dark:text-rose-400 font-bold">${daysUntilMilestone.toLocaleString()} days</strong> left until you hit this epic milestone! 🎉`;
     }
 
     if (daysDisplay) daysDisplay.textContent = diffDays.toLocaleString();
@@ -118,7 +151,7 @@
     if (hoursDisplay) hoursDisplay.textContent = diffHours.toLocaleString();
     
     if (leapYearsMsg) {
-      leapYearsMsg.innerHTML = `You've seen <span class="font-bold text-orange-500 dark:text-rose-400">${leapYears}</span> leap years pass by! The Earth has spun a lot since you arrived. 🚀`;
+      leapYearsMsg.innerHTML = `You've seen <span class="font-bold text-orange-500 dark:text-rose-400">${leapYears}</span> leap years pass by! The Earth has completed <span class="font-bold text-orange-500 dark:text-rose-400">${(diffDays / 365.25).toFixed(1)}</span> solar orbits since you arrived. 🚀`;
     }
 
     // Start live counter

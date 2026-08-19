@@ -1,0 +1,240 @@
+---
+---
+
+<div id="custom-countdown-builder" class="w-full mb-16 rounded-3xl p-8 md:p-12 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-canvas dark:from-slate-900 dark:via-purple-950/20 dark:to-canvas border border-indigo-100/70 dark:border-purple-900/30 card-shadow-lg" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+  <div class="text-center mb-8" style="width:100%;">
+    <span class="text-4xl mb-3 block">✨</span>
+    <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-ink mb-2">
+      Create Your Own Custom Countdown
+    </h2>
+    <p class="text-sm md:text-base text-body">
+      Counting down to a wedding, vacation, milestone, or birthday? Create a free shareable countdown timer.
+    </p>
+  </div>
+
+  <form id="custom-form" class="space-y-6" onsubmit="event.preventDefault();">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="custom-event-name" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+          Event Name
+        </label>
+        <input
+          type="text"
+          id="custom-event-name"
+          placeholder="e.g., Trip to Tokyo, Sarah's Wedding"
+          required
+          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
+        />
+      </div>
+
+      <div>
+        <label for="custom-event-date" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+          Target Date
+        </label>
+        <input
+          type="date"
+          id="custom-event-date"
+          required
+          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+        Choose an Icon
+      </label>
+      <div id="emoji-picker" class="flex flex-wrap gap-2">
+        {["🎉", "✈️", "💍", "🎓", "🎂", "🚀", "🏖️", "🎸", "👶", "🏠", "🏆", "🌟"].map((emoji, index) => (
+          <button
+            type="button"
+            class={`emoji-btn h-10 w-10 text-xl rounded-xl border border-hairline bg-canvas hover:border-link transition-all flex items-center justify-center ${index === 0 ? "border-link bg-link/10 scale-105" : ""}`}
+            data-emoji={emoji}
+          >
+            {emoji}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      id="create-countdown-btn"
+      class="w-full h-14 rounded-full bg-primary text-on-primary font-bold text-base hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+    >
+      <span>🚀 Generate Shareable Countdown</span>
+    </button>
+  </form>
+
+  <!-- Live Generated Result Card -->
+  <div id="custom-result" class="hidden mt-10 pt-10 border-t border-hairline animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div class="p-6 md:p-8 rounded-2xl bg-canvas border border-hairline card-shadow text-center">
+      <span id="res-icon" class="text-4xl block mb-2">🎉</span>
+      <h3 id="res-name" class="text-2xl md:text-3xl font-bold text-ink mb-1">Trip to Tokyo</h3>
+      <p id="res-date-str" class="text-sm text-mute mb-6">Target: November 20, 2026</p>
+
+      <!-- Live timer units -->
+      <div class="grid grid-cols-4 gap-3 max-w-[450px] mx-auto mb-8">
+        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
+          <span id="res-days" class="text-2xl sm:text-3xl font-black text-primary tabular-nums">0</span>
+          <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Days</span>
+        </div>
+        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
+          <span id="res-hours" class="text-2xl sm:text-3xl font-black text-ink tabular-nums">0</span>
+          <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Hours</span>
+        </div>
+        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
+          <span id="res-mins" class="text-2xl sm:text-3xl font-black text-ink tabular-nums">0</span>
+          <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Mins</span>
+        </div>
+        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
+          <span id="res-secs" class="text-2xl sm:text-3xl font-black text-violet tabular-nums">0</span>
+          <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Secs</span>
+        </div>
+      </div>
+
+      <!-- Share Actions -->
+      <div class="flex flex-wrap justify-center gap-3">
+        <button
+          type="button"
+          id="copy-share-link"
+          class="h-11 px-6 rounded-full bg-link text-white font-medium text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-sm"
+        >
+          <span>📋</span>
+          <span id="copy-btn-text">Copy Share Link</span>
+        </button>
+
+        <a
+          id="whatsapp-share-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="h-11 px-6 rounded-full bg-[#25D366] text-white font-medium text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-sm"
+        >
+          <span>💬</span>
+          <span>Share to WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCustomCountdown() {
+    const form = document.getElementById('custom-form') as HTMLFormElement;
+    const nameInput = document.getElementById('custom-event-name') as HTMLInputElement;
+    const dateInput = document.getElementById('custom-event-date') as HTMLInputElement;
+    const resultBox = document.getElementById('custom-result');
+    const emojiBtns = document.querySelectorAll('.emoji-btn');
+    
+    const resIcon = document.getElementById('res-icon');
+    const resName = document.getElementById('res-name');
+    const resDateStr = document.getElementById('res-date-str');
+    const resDays = document.getElementById('res-days');
+    const resHours = document.getElementById('res-hours');
+    const resMins = document.getElementById('res-mins');
+    const resSecs = document.getElementById('res-secs');
+
+    const copyBtn = document.getElementById('copy-share-link');
+    const copyText = document.getElementById('copy-btn-text');
+    const waBtn = document.getElementById('whatsapp-share-btn') as HTMLAnchorElement;
+
+    let selectedEmoji = "🎉";
+    let timerId: number | null = null;
+
+    // Default date to 30 days from now
+    if (dateInput && !dateInput.value) {
+      const nextMonth = new Date();
+      nextMonth.setDate(nextMonth.getDate() + 30);
+      dateInput.value = nextMonth.toISOString().split('T')[0];
+    }
+
+    emojiBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        emojiBtns.forEach((b) => b.classList.remove('border-link', 'bg-link/10', 'scale-105'));
+        btn.classList.add('border-link', 'bg-link/10', 'scale-105');
+        selectedEmoji = btn.getAttribute('data-emoji') || "🎉";
+      });
+    });
+
+    function startLiveCountdown(name: string, dateStr: string, icon: string) {
+      if (resIcon) resIcon.innerText = icon;
+      if (resName) resName.innerText = name;
+      
+      const targetDate = new Date(dateStr + "T00:00:00");
+      if (resDateStr) {
+        resDateStr.innerText = `Target: ${targetDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`;
+      }
+
+      const shareUrl = `${window.location.origin}/countdown?event=${encodeURIComponent(name)}&date=${encodeURIComponent(dateStr)}&icon=${encodeURIComponent(icon)}`;
+      
+      if (waBtn) {
+        waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(`⏳ Countdown to ${icon} ${name}: ${shareUrl}`)}`;
+      }
+
+      if (copyBtn) {
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            if (copyText) copyText.innerText = "Link Copied! ✅";
+            setTimeout(() => {
+              if (copyText) copyText.innerText = "Copy Share Link";
+            }, 3000);
+          });
+        };
+      }
+
+      function tick() {
+        const now = new Date().getTime();
+        const diff = targetDate.getTime() - now;
+
+        if (diff <= 0) {
+          if (resDays) resDays.innerText = "0";
+          if (resHours) resHours.innerText = "0";
+          if (resMins) resMins.innerText = "0";
+          if (resSecs) resSecs.innerText = "0";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (resDays) resDays.innerText = days.toLocaleString();
+        if (resHours) resHours.innerText = String(hours).padStart(2, '0');
+        if (resMins) resMins.innerText = String(mins).padStart(2, '0');
+        if (resSecs) resSecs.innerText = String(secs).padStart(2, '0');
+      }
+
+      if (timerId) clearInterval(timerId);
+      tick();
+      timerId = window.setInterval(tick, 1000);
+
+      resultBox?.classList.remove('hidden');
+      resultBox?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    form?.addEventListener('submit', () => {
+      const name = nameInput.value.trim();
+      const dateStr = dateInput.value;
+      if (!name || !dateStr) return;
+      startLiveCountdown(name, dateStr, selectedEmoji);
+    });
+
+    // Check if query params exist (e.g. user clicked a shared link)
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramEvent = urlParams.get('event');
+    const paramDate = urlParams.get('date');
+    const paramIcon = urlParams.get('icon') || '🎉';
+
+    if (paramEvent && paramDate) {
+      if (nameInput) nameInput.value = paramEvent;
+      if (dateInput) dateInput.value = paramDate;
+      selectedEmoji = paramIcon;
+      startLiveCountdown(paramEvent, paramDate, paramIcon);
+    }
+  }
+
+  initCustomCountdown();
+  document.addEventListener('astro:page-load', initCustomCountdown);
+</script>

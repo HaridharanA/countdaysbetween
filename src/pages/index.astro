@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Calculator from "../components/Calculator.astro";
+import YearProgress from "../components/YearProgress.astro";
+import UpcomingCountdowns from "../components/UpcomingCountdowns.astro";
+import CustomCountdown from "../components/CustomCountdown.astro";
 import LifeCounter from "../components/LifeCounter.astro";
 import BirthdayTwins from "../components/BirthdayTwins.astro";
 ---
@@ -8,34 +11,64 @@ import BirthdayTwins from "../components/BirthdayTwins.astro";
 <Layout 
 	title="Days Between Dates Calculator | Exact Days, Weeks & Months" 
 	description="Calculate the exact number of days, weeks, and months between two dates. Fast, free, and accurate. Includes leap year handling.">
-	<section class="mb-16 w-full">
+	<section class="mb-12 w-full">
     <div class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-link border border-hairline mb-6">
         Introducing CountDays v1.0
     </div>
     <h1 class="text-5xl md:text-7xl font-semibold tracking-tighter leading-tight mb-6" style="width:100%; max-width:800px;">
         The simplest way to calculate <span class="text-link">days between dates.</span>
     </h1>
-    <p class="text-lg md:text-xl text-body mb-8" style="width:100%; max-width:600px;">
+    <p class="text-lg md:text-xl text-body mb-6" style="width:100%; max-width:600px;">
         A clean, fast, and modern tool to calculate duration, business days, and time breakdowns. No ads, no clutter.
     </p>
-    <div class="flex flex-wrap gap-4 mb-12">
-        <a href="#tool" class="h-12 flex items-center rounded-pill bg-primary px-8 text-on-primary font-medium hover:scale-105 transition-all shadow-lg shadow-primary/20">
-            Open Calculator
+
+    <!-- Quick Tool Selector Pills -->
+    <div class="flex flex-wrap items-center gap-2 mb-8">
+        <a href="#tool" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-on-primary hover:opacity-90 transition-all shadow-sm">
+            📅 Date Calculator
+        </a>
+        <a href="#upcoming-countdowns" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+            ⏱️ Holiday Countdowns
+        </a>
+        <a href="#custom-countdown" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+            ✨ Custom Countdown
+        </a>
+        <a href="#life-tools" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+            🎂 Life Milestones
+        </a>
+        <a href="#timeline-wars" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+            🎮 Timeline Wars
         </a>
     </div>
 </section>
 
-	<section id="tool" class="mb-24 w-full">
+	<section id="tool" class="mb-16 w-full scroll-mt-24">
 		<Calculator />
 	</section>
 
-	<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24 w-full">
+	<!-- Live Year Progress Indicator -->
+	<div id="year-progress" class="scroll-mt-24">
+		<YearProgress />
+	</div>
+
+	<!-- Upcoming Holiday Countdowns Showcase -->
+	<div id="upcoming-countdowns" class="scroll-mt-24">
+		<UpcomingCountdowns />
+	</div>
+
+	<!-- Create & Share Your Own Countdown -->
+	<div id="custom-countdown" class="scroll-mt-24">
+		<CustomCountdown />
+	</div>
+
+	<!-- Life & Birthday Exploration Widgets -->
+	<div id="life-tools" class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24 w-full scroll-mt-24">
 		<LifeCounter />
 		<BirthdayTwins />
 	</div>
 
 <!-- Timeline Wars Feature Card -->
-<section class="mb-24 w-full">
+<section id="timeline-wars" class="mb-24 w-full scroll-mt-24">
     <a href="/timeline-wars" class="group relative block w-full overflow-hidden rounded-3xl bg-slate-950 p-[2px] transition-all hover:scale-[1.01] active:scale-[0.99]">
         <!-- Animated Gradient Border -->
         <div class="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#00d4ff_0%,#a855f7_50%,#00d4ff_100%)]"></div>
@@ -74,36 +107,36 @@ import BirthdayTwins from "../components/BirthdayTwins.astro";
 
 
 	<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 w-full">
-		<div class="card-shadow rounded-lg bg-canvas p-6 flex flex-col gap-4">
-			<div class="h-10 w-10 rounded-md bg-canvas-soft flex items-center justify-center border border-hairline">
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+		<a href="/business-days" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+			<div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink group-hover:text-link"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
 			</div>
 			<div>
-				<h3 class="text-xl font-semibold mb-2">Business Days</h3>
+				<h3 class="text-xl font-semibold mb-2 group-hover:text-link transition-colors">Business Days Calculator →</h3>
 				<p class="text-sm text-body">Automatically exclude weekends to get an accurate count of working days for your projects.</p>
 			</div>
-		</div>
-		<div class="card-shadow rounded-lg bg-canvas p-6 flex flex-col gap-4">
-			<div class="h-10 w-10 rounded-md bg-canvas-soft flex items-center justify-center border border-hairline">
+		</a>
+		<a href="#tool" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+			<div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
 			</div>
 			<div>
-				<h3 class="text-xl font-semibold mb-2">Time Breakdowns</h3>
-				<p class="text-sm text-body">See your result in days, weeks, months, or as a percentage of a common year.</p>
+				<h3 class="text-xl font-semibold mb-2 group-hover:text-link transition-colors">Time Breakdowns</h3>
+				<p class="text-sm text-body">See your result in days, weeks, months, or as a percentage of a standard year.</p>
 			</div>
-		</div>
-		<div class="card-shadow rounded-lg bg-canvas p-6 flex flex-col gap-4">
-			<div class="h-10 w-10 rounded-md bg-canvas-soft flex items-center justify-center border border-hairline">
+		</a>
+		<a href="/countdown" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-violet transition-all group">
+			<div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-violet transition-colors">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 			</div>
 			<div>
-				<h3 class="text-xl font-semibold mb-2">Countdown Mode</h3>
-				<p class="text-sm text-body">Easily calculate how many days are left until a specific future date or event.</p>
+				<h3 class="text-xl font-semibold mb-2 group-hover:text-violet transition-colors">Holiday Countdowns →</h3>
+				<p class="text-sm text-body">Browse 80+ countdowns or create your own custom shareable event countdown timer.</p>
 			</div>
-		</div>
+		</a>
 	</section>
 
-	<section class="mb-24 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin:0 auto;">
+	<section class="mb-24 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
 		<div class="prose-content w-full" style="width:100%;">
 			<h2 class="text-3xl font-bold mb-6" style="width:100%; max-width:800px;">Mastering Date Math: How to Calculate Days Between Dates</h2>
 			<p style="width:100%; max-width:800px;">
@@ -143,40 +176,55 @@ import BirthdayTwins from "../components/BirthdayTwins.astro";
 			<ul class="list-disc pl-6 space-y-2" style="width:100%; max-width:800px;">
 				<li><strong>Project & Sprint Planning:</strong> Estimating working days available between sprint kick-off and delivery.</li>
 				<li><strong>Legal & Financial Deadlines:</strong> Tracking statutory notice windows, loan interest accruals, or contract expiration dates.</li>
-				<li><strong>Life Milestones:</strong> Celebrating your 10,000th day alive with our <a href="#tool" class="text-link hover:underline">Days Lived</a> counter.</li>
+				<li><strong>Life Milestones:</strong> Celebrating your 10,000th day alive with our <a href="#life-tools" class="text-link hover:underline">Days Lived</a> counter.</li>
 				<li><strong>Event Countdowns:</strong> Finding exact days remaining until holidays, weddings, exams, or vacations.</li>
 			</ul>
 		</div>
 	</section>
 
-	<section class="mb-24 w-full mt-24" style="width:100%; max-width:800px; margin:0 auto;">
-		<div class="prose-content w-full" style="width:100%;">
-			<h2 class="text-3xl font-bold mb-10 text-center" style="width:100%; max-width:800px;">Frequently Asked Questions</h2>
-			<div class="space-y-8" style="width:100%;">
-				<div class="border-b border-hairline pb-6">
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">How do I calculate the days between two dates?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+	<section class="mb-24 w-full mt-24" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+		<div class="w-full" style="width:100%;">
+			<h2 class="text-3xl font-bold mb-8 text-center text-ink" style="width:100%; max-width:800px;">Frequently Asked Questions</h2>
+			<div class="space-y-4" style="width:100%;">
+				<details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+					<summary class="flex items-center justify-between font-semibold text-ink list-none">
+						<span class="text-lg">How do I calculate the days between two dates?</span>
+						<span class="text-link group-open:rotate-180 transition-transform">▼</span>
+					</summary>
+					<p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
 						To calculate the days between two dates, select your start date and end date in the input fields above and click "Calculate Days". The calculator instantly computes total elapsed calendar days, working business days, full weeks, and percentage of the year.
 					</p>
-				</div>
-				<div class="border-b border-hairline pb-6">
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">How does the calculator handle leap years?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+				</details>
+				
+				<details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+					<summary class="flex items-center justify-between font-semibold text-ink list-none">
+						<span class="text-lg">How does the calculator handle leap years?</span>
+						<span class="text-link group-open:rotate-180 transition-transform">▼</span>
+					</summary>
+					<p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
 						The calculator automatically accounts for February 29th in leap years (every 4 years, adhering to Gregorian calendar rules). If your selected date range spans across a leap day, it is included in the total day count for 100% mathematical accuracy.
 					</p>
-				</div>
-				<div class="border-b border-hairline pb-6">
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">Should I include or exclude the end date in my calculation?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+				</details>
+
+				<details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+					<summary class="flex items-center justify-between font-semibold text-ink list-none">
+						<span class="text-lg">Should I include or exclude the end date in my calculation?</span>
+						<span class="text-link group-open:rotate-180 transition-transform">▼</span>
+					</summary>
+					<p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
 						By default, date difference measures elapsed time (excluding the final day, so today to tomorrow equals 1 day). If you need to count both the start day and the end day as full active working or calendar days, check the "Include end date (add 1 day)" box.
 					</p>
-				</div>
-				<div class="border-b border-hairline pb-6">
-					<h3 class="text-xl font-semibold mb-3" style="width:100%; max-width:800px;">How do you calculate business days and exclude weekends?</h3>
-					<p class="text-body leading-relaxed" style="width:100%; max-width:800px;">
+				</details>
+
+				<details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+					<summary class="flex items-center justify-between font-semibold text-ink list-none">
+						<span class="text-lg">How do you calculate business days and exclude weekends?</span>
+						<span class="text-link group-open:rotate-180 transition-transform">▼</span>
+					</summary>
+					<p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
 						Business days are calculated by iterating through every day in your selected interval and counting only Mondays through Fridays, while automatically skipping Saturdays and Sundays. If you toggle "Include end date", the end date is also added if it falls on a weekday.
 					</p>
-				</div>
+				</details>
 			</div>
 		</div>
 	</section>
@@ -185,7 +233,7 @@ import BirthdayTwins from "../components/BirthdayTwins.astro";
 		<div class="mesh-gradient absolute inset-0 opacity-30"></div>
 		<div class="z-10">
 			<h2 class="text-3xl md:text-5xl font-semibold text-on-primary tracking-tight mb-4">Ready to start calculating?</h2>
-			<p class="text-on-primary/70" style="width:100%; max-width:500px; margin:0 auto;">Join thousands of users who prefer a clean, ad-free experience for their date math needs.</p>
+			<p class="text-on-primary/70" style="width:100%; max-width:500px; margin-left:auto; margin-right:auto;">Join thousands of users who prefer a clean, ad-free experience for their date math needs.</p>
 		</div>
 		<div class="flex flex-wrap justify-center gap-4 z-10">
 			<a href="#tool" class="h-12 flex items-center rounded-pill bg-on-primary px-8 text-primary font-medium hover:bg-on-primary/90 transition-colors">Get Started</a>

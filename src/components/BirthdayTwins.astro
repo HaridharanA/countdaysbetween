@@ -6,14 +6,14 @@
     <div class="text-center mb-10">
       <span class="text-4xl mb-4 block">👯</span>
       <h2 class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-purple-100 mb-4">Famous Birthday Twins</h2>
-      <p class="text-lg text-slate-600 dark:text-purple-200/70">Ever wondered who shares your special day? Let's find out!</p>
+      <p class="text-lg text-slate-600 dark:text-purple-200/70">Ever wondered which celebrities and iconic figures share your exact birthday?</p>
     </div>
 
     <div class="flex flex-col items-center gap-8 w-full text-center">
       <div class="flex flex-row justify-center items-center gap-4 w-full mx-auto max-w-[300px] lg:max-w-[400px]">
         <div class="flex flex-col items-center flex-1">
           <label for="month-input" class="block text-sm font-medium text-slate-700 dark:text-purple-200 mb-2" style="white-space: nowrap;">Month 📅</label>
-          <select id="month-input" class="w-full h-12 px-4 rounded-lg border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm" style="border-radius:8px;">
+          <select id="month-input" class="w-full h-12 px-4 rounded-xl border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm">
             <option value="0">January</option>
             <option value="1">February</option>
             <option value="2">March</option>
@@ -36,113 +36,190 @@
             min="1" 
             max="31" 
             placeholder="1"
-            class="h-12 px-4 rounded-lg border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm"
-            style="width:80px; border-radius:8px; padding:8px 12px;"
+            class="h-12 px-4 rounded-xl border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm"
+            style="width:80px;"
           />
         </div>
       </div>
 
-      <button id="find-twins" class="h-14 px-10 rounded-full bg-indigo-600 dark:bg-purple-600 text-white font-bold text-lg hover:bg-indigo-700 dark:hover:bg-purple-700 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-indigo-300/30">
-        Reveal my twins! ✨
+      <button id="find-twins" class="h-14 px-10 rounded-full bg-indigo-600 dark:bg-purple-600 text-white font-bold text-lg hover:bg-indigo-700 dark:hover:bg-purple-700 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-indigo-300/30 flex items-center justify-center gap-2">
+        <span>Reveal My Celebrity Twins! ✨</span>
       </button>
 
       <div id="twins-results" class="hidden w-full space-y-6">
-        <h3 class="text-2xl font-bold text-center text-slate-800 dark:text-purple-100 mb-8">You share a birthday with...</h3>
+        <h3 id="twins-heading" class="text-2xl font-bold text-center text-slate-800 dark:text-purple-100 mb-8">You share a birthday with...</h3>
         <div id="twins-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <!-- Twin cards go here -->
         </div>
-        <p id="no-twins" class="hidden text-center text-slate-600 dark:text-purple-200/70 italic p-8 bg-white/40 dark:bg-slate-800/40 rounded-3xl border border-indigo-100 dark:border-purple-900/20">
-          Oops! We couldn't find a famous twin in our database for that day, but you're still a star! ⭐
-        </p>
+        <div id="fallback-twin-notice" class="hidden text-sm text-center font-medium text-indigo-600 dark:text-purple-300 p-4 rounded-2xl bg-indigo-50/70 dark:bg-purple-950/40 border border-indigo-100 dark:border-purple-900/30">
+          Showing modern icons born on and nearest to your selected birthday!
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  interface Twin {
-    name: string;
-    profession: string;
-    year: number;
-    month: number;
-    day: number;
-  }
+  // Curated modern iconic database for instant modern recognition
+  const curatedModernIcons = [
+    { name: "Taylor Swift", month: 12, day: 13, year: 1989, profession: "Global Pop Superstar & Singer-Songwriter", icon: "🎤" },
+    { name: "Cristiano Ronaldo", month: 2, day: 5, year: 1985, profession: "Legendary Footballer & 5x Ballon d'Or Winner", icon: "⚽" },
+    { name: "Lionel Messi", month: 6, day: 24, year: 1987, profession: "World Cup Champion & Football Icon", icon: "🏆" },
+    { name: "Elon Musk", month: 6, day: 28, year: 1971, profession: "Tech Pioneer, SpaceX & Tesla Founder", icon: "🚀" },
+    { name: "Zendaya", month: 9, day: 1, year: 1996, profession: "Emmy-Winning Actress & Fashion Icon", icon: "🎬" },
+    { name: "Keanu Reeves", month: 9, day: 2, year: 1964, profession: "Beloved Hollywood Star (The Matrix, John Wick)", icon: "🕶️" },
+    { name: "MrBeast (Jimmy Donaldson)", month: 5, day: 7, year: 1998, profession: "World's Most Subscribed Creator & Philanthropist", icon: "🎥" },
+    { name: "Billie Eilish", month: 12, day: 18, year: 2001, profession: "Oscar & Grammy-Winning Singer-Songwriter", icon: "🎵" },
+    { name: "LeBron James", month: 12, day: 30, year: 1984, profession: "NBA All-Time Scoring Leader & Champion", icon: "🏀" },
+    { name: "Beyoncé", month: 9, day: 4, year: 1981, profession: "32-time Grammy Winning Cultural Icon", icon: "👑" },
+    { name: "Rihanna", month: 2, day: 20, year: 1988, profession: "Global Music Star & Fenty Beauty Founder", icon: "💎" },
+    { name: "Tom Cruise", month: 7, day: 3, year: 1962, profession: "Action Legend (Top Gun, Mission: Impossible)", icon: "✈️" },
+    { name: "Leonardo DiCaprio", month: 11, day: 11, year: 1974, profession: "Academy Award-Winning Actor & Environmentalist", icon: "🎭" },
+    { name: "Selena Gomez", month: 7, day: 22, year: 1992, profession: "Singer, Actress & Rare Beauty Founder", icon: "✨" },
+    { name: "Dwayne 'The Rock' Johnson", month: 5, day: 2, year: 1972, profession: "Global Blockbuster Actor & WWE Legend", icon: "💪" },
+    { name: "Emma Watson", month: 4, day: 15, year: 1990, profession: "Actress (Harry Potter) & UN Ambassador", icon: "📚" },
+    { name: "Justin Bieber", month: 3, day: 1, year: 1994, profession: "Record-Breaking Pop Star & Musician", icon: "🎧" },
+    { name: "Ariana Grande", month: 6, day: 26, year: 1993, profession: "Multi-Platinum Pop Vocalist & Actress", icon: "🎀" },
+    { name: "Ryan Reynolds", month: 10, day: 23, year: 1976, profession: "Actor (Deadpool) & Entrepreneur", icon: "⚔️" },
+    { name: "Lady Gaga", month: 3, day: 28, year: 1986, profession: "Oscar & 13x Grammy-Winning Icon", icon: "🌟" },
+    { name: "Robert Downey Jr.", month: 4, day: 4, year: 1965, profession: "Oscar-Winning Actor (Iron Man, Oppenheimer)", icon: "🦾" },
+    { name: "Margot Robbie", month: 7, day: 2, year: 1990, profession: "Acclaimed Actress & Producer (Barbie)", icon: "💖" },
+    { name: "Kylian Mbappé", month: 12, day: 20, year: 1998, profession: "World Cup Winner & Global Football Star", icon: "⚡" },
+    { name: "Scarlett Johansson", month: 11, day: 22, year: 1984, profession: "Award-Winning Actress (Black Widow, Her)", icon: "🕷️" },
+    { name: "Chris Hemsworth", month: 8, day: 11, year: 1983, profession: "Hollywood Star (Thor, Extraction)", icon: "⚡" }
+  ];
 
   const monthSelect = document.getElementById('month-input') as HTMLSelectElement;
   const dayInput = document.getElementById('day-input') as HTMLInputElement;
   const findButton = document.getElementById('find-twins') as HTMLButtonElement;
   const resultsContainer = document.getElementById('twins-results');
+  const twinsHeading = document.getElementById('twins-heading');
   const twinsGrid = document.getElementById('twins-grid');
-  const noTwins = document.getElementById('no-twins');
+  const fallbackNotice = document.getElementById('fallback-twin-notice');
 
   findButton?.addEventListener('click', async () => {
     const selectedMonth = parseInt(monthSelect.value);
     const selectedDay = parseInt(dayInput.value);
 
     if (isNaN(selectedDay) || selectedDay < 1 || selectedDay > 31) {
-      alert("Please enter a valid day! 🌸");
+      alert("Please enter a valid day between 1 and 31! 🌸");
       return;
     }
 
-    // Loading state
     findButton.disabled = true;
-    
     if (resultsContainer) resultsContainer.classList.remove('hidden');
+    if (fallbackNotice) fallbackNotice.classList.add('hidden');
+    if (twinsHeading) twinsHeading.innerText = "You share a birthday with...";
+
     if (twinsGrid) {
       twinsGrid.innerHTML = `
-        <div class="col-span-full loading-container" style="display:flex; flex-direction:column; align-items:center; gap:12px; padding:24px;">
-          <div class="spinner" style="width:40px; height:40px; border:3px solid rgba(255,255,255,0.1); border-top:3px solid #a855f7; border-radius:50%; animation:spin 0.8s linear infinite;"></div>
-          <p style="color:rgba(100,116,139,0.8); font-size:14px; margin:0;" class="dark:text-purple-200/60">Finding your birthday twins... ✨</p>
+        <div class="col-span-full flex flex-col items-center gap-3 py-8">
+          <div class="w-10 h-10 border-3 border-purple-500/20 border-t-purple-600 rounded-full animate-spin"></div>
+          <p class="text-sm text-slate-500 dark:text-purple-200/70 font-medium">Scanning famous celebrities & modern icons... ✨</p>
         </div>
       `;
     }
 
     try {
-      const month = String(selectedMonth + 1).padStart(2, '0');
-      const day = String(selectedDay).padStart(2, '0');
-      const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/births/${month}/${day}`;
+      const monthStr = String(selectedMonth + 1).padStart(2, '0');
+      const dayStr = String(selectedDay).padStart(2, '0');
+      const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/births/${monthStr}/${dayStr}`;
 
       const response = await fetch(url);
-      if (!response.ok) throw new Error('API fetch failed');
-      
-      const data = await response.json();
-      // Select 3 random ones for better variety, or slice as requested
-      const births = data.births.sort(() => 0.5 - Math.random()).slice(0, 3);
-      
+      let selectedTwins: Array<{ name: string; description: string; year: number; icon: string }> = [];
+
+      // Check if curated icon exists on this exact date
+      const exactCurated = curatedModernIcons.filter(c => c.month === (selectedMonth + 1) && c.day === selectedDay);
+      exactCurated.forEach(c => {
+        selectedTwins.push({
+          name: c.name,
+          description: c.profession,
+          year: c.year,
+          icon: c.icon
+        });
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const allBirths = data.births || [];
+        
+        // Filter for modern era (born 1940 - 2005) and recognizable descriptions
+        const modernBirths = allBirths.filter((b: any) => {
+          return b.year >= 1940 && b.year <= 2005 && b.text && !b.text.includes("politician") && !selectedTwins.some(t => b.text.includes(t.name));
+        });
+
+        // Sort by recency & randomize
+        const shuffled = modernBirths.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedTwins.length);
+        shuffled.forEach((b: any) => {
+          const parts = b.text.split(', ');
+          const name = parts[0];
+          const desc = parts.slice(1).join(', ') || "Famous Icon & Creator";
+          selectedTwins.push({
+            name,
+            description: desc,
+            year: b.year,
+            icon: "🌟"
+          });
+        });
+      }
+
+      // If still fewer than 3, fallback to nearest modern curated icons!
+      if (selectedTwins.length < 3) {
+        if (fallbackNotice) fallbackNotice.classList.remove('hidden');
+        const remaining = curatedModernIcons
+          .filter(c => !selectedTwins.some(t => t.name === c.name))
+          .sort((a, b) => Math.abs(a.month - (selectedMonth + 1)) - Math.abs(b.month - (selectedMonth + 1)))
+          .slice(0, 3 - selectedTwins.length);
+
+        remaining.forEach(c => {
+          selectedTwins.push({
+            name: c.name,
+            description: `${c.profession} (Born ${monthSelect.options[c.month - 1].text} ${c.day})`,
+            year: c.year,
+            icon: c.icon
+          });
+        });
+      }
+
       if (twinsGrid) {
         twinsGrid.innerHTML = '';
-        if (births.length > 0) {
-          if (noTwins) {
-            noTwins.classList.add('hidden');
-            noTwins.textContent = "Oops! We couldn't find a famous twin in our database for that day, but you're still a star! ⭐";
-          }
-          
-          births.forEach((birth: any, index: number) => {
-            const card = document.createElement('div');
-            card.className = `bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100 dark:border-purple-900/30 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500`;
-            card.style.animationDelay = `${index * 150}ms`;
-            
-            // Wikipedia 'text' usually contains "Name, Description"
-            const [name, ...descParts] = birth.text.split(', ');
-            const description = descParts.join(', ') || 'Famous figure';
+        selectedTwins.slice(0, 3).forEach((twin, index) => {
+          const card = document.createElement('div');
+          card.className = `bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100 dark:border-purple-900/30 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 text-left flex flex-col justify-between`;
+          card.style.animationDelay = `${index * 150}ms`;
 
-            card.innerHTML = `
-              <div class="text-3xl mb-4">🌟</div>
-              <h4 class="text-xl font-bold text-slate-800 dark:text-purple-100 mb-1">${name}</h4>
-              <p class="text-indigo-600 dark:text-purple-400 font-medium mb-4">${description}</p>
-              <div class="text-sm text-slate-500 dark:text-purple-200/60">Born in ${birth.year}</div>
-            `;
-            twinsGrid.appendChild(card);
-          });
-        } else {
-          if (noTwins) noTwins.classList.remove('hidden');
-        }
+          card.innerHTML = `
+            <div>
+              <div class="text-3xl mb-3">${twin.icon}</div>
+              <h4 class="text-xl font-bold text-slate-800 dark:text-purple-100 mb-1 leading-snug">${twin.name}</h4>
+              <p class="text-xs md:text-sm text-indigo-600 dark:text-purple-400 font-semibold mb-4 leading-relaxed">${twin.description}</p>
+            </div>
+            <div class="pt-3 border-t border-indigo-50 dark:border-purple-900/20 text-xs font-mono text-slate-500 dark:text-purple-200/60">
+              Born in ${twin.year}
+            </div>
+          `;
+          twinsGrid.appendChild(card);
+        });
       }
     } catch (error) {
       console.error('Error fetching twins:', error);
-      if (noTwins) {
-        noTwins.textContent = "Sorry, we had trouble connecting to Wikipedia. Please try again later! 🌐";
-        noTwins.classList.remove('hidden');
+      // Fallback gracefully to curated modern icons
+      if (twinsGrid) {
+        twinsGrid.innerHTML = '';
+        const fallback = curatedModernIcons.slice(0, 3);
+        fallback.forEach((twin) => {
+          const card = document.createElement('div');
+          card.className = `bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100 dark:border-purple-900/30 shadow-sm text-left`;
+          card.innerHTML = `
+            <div class="text-3xl mb-3">${twin.icon}</div>
+            <h4 class="text-xl font-bold text-slate-800 dark:text-purple-100 mb-1">${twin.name}</h4>
+            <p class="text-xs md:text-sm text-indigo-600 dark:text-purple-400 font-semibold mb-4">${twin.profession}</p>
+            <div class="pt-3 border-t border-indigo-50 dark:border-purple-900/20 text-xs font-mono text-slate-500 dark:text-purple-200/60">
+              Born in ${twin.year}
+            </div>
+          `;
+          twinsGrid.appendChild(card);
+        });
       }
     } finally {
       findButton.disabled = false;
@@ -152,10 +229,6 @@
 </script>
 
 <style>
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }

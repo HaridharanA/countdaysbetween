@@ -1,0 +1,90 @@
+---
+import holidays from "../data/holidays.json";
+
+// Find upcoming holidays based on build time, pick the next 6 major events
+const now = new Date();
+const todayISO = now.toISOString().split("T")[0];
+
+// Sort holidays by date
+const sorted = [...holidays].sort((a, b) => a.date.localeCompare(b.date));
+
+// Get upcoming ones, or wrap around if none
+let upcoming = sorted.filter((h) => h.date >= todayISO).slice(0, 6);
+if (upcoming.length < 6) {
+  upcoming = sorted.slice(0, 6);
+}
+---
+
+<section class="mb-24 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+    <div style="width:100%;">
+      <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold text-link border border-hairline bg-canvas-soft mb-3">
+        <span>⏱️</span>
+        <span>Popular Countdowns</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-ink">
+        Upcoming Holiday Countdowns
+      </h2>
+      <p class="text-sm md:text-base text-body mt-2">
+        Live timers, working day breakdowns, and exact date schedules for major events.
+      </p>
+    </div>
+    <a
+      href="/countdown"
+      class="flex-shrink-0 inline-flex items-center gap-2 text-sm font-semibold text-link hover:underline group"
+      style="white-space: nowrap;"
+    >
+      <span>View all 80+ events</span>
+      <span class="group-hover:translate-x-1 transition-transform">→</span>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+    {upcoming.map((h) => {
+      const target = new Date(h.date + "T00:00:00Z");
+      const diffMs = target.getTime() - new Date().getTime();
+      const daysLeft = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+
+      return (
+        <a
+          href={`/days-until/${h.slug}/`}
+          class="group relative flex flex-col justify-between p-5 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all card-shadow hover:shadow-md"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-3xl p-2 rounded-xl bg-canvas-soft border border-hairline">{h.icon}</span>
+              <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-link/10 text-link">
+                {daysLeft > 0 ? `${daysLeft} days` : "Today!"}
+              </span>
+            </div>
+            <h3 class="font-bold text-base text-ink group-hover:text-link transition-colors mb-1">
+              {h.name}
+            </h3>
+            <p class="text-xs text-mute font-medium">
+              {h.dayOfWeek}, {new Date(h.date + "T00:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}
+            </p>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-xs font-semibold text-link">
+            <span>Live Countdown</span>
+            <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+
+  <div class="text-center p-6 rounded-2xl bg-canvas-soft border border-hairline flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="text-left" style="width:100%;">
+      <h3 class="font-bold text-ink text-base">Looking for another date or holiday?</h3>
+      <p class="text-xs text-body">Explore over 80+ federal holidays, cultural celebrations, and sports events.</p>
+    </div>
+    <a
+      href="/countdown"
+      class="flex-shrink-0 h-11 flex items-center rounded-pill bg-primary px-6 text-on-primary text-sm font-semibold hover:scale-105 transition-all shadow-md"
+      style="white-space: nowrap;"
+    >
+      Browse All Countdowns →
+    </a>
+  </div>
+</section>
