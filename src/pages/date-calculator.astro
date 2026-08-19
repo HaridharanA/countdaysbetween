@@ -1,0 +1,410 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "Add or Subtract Days from Date Calculator | Date Plus Days";
+const pageDescription = "Calculate the exact future or past calendar date by adding or subtracting days, weeks, months, or business days. Fast, free, and accurate.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="mb-12 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
+    <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold text-link border border-hairline bg-canvas-soft mb-3">
+      <span>➕➖</span>
+      <span>Date Math Tool</span>
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
+      Date Plus / Minus <span class="text-link">Calculator.</span>
+    </h1>
+    <p class="text-lg text-body mb-6" style="width:100%; max-width:600px;">
+      Find the exact future or past date by adding or subtracting days, weeks, months, or working business days from any date.
+    </p>
+
+    <!-- Quick Presets -->
+    <div class="flex flex-wrap items-center gap-2 pt-2">
+      <span class="text-xs font-semibold uppercase tracking-wider text-mute">Quick Presets:</span>
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="30">
+        +30 Days
+      </button>
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="60">
+        +60 Days
+      </button>
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors" data-op="add" data-days="90">
+        +90 Days (Visa / Legal)
+      </button>
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="180">
+        +180 Days
+      </button>
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="add" data-days="365">
+        +1 Year (365 Days)
+      </button>
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="sub" data-days="30">
+        -30 Days Ago
+      </button>
+      <button type="button" class="preset-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink transition-colors" data-op="sub" data-days="90">
+        -90 Days Ago
+      </button>
+    </div>
+  </section>
+
+  <!-- Interactive Calculator Card -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="p-8 md:p-10 rounded-3xl bg-canvas border border-hairline card-shadow-lg">
+      <form id="date-calc-form" class="space-y-6" onsubmit="event.preventDefault();">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="start-date-input" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+              Start Date 📅
+            </label>
+            <input
+              type="date"
+              id="start-date-input"
+              required
+              class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors shadow-sm"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2">
+              Operation ⚙️
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                id="btn-op-add"
+                class="h-12 rounded-xl border font-bold text-sm flex items-center justify-center gap-1.5 transition-all border-link bg-link text-white shadow-sm"
+              >
+                <span>➕ Add</span>
+              </button>
+              <button
+                type="button"
+                id="btn-op-sub"
+                class="h-12 rounded-xl border font-bold text-sm flex items-center justify-center gap-1.5 transition-all border-hairline bg-canvas-soft text-body hover:border-link"
+              >
+                <span>➖ Subtract</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div>
+            <label for="input-years" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
+              Years
+            </label>
+            <input
+              type="number"
+              id="input-years"
+              min="0"
+              placeholder="0"
+              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
+            />
+          </div>
+          <div>
+            <label for="input-months" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
+              Months
+            </label>
+            <input
+              type="number"
+              id="input-months"
+              min="0"
+              placeholder="0"
+              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
+            />
+          </div>
+          <div>
+            <label for="input-weeks" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
+              Weeks
+            </label>
+            <input
+              type="number"
+              id="input-weeks"
+              min="0"
+              placeholder="0"
+              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors"
+            />
+          </div>
+          <div>
+            <label for="input-days" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-1">
+              Days
+            </label>
+            <input
+              type="number"
+              id="input-days"
+              min="0"
+              value="30"
+              placeholder="30"
+              class="w-full h-11 px-3 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors font-bold"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <input
+            type="checkbox"
+            id="checkbox-business-only"
+            class="h-4 w-4 rounded border-hairline text-link focus:ring-link"
+          />
+          <label for="checkbox-business-only" class="text-sm font-medium text-ink cursor-pointer">
+            Count business days only (skip Saturdays & Sundays)
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          id="calculate-date-btn"
+          class="w-full h-14 rounded-full bg-primary text-on-primary font-bold text-base hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+        >
+          <span>Calculate Target Date →</span>
+        </button>
+      </form>
+
+      <!-- Live Calculated Output -->
+      <div id="calc-result-box" class="mt-8 pt-8 border-t border-hairline text-center animate-in fade-in duration-500">
+        <span class="text-xs uppercase font-mono tracking-widest text-mute block mb-1">Calculated Target Date</span>
+        <div id="result-target-date" class="text-3xl md:text-5xl font-black text-primary tracking-tight mb-2">
+          --
+        </div>
+        <p id="result-weekday" class="text-lg font-semibold text-link mb-6">
+          --
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-[650px] mx-auto text-left">
+          <div class="p-4 rounded-xl bg-canvas-soft border border-hairline">
+            <span class="text-xs uppercase font-mono text-mute block mb-1">Calendar Days Span</span>
+            <span id="result-span-days" class="text-xl font-bold text-ink tabular-nums">0</span>
+          </div>
+          <div class="p-4 rounded-xl bg-canvas-soft border border-hairline">
+            <span class="text-xs uppercase font-mono text-mute block mb-1">Day of Year</span>
+            <span id="result-day-of-year" class="text-xl font-bold text-ink tabular-nums">0</span>
+          </div>
+          <div class="p-4 rounded-xl bg-canvas-soft border border-hairline">
+            <span class="text-xs uppercase font-mono text-mute block mb-1">Week of Year</span>
+            <span id="result-week-of-year" class="text-xl font-bold text-ink tabular-nums">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Informational SEO Guide -->
+  <section class="mb-24 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="prose-content w-full" style="width:100%;">
+      <h2 class="text-3xl font-bold mb-6" style="width:100%;">How to Add or Subtract Days from Any Date</h2>
+      <p style="width:100%;">
+        Adding or subtracting a specific duration from a calendar date is one of the most frequent date math tasks in international travel, project management, real estate, and legal compliance. Whether you need to know <strong>"what date is 90 days from today"</strong> for a visa limitation or <strong>"what date was 30 days ago"</strong> for a billing invoice, our calculator computes the exact target date instantaneously.
+      </p>
+
+      <h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%;">Common Real-World Use Cases</h3>
+      <ul class="list-disc pl-6 space-y-2" style="width:100%;">
+        <li><strong>Visa & Travel Restrictions:</strong> The European Schengen 90/180-day rule requires calculating exactly when your 90-day tourist allowance expires.</li>
+        <li><strong>Legal & Statutory Deadlines:</strong> Legal summons, contract cooling-off periods, and FOIA requests are often measured in 14, 30, or 60 calendar days.</li>
+        <li><strong>Pregnancy Due Dates:</strong> Adding 280 days (40 weeks) from the first day of the last menstrual period is the standard medical calculation for estimated due dates (EDD).</li>
+        <li><strong>Product Warranties & Return Windows:</strong> Tracking the exact expiration date for 30-day, 60-day, or 1-year product guarantees.</li>
+        <li><strong>Finance & Interest Accrual:</strong> Calculating promissory note maturities (such as 30, 60, 90, or 180-day term deposits).</li>
+      </ul>
+
+      <h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%;">Calendar Days vs. Business Days Calculation</h3>
+      <p style="width:100%;">
+        When calculating working schedules, checking <em>"Count business days only"</em> skips Saturdays and Sundays. For example, adding 10 business days to a Monday results in the second following Monday (14 calendar days total), accounting for the two intervening weekends.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="mb-24 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-3xl font-bold mb-8 text-center text-ink" style="width:100%;">Frequently Asked Questions</h2>
+    <div class="space-y-4" style="width:100%;">
+      <details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-lg">What date is 90 days from today?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Click the "+90 Days" quick preset above to instantly see the exact date, weekday, and week number 90 days into the future starting from today.
+        </p>
+      </details>
+
+      <details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-lg">How does leap year affect adding a full year (365 days)?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          A standard calendar year has 365 days, whereas leap years contain 366 days (including February 29th). If your interval crosses a leap day, adding 365 calendar days will fall on the day before the same date next year, while adding "1 Year" lands on the identical calendar date.
+        </p>
+      </details>
+
+      <details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-lg">Can I add working business days only?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Yes. Toggle the "Count business days only" checkbox. The calculator will advance day-by-day and exclude all Saturdays and Sundays automatically.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Date Add Subtract Calculator",
+        "url": "https://www.countdaysbetween.com/date-calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "description": pageDescription
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What date is 90 days from today?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Click the +90 Days preset on our date calculator to compute the exact future calendar date from today."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I add working business days only?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Toggle the 'Count business days only' option to skip weekends automatically."
+            }
+          }
+        ]
+      }
+    ]
+  })} />
+</Layout>
+
+<script>
+  function initDateCalculator() {
+    const startDateInput = document.getElementById('start-date-input') as HTMLInputElement;
+    const btnAdd = document.getElementById('btn-op-add') as HTMLButtonElement;
+    const btnSub = document.getElementById('btn-op-sub') as HTMLButtonElement;
+    const inputYears = document.getElementById('input-years') as HTMLInputElement;
+    const inputMonths = document.getElementById('input-months') as HTMLInputElement;
+    const inputWeeks = document.getElementById('input-weeks') as HTMLInputElement;
+    const inputDays = document.getElementById('input-days') as HTMLInputElement;
+    const checkBizOnly = document.getElementById('checkbox-business-only') as HTMLInputElement;
+    const calcBtn = document.getElementById('calculate-date-btn');
+    const presetBtns = document.querySelectorAll('.preset-btn');
+
+    const resTarget = document.getElementById('result-target-date');
+    const resWeekday = document.getElementById('result-weekday');
+    const resSpan = document.getElementById('result-span-days');
+    const resDayOfYear = document.getElementById('result-day-of-year');
+    const resWeekOfYear = document.getElementById('result-week-of-year');
+
+    let currentOp = "add";
+
+    // Default to today
+    if (startDateInput && !startDateInput.value) {
+      startDateInput.value = new Date().toISOString().split('T')[0];
+    }
+
+    function setOp(op: string) {
+      currentOp = op;
+      if (op === "add") {
+        btnAdd?.classList.remove('bg-canvas-soft', 'text-body', 'border-hairline');
+        btnAdd?.classList.add('bg-link', 'text-white', 'border-link');
+        btnSub?.classList.remove('bg-link', 'text-white', 'border-link');
+        btnSub?.classList.add('bg-canvas-soft', 'text-body', 'border-hairline');
+      } else {
+        btnSub?.classList.remove('bg-canvas-soft', 'text-body', 'border-hairline');
+        btnSub?.classList.add('bg-link', 'text-white', 'border-link');
+        btnAdd?.classList.remove('bg-link', 'text-white', 'border-link');
+        btnAdd?.classList.add('bg-canvas-soft', 'text-body', 'border-hairline');
+      }
+      calculate();
+    }
+
+    btnAdd?.addEventListener('click', () => setOp('add'));
+    btnSub?.addEventListener('click', () => setOp('sub'));
+
+    presetBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const op = btn.getAttribute('data-op') || "add";
+        const days = parseInt(btn.getAttribute('data-days') || "30");
+        if (inputYears) inputYears.value = "";
+        if (inputMonths) inputMonths.value = "";
+        if (inputWeeks) inputWeeks.value = "";
+        if (inputDays) inputDays.value = String(days);
+        if (checkBizOnly) checkBizOnly.checked = false;
+        setOp(op);
+      });
+    });
+
+    function calculate() {
+      if (!startDateInput || !startDateInput.value) return;
+      const [year, month, day] = startDateInput.value.split('-').map(Number);
+      let target = new Date(Date.UTC(year, month - 1, day));
+
+      const years = parseInt(inputYears?.value || "0") || 0;
+      const months = parseInt(inputMonths?.value || "0") || 0;
+      const weeks = parseInt(inputWeeks?.value || "0") || 0;
+      const days = parseInt(inputDays?.value || "0") || 0;
+      const bizOnly = checkBizOnly?.checked || false;
+
+      const sign = currentOp === "add" ? 1 : -1;
+
+      if (bizOnly) {
+        // Business days only calculation (iterate weekdays)
+        let totalBizDays = (years * 260) + (months * 21) + (weeks * 5) + days;
+        let counted = 0;
+        while (counted < totalBizDays) {
+          target.setUTCDate(target.getUTCDate() + sign);
+          const dow = target.getUTCDay();
+          if (dow !== 0 && dow !== 6) {
+            counted++;
+          }
+        }
+      } else {
+        if (years !== 0) target.setUTCFullYear(target.getUTCFullYear() + (sign * years));
+        if (months !== 0) target.setUTCMonth(target.getUTCMonth() + (sign * months));
+        const extraDays = (weeks * 7) + days;
+        if (extraDays !== 0) target.setUTCDate(target.getUTCDate() + (sign * extraDays));
+      }
+
+      const formatted = target.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'UTC'
+      });
+      const weekdayStr = target.toLocaleDateString('en-US', {
+        weekday: 'long',
+        timeZone: 'UTC'
+      });
+
+      const startUtc = new Date(Date.UTC(year, month - 1, day));
+      const diffDays = Math.round(Math.abs((target.getTime() - startUtc.getTime()) / (1000 * 60 * 60 * 24)));
+
+      const startOfYear = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
+      const dayOfYear = Math.floor((target.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+      const weekOfYear = Math.ceil(dayOfYear / 7);
+
+      if (resTarget) resTarget.innerText = formatted;
+      if (resWeekday) resWeekday.innerText = `Falls on a ${weekdayStr}`;
+      if (resSpan) resSpan.innerText = `${diffDays.toLocaleString()} days`;
+      if (resDayOfYear) resDayOfYear.innerText = `Day ${dayOfYear} of ${target.getUTCFullYear()}`;
+      if (resWeekOfYear) resWeekOfYear.innerText = `Week ${weekOfYear}`;
+    }
+
+    [startDateInput, inputYears, inputMonths, inputWeeks, inputDays, checkBizOnly].forEach((el) => {
+      el?.addEventListener('input', calculate);
+      el?.addEventListener('change', calculate);
+    });
+
+    calculate();
+  }
+
+  initDateCalculator();
+  document.addEventListener('astro:page-load', initDateCalculator);
+</script>
