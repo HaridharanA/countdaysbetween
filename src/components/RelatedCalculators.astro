@@ -1,0 +1,100 @@
+---
+interface Props {
+  current?: "days-between" | "date-calc" | "age-calc" | "business-days" | "countdown";
+}
+
+const { current = "days-between" } = Astro.props;
+
+const tools = [
+  {
+    id: "days-between",
+    name: "Days Between Dates",
+    desc: "Calculate total calendar days, weeks, months, and weekends between two dates.",
+    url: "/",
+    badge: "Main Calculator",
+    iconBg: "bg-blue-500/10 text-blue-500",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`
+  },
+  {
+    id: "date-calc",
+    name: "Date Add / Subtract (+/-)",
+    desc: "Add or subtract days, weeks, or months to find an exact future or past date.",
+    url: "/date-calculator",
+    badge: "+90 Days / Visa Tool",
+    iconBg: "bg-indigo-500/10 text-indigo-500",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`
+  },
+  {
+    id: "age-calc",
+    name: "Exact Age & Milestones",
+    desc: "Calculate precise age in years, days, hours, and ticking seconds + 10,000-day tracker.",
+    url: "/age-calculator",
+    badge: "Life Milestones",
+    iconBg: "bg-rose-500/10 text-rose-500",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+  },
+  {
+    id: "business-days",
+    name: "Business Days Calculator",
+    desc: "Count working days (Mon–Fri) between two dates, automatically excluding weekends.",
+    url: "/business-days",
+    badge: "Work & Payroll",
+    iconBg: "bg-emerald-500/10 text-emerald-500",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`
+  },
+  {
+    id: "countdown",
+    name: "Holiday Countdown Hub",
+    desc: "Browse live countdown timers and schedules for 80+ major holidays and events.",
+    url: "/countdown",
+    badge: "80+ Live Timers",
+    iconBg: "bg-purple-500/10 text-purple-500",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+  }
+];
+
+const filteredTools = tools.filter(t => t.id !== current);
+---
+
+<section class="mb-24 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+  <div class="mb-6">
+    <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold text-link border border-hairline bg-canvas-soft mb-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Date & Time Utilities</span>
+    </div>
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">
+      Explore Related Date Calculators
+    </h2>
+    <p class="text-sm text-body mt-1">
+      Free, instant online tools for work, travel, milestones, and personal planning.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    {filteredTools.map((tool) => (
+      <a
+        href={tool.url}
+        class="group p-5 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all card-shadow hover:shadow-md flex flex-col justify-between"
+      >
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div class={`h-9 w-9 rounded-xl ${tool.iconBg} flex items-center justify-center flex-shrink-0 border border-hairline`} set:html={tool.icon} />
+            <span class="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-canvas-soft border border-hairline text-mute">
+              {tool.badge}
+            </span>
+          </div>
+          <h3 class="font-bold text-base text-ink group-hover:text-link transition-colors mb-1.5">
+            {tool.name}
+          </h3>
+          <p class="text-xs text-body leading-relaxed">
+            {tool.desc}
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-hairline flex items-center justify-between text-xs font-semibold text-link">
+          <span>Open Calculator</span>
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

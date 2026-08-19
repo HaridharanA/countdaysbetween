@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import RelatedCalculators from "../components/RelatedCalculators.astro";
 
 const pageTitle = "Exact Age Calculator | Calculate Age in Years, Months, Days & Seconds";
 const pageDescription = "Calculate your exact chronological age down to the second. Find total days lived, countdown to your next birthday, zodiac sign, and 10,000 days milestone.";
@@ -137,6 +138,9 @@ const pageDescription = "Calculate your exact chronological age down to the seco
     </div>
   </section>
 
+  <!-- Related Calculators Cross-Links -->
+  <RelatedCalculators current="age-calc" />
+
   <!-- FAQ Section -->
   <section class="mb-24 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <h2 class="text-3xl font-bold mb-8 text-center text-ink" style="width:100%;">Frequently Asked Questions</h2>
@@ -174,6 +178,23 @@ const pageDescription = "Calculate your exact chronological age down to the seco
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "All",
         "description": pageDescription
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.countdaysbetween.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Exact Age Calculator",
+            "item": "https://www.countdaysbetween.com/age-calculator"
+          }
+        ]
       },
       {
         "@type": "FAQPage",

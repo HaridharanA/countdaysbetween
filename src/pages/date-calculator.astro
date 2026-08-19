@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import RelatedCalculators from "../components/RelatedCalculators.astro";
 
 const pageTitle = "Add or Subtract Days from Date Calculator | Date Plus Days";
 const pageDescription = "Calculate the exact future or past calendar date by adding or subtracting days, weeks, months, or business days. Fast, free, and accurate.";
@@ -187,6 +188,9 @@ const pageDescription = "Calculate the exact future or past calendar date by add
     </div>
   </section>
 
+  <!-- Related Calculators Cross-Links -->
+  <RelatedCalculators current="date-calc" />
+
   <!-- FAQ Section -->
   <section class="mb-24 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <h2 class="text-3xl font-bold mb-8 text-center text-ink" style="width:100%;">Frequently Asked Questions</h2>
@@ -234,6 +238,23 @@ const pageDescription = "Calculate the exact future or past calendar date by add
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "All",
         "description": pageDescription
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.countdaysbetween.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Date Add / Subtract Calculator",
+            "item": "https://www.countdaysbetween.com/date-calculator"
+          }
+        ]
       },
       {
         "@type": "FAQPage",

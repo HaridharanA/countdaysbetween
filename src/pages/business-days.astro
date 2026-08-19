@@ -1,39 +1,126 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Calculator from "../components/Calculator.astro";
+import RelatedCalculators from "../components/RelatedCalculators.astro";
+
+const pageTitle = "Business Days Calculator | Count Working Days Between Dates";
+const pageDescription = "Calculate the exact number of business days and working days (Monday-Friday) between two dates. Automatically excludes weekends for payroll, HR, and project timelines.";
 ---
 
-<Layout 
-	title="Business Days Between Dates" 
-	description="Count how many business days or working days between two dates. Automatically excludes weekends and helps you calculate date duration for work projects.">
-	<section class="mb-12 w-full">
-		<a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
-		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6 max-w-4xl">
-			Business Days <span class="text-link">Calculator.</span>
-		</h1>
-		<p class="text-lg text-body mb-8" style="max-width:600px">
-			Focus specifically on working days. Our tool automatically excludes Saturdays and Sundays to help you plan your work week.
-		</p>
-	</section>
+<Layout title={pageTitle} description={pageDescription}>
+  <section class="mb-12 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
+    <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold text-emerald-500 border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/20 mb-3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <span>Business & Working Days Tool</span>
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
+      Business Days <span class="text-emerald-500">Calculator.</span>
+    </h1>
+    <p class="text-lg text-body mb-8" style="width:100%; max-width:600px;">
+      Count working days between any two dates. Automatically excludes Saturdays and Sundays to help you plan project milestones, sprints, and payroll periods.
+    </p>
+  </section>
 
-	<section id="tool" class="mb-24 w-full">
-		<Calculator />
-	</section>
+  <section id="tool" class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <Calculator />
+  </section>
 
-	<section class="mb-24 w-full">
-		<h2 class="text-2xl font-semibold mb-4">How it works</h2>
-		<p class="text-body mb-8" style="max-width:700px">
-			The business days calculator counts the number of Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays between two dates. This is particularly useful for project management, payroll calculations, and service level agreements (SLAs).
-		</p>
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-			<div class="p-6 rounded-lg border border-hairline bg-canvas">
-				<h4 class="font-semibold mb-2">Weekends Excluded</h4>
-				<p class="text-sm text-body" style="max-width:none">Standard business days are Monday through Friday. Saturdays and Sundays are never counted.</p>
-			</div>
-			<div class="p-6 rounded-lg border border-hairline bg-canvas">
-				<h4 class="font-semibold mb-2">End Date Options</h4>
-				<p class="text-sm text-body" style="max-width:none">You can choose whether to include the end date in your calculation, which adds one day if it's a weekday.</p>
-			</div>
-		</div>
-	</section>
+  <!-- Informational SEO Guide -->
+  <section class="mb-24 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="prose-content w-full" style="width:100%;">
+      <h2 class="text-3xl font-bold mb-6" style="width:100%;">How Business Days Calculation Works</h2>
+      <p style="width:100%;">
+        A business day (or working day) refers to any official workday from <strong>Monday through Friday</strong>. Saturdays and Sundays are classified as weekend days and are excluded from working duration calculations. In corporate environments, calculating business days is essential for:
+      </p>
+      <ul class="list-disc pl-6 space-y-2" style="width:100%;">
+        <li><strong>Agile Sprints & Engineering Deadlines:</strong> Estimating project delivery timelines based on actual developer working days rather than calendar duration.</li>
+        <li><strong>Service Level Agreements (SLAs):</strong> Measuring turnaround times (e.g., "resolves within 3 business days").</li>
+        <li><strong>Banking, Clearing & ACH Transfers:</strong> Federal reserve and banking settlement days only operate on non-weekend business days.</li>
+        <li><strong>HR, Leave Management & Payroll:</strong> Calculating paid time off (PTO) and working days per month.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="mb-24 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-3xl font-bold mb-8 text-center text-ink" style="width:100%;">Frequently Asked Questions</h2>
+    <div class="space-y-4" style="width:100%;">
+      <details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-lg">Are weekends included in business days?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          No. Standard business days only count Monday, Tuesday, Wednesday, Thursday, and Friday. Saturdays and Sundays are excluded automatically.
+        </p>
+      </details>
+
+      <details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-lg">Should I include the end date in the count?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          By standard convention, the start date is counted and the end date represents the deadline boundary. If your work continues through the final day, enable "Include end date" in the options.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Related Calculators Cross-Links -->
+  <RelatedCalculators current="business-days" />
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Business Days Calculator",
+        "url": "https://www.countdaysbetween.com/business-days",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "description": pageDescription
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.countdaysbetween.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Business Days Calculator",
+            "item": "https://www.countdaysbetween.com/business-days"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are weekends included in business days?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Standard business days only count Monday through Friday. Saturdays and Sundays are excluded automatically."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should I include the end date in the count?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "By standard convention, the start date is counted and the end date represents the deadline boundary."
+            }
+          }
+        ]
+      }
+    ]
+  })} />
 </Layout>
