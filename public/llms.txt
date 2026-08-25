@@ -1,0 +1,35 @@
+# CountDays — Days Between Dates Calculator
+
+> CountDays (https://www.countdaysbetween.com/) is a clean, fast, and modern web application providing accurate date duration math, business day counting, age milestones, and event countdowns without ads or bloat.
+
+## Purpose
+CountDays provides instant, mathematically precise calendar calculations for individuals, project managers, legal professionals, and financial analysts who need reliable duration math.
+
+## Core Calculators & Tools
+
+1. **Days Between Dates Calculator**
+   - URL: https://www.countdaysbetween.com/
+   - Description: Calculates the exact number of elapsed calendar days, full weeks, approximate months, and percentage of a standard calendar year between any two dates. Includes option to add 1 day for inclusive end-date counting.
+
+2. **Business Days Calculator**
+   - URL: https://www.countdaysbetween.com/business-days
+   - Description: Measures working days between two dates by automatically excluding Saturdays and Sundays.
+
+3. **Date Add / Subtract Calculator**
+   - URL: https://www.countdaysbetween.com/date-calculator
+   - Description: Adds or subtracts days, weeks, months, or years to/from any starting date to find the target future or past calendar date.
+
+4. **Age Calculator & Life Milestones**
+   - URL: https://www.countdaysbetween.com/age-calculator
+   - Description: Computes exact age in days, weeks, months, and seconds lived, along with upcoming milestone dates (e.g. 10,000th day on Earth).
+
+5. **Holiday & Custom Countdown Hub**
+   - URL: https://www.countdaysbetween.com/countdown
+   - Description: Offers live countdown timers for 80+ federal holidays, cultural events, and custom shareable countdown timers.
+
+## Date Calculation Rules & Methodology
+
+- **Calendar-Based Day Counting:** Durations are calculated using standard UTC midnight-to-midnight date deltas.
+- **Leap Year Handling:** Automatically includes February 29th during leap years (years divisible by 4, except century years unless also divisible by 400).
+- **Business Day Rules:** Filters out weekend days (Saturday and Sunday).
+- **Inclusive vs. Elapsed Mode:** By default, date differences measure elapsed interval days (end date minus start date). Checking "Include end date" adds +1 day to account for both start and end days being full active days.

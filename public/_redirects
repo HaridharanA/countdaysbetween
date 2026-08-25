@@ -1,0 +1,4 @@
+# 301 Redirect non-www domain to www domain
+https://countdaysbetween.com/* https://www.countdaysbetween.com/:splat 301!
+http://countdaysbetween.com/* https://www.countdaysbetween.com/:splat 301!
+http://www.countdaysbetween.com/* https://www.countdaysbetween.com/:splat 301!
