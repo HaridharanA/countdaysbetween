@@ -1,9 +1,26 @@
+---
+const rawPathname = Astro.url.pathname;
+const canonicalPath = rawPathname.endsWith("/") ? rawPathname : `${rawPathname}/`;
+const canonicalUrl = `https://www.countdaysbetween.com${canonicalPath}`;
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Timeline Wars - Fix History</title>
+    <meta name="description" content="Can you fix broken history? Arrange historical events chronologically before time runs out!" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content="Timeline Wars - Fix History" />
+    <meta property="og:description" content="Can you fix broken history? Arrange historical events chronologically before time runs out!" />
+    <meta property="og:image" content="https://www.countdaysbetween.com/og-image.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content="Timeline Wars - Fix History" />
+    <meta property="twitter:description" content="Can you fix broken history? Arrange historical events chronologically before time runs out!" />
+    <meta property="twitter:image" content="https://www.countdaysbetween.com/og-image.png" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {

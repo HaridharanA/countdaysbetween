@@ -8,6 +8,10 @@ interface Props {
 
 const { title, description = "Calculate days between dates easily." } = Astro.props;
 const pageTitle = title.includes("|") ? title : `${title} | Days Between Dates`;
+
+const rawPathname = Astro.url.pathname;
+const canonicalPath = rawPathname.endsWith("/") ? rawPathname : `${rawPathname}/`;
+const canonicalUrl = `https://www.countdaysbetween.com${canonicalPath}`;
 ---
 
 <!doctype html>
@@ -33,18 +37,18 @@ const pageTitle = title.includes("|") ? title : `${title} | Days Between Dates`;
 		
 		<title>{pageTitle}</title>
 		<meta name="description" content={description} />
-		<link rel="canonical" href={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
+		<link rel="canonical" href={canonicalUrl} />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content="https://www.countdaysbetween.com/og-image.png" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={`https://www.countdaysbetween.com${Astro.url.pathname}`} />
+		<meta property="twitter:url" content={canonicalUrl} />
 		<meta property="twitter:title" content={pageTitle} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content="https://www.countdaysbetween.com/og-image.png" />
@@ -84,10 +88,10 @@ const pageTitle = title.includes("|") ? title : `${title} | Days Between Dates`;
 				
 				<div class="flex items-center gap-6">
 					<div class="hidden items-center gap-6 md:flex">
-						<a href="/date-calculator" class="text-sm text-body hover:text-ink">Date +/-</a>
-						<a href="/age-calculator" class="text-sm text-body hover:text-ink">Age Calculator</a>
-						<a href="/business-days" class="text-sm text-body hover:text-ink">Business Days</a>
-						<a href="/countdown" class="text-sm text-body hover:text-ink">Countdowns</a>
+						<a href="/date-calculator/" class="text-sm text-body hover:text-ink">Date +/-</a>
+						<a href="/age-calculator/" class="text-sm text-body hover:text-ink">Age Calculator</a>
+						<a href="/business-days/" class="text-sm text-body hover:text-ink">Business Days</a>
+						<a href="/countdown/" class="text-sm text-body hover:text-ink">Countdowns</a>
 					</div>
 					<div class="h-4 w-px bg-hairline hidden md:block"></div>
 					
@@ -109,18 +113,18 @@ const pageTitle = title.includes("|") ? title : `${title} | Days Between Dates`;
 					<div class="flex flex-col gap-3">
 						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Calculators</span>
 						<a href="/" class="text-sm text-body hover:text-ink">Days Between Dates</a>
-						<a href="/date-calculator" class="text-sm text-body hover:text-ink">Add / Subtract Days</a>
-						<a href="/age-calculator" class="text-sm text-body hover:text-ink">Exact Age Calculator</a>
-						<a href="/business-days" class="text-sm text-body hover:text-ink">Business Days</a>
-						<a href="/countdown" class="text-sm text-body hover:text-ink">Holiday Countdowns</a>
-						<a href="/timeline-wars" class="text-sm text-body hover:text-ink">Timeline Wars 🎮</a>
+						<a href="/date-calculator/" class="text-sm text-body hover:text-ink">Add / Subtract Days</a>
+						<a href="/age-calculator/" class="text-sm text-body hover:text-ink">Exact Age Calculator</a>
+						<a href="/business-days/" class="text-sm text-body hover:text-ink">Business Days</a>
+						<a href="/countdown/" class="text-sm text-body hover:text-ink">Holiday Countdowns</a>
+						<a href="/timeline-wars/" class="text-sm text-body hover:text-ink">Timeline Wars 🎮</a>
 					</div>
 					<div class="flex flex-col gap-3">
 						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Company</span>
-						<a href="/about" class="text-sm text-body hover:text-ink">About</a>
-						<a href="/privacy-policy" class="text-sm text-body hover:text-ink">Privacy</a>
-						<a href="/terms" class="text-sm text-body hover:text-ink">Terms</a>
-						<a href="/contact" class="text-sm text-body hover:text-ink">Contact</a>
+						<a href="/about/" class="text-sm text-body hover:text-ink">About</a>
+						<a href="/privacy-policy/" class="text-sm text-body hover:text-ink">Privacy</a>
+						<a href="/terms/" class="text-sm text-body hover:text-ink">Terms</a>
+						<a href="/contact/" class="text-sm text-body hover:text-ink">Contact</a>
 					</div>
 					<div class="flex flex-col gap-3">
 						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Subscribe</span>

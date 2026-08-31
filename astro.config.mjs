@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.countdaysbetween.com',
+  trailingSlash: 'always',
   integrations: [
     sitemap({
       lastmod: new Date()
