@@ -86,6 +86,8 @@ const formattedTargetDate = new Date(holiday.date + "T00:00:00Z").toLocaleDateSt
                 <td class="px-6 py-4 text-right">
                   {item.year === holiday.year ? (
                     <span class="text-xs font-semibold text-link">Viewing</span>
+                  ) : item.year < 2026 ? (
+                    <span class="text-xs text-mute font-mono">Passed</span>
                   ) : (
                     <a
                       href={`/days-until/${holiday.holidayKey}-${item.year}/`}
