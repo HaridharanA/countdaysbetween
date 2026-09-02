@@ -9,7 +9,7 @@ export default defineConfig({
   trailingSlash: 'always',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'pt'],
+    locales: ['en', 'pt', 'es'],
     routing: {
       prefixDefaultLocale: false
     }
@@ -21,7 +21,8 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: {
           en: 'en-US',
-          pt: 'pt-BR'
+          pt: 'pt-BR',
+          es: 'es-ES'
         }
       }
     })

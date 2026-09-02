@@ -35,6 +35,10 @@ CountDays provides instant, mathematically precise calendar calculations for ind
    - URL: https://www.countdaysbetween.com/pt/
    - Description: Calculadora oficial para o Brasil de dias corridos, dias úteis (CLT) e contagem regressiva para férias escolares e feriados nacionais.
 
+8. **Calculadora de Días y Días Hábiles (Español)**
+   - URL: https://www.countdaysbetween.com/es/
+   - Description: Calculadora oficial en español de días naturales, días hábiles y cuenta regresiva para vacaciones y festivos en España y Latinoamérica.
+
 ## Date Calculation Rules & Methodology
 
 - **Calendar-Based Day Counting:** Durations are calculated using standard UTC midnight-to-midnight date deltas.

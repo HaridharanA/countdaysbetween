@@ -1,0 +1,263 @@
+---
+import { formatDateForInputES } from "../i18n/es";
+
+const today = formatDateForInputES(new Date());
+const nextMonth = new Date();
+nextMonth.setMonth(nextMonth.getMonth() + 1);
+const defaultEnd = formatDateForInputES(nextMonth);
+---
+
+<div class="card-shadow-lg rounded-3xl bg-canvas border border-hairline p-6 md:p-10 w-full" style="width:100%;">
+  <!-- Quick Date Interval Presets in Spanish -->
+  <div class="mb-6 pb-6 border-b border-hairline">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="text-xs font-mono font-medium uppercase tracking-wider text-mute mr-1">Accesos Rápidos:</span>
+      <button
+        type="button"
+        class="quick-preset-es px-3 py-1.5 rounded-full text-xs font-semibold bg-canvas-soft border border-hairline hover:border-link text-ink hover:text-link transition-colors cursor-pointer"
+        data-preset="next-30"
+      >
+        +30 Días
+      </button>
+      <button
+        type="button"
+        class="quick-preset-es px-3 py-1.5 rounded-full text-xs font-semibold bg-canvas-soft border border-hairline hover:border-link text-ink hover:text-link transition-colors cursor-pointer"
+        data-preset="next-90"
+      >
+        +90 Días (Trimestre)
+      </button>
+      <button
+        type="button"
+        class="quick-preset-es px-3 py-1.5 rounded-full text-xs font-semibold bg-canvas-soft border border-hairline hover:border-link text-ink hover:text-link transition-colors cursor-pointer"
+        data-preset="end-month"
+      >
+        Fin de Mes
+      </button>
+      <button
+        type="button"
+        class="quick-preset-es px-3 py-1.5 rounded-full text-xs font-semibold bg-canvas-soft border border-hairline hover:border-link text-ink hover:text-link transition-colors cursor-pointer"
+        data-preset="new-year"
+      >
+        Año Nuevo
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div class="flex flex-col gap-2">
+      <label for="start-date-es" class="text-xs font-mono font-semibold uppercase tracking-wider text-mute">
+        Fecha de Inicio
+      </label>
+      <input
+        type="date"
+        id="start-date-es"
+        name="start-date"
+        value={today}
+        required
+        class="h-12 w-full rounded-xl border border-hairline bg-canvas px-4 text-sm text-ink outline-none transition-all focus:border-link focus:ring-1 focus:ring-link shadow-sm"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="end-date-es" class="text-xs font-mono font-semibold uppercase tracking-wider text-mute">
+        Fecha Final
+      </label>
+      <input
+        type="date"
+        id="end-date-es"
+        name="end-date"
+        value={defaultEnd}
+        required
+        class="h-12 w-full rounded-xl border border-hairline bg-canvas px-4 text-sm text-ink outline-none transition-all focus:border-link focus:ring-1 focus:ring-link shadow-sm"
+      />
+    </div>
+  </div>
+
+  <div class="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-hairline pt-6">
+    <div class="flex items-center gap-2">
+      <input type="checkbox" id="include-end-date-es" class="h-4 w-4 rounded accent-primary cursor-pointer" />
+      <label for="include-end-date-es" class="text-sm text-body cursor-pointer select-none">
+        Incluir fecha final en el cálculo (sumar 1 día completo)
+      </label>
+    </div>
+    
+    <button
+      type="button"
+      id="calculate-btn-es"
+      class="h-12 rounded-full px-8 text-sm font-semibold transition-all active:scale-95 bg-primary text-on-primary hover:bg-primary/90 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Calcular Días</span>
+    </button>
+  </div>
+
+  <!-- Results Section in Spanish -->
+  <div id="results-es" class="mt-8 hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div class="border-t border-hairline pt-8">
+      <!-- 4 Primary Metric Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+          <span class="text-xs font-mono font-medium uppercase tracking-wider text-mute mb-1">Días Naturales</span>
+          <span id="result-days-es" class="text-3xl sm:text-4xl font-black tracking-tight text-primary tabular-nums">0</span>
+          <span class="text-[11px] text-mute mt-1">Tiempo Total</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+          <span class="text-xs font-mono font-medium uppercase tracking-wider text-mute mb-1">Días Hábiles</span>
+          <span id="result-business-es" class="text-3xl sm:text-4xl font-black tracking-tight text-link tabular-nums">0</span>
+          <span class="text-[11px] text-mute mt-1">Lunes a Viernes</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+          <span class="text-xs font-mono font-medium uppercase tracking-wider text-mute mb-1">Semanas</span>
+          <span id="result-weeks-es" class="text-3xl sm:text-4xl font-black tracking-tight text-violet tabular-nums">0</span>
+          <span class="text-[11px] text-mute mt-1">Semanas Llenas</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+          <span class="text-xs font-mono font-medium uppercase tracking-wider text-mute mb-1">Fines de Semana</span>
+          <span id="result-weekends-es" class="text-3xl sm:text-4xl font-black tracking-tight text-amber-500 tabular-nums">0</span>
+          <span class="text-[11px] text-mute mt-1">Sábados y Domingos</span>
+        </div>
+      </div>
+
+      <!-- Secondary Breakdowns -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="rounded-2xl bg-canvas-soft p-4 border border-hairline">
+          <p class="text-xs font-mono text-mute uppercase tracking-wider">Desglose</p>
+          <p id="result-breakdown-es" class="mt-1 font-semibold text-sm text-ink">...</p>
+        </div>
+
+        <div class="rounded-2xl bg-canvas-soft p-4 border border-hairline">
+          <p class="text-xs font-mono text-mute uppercase tracking-wider">Porcentaje del Año</p>
+          <p id="result-percentage-es" class="mt-1 font-semibold text-sm text-violet">...</p>
+        </div>
+
+        <div class="rounded-2xl bg-canvas-soft p-4 border border-hairline">
+          <p class="text-xs font-mono text-mute uppercase tracking-wider">Total de Horas</p>
+          <p id="result-hours-es" class="mt-1 font-semibold text-sm font-mono text-ink">...</p>
+        </div>
+      </div>
+
+      <!-- Copy Result Helper -->
+      <div class="flex items-center justify-end">
+        <button
+          type="button"
+          id="copy-result-btn-es"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink hover:text-link transition-all cursor-pointer shadow-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          <span id="copy-result-text-es">Copiar Resumen</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { calculateDateDiff, formatDateForInput } from "../utils/date";
+
+  function initCalculatorES() {
+    const calculateBtn = document.getElementById('calculate-btn-es');
+    const resultsDiv = document.getElementById('results-es');
+    
+    const startDateInput = document.getElementById('start-date-es') as HTMLInputElement;
+    const endDateInput = document.getElementById('end-date-es') as HTMLInputElement;
+    const includeEndDateCheckbox = document.getElementById('include-end-date-es') as HTMLInputElement;
+
+    const resultDays = document.getElementById('result-days-es');
+    const resultBusiness = document.getElementById('result-business-es');
+    const resultWeeks = document.getElementById('result-weeks-es');
+    const resultWeekends = document.getElementById('result-weekends-es');
+    const resultBreakdown = document.getElementById('result-breakdown-es');
+    const resultPercentage = document.getElementById('result-percentage-es');
+    const resultHours = document.getElementById('result-hours-es');
+    const copyResultBtn = document.getElementById('copy-result-btn-es');
+    const copyResultText = document.getElementById('copy-result-text-es');
+
+    // Quick presets
+    const presetButtons = document.querySelectorAll('.quick-preset-es');
+    presetButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const preset = btn.getAttribute('data-preset');
+        const now = new Date();
+        const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let end = new Date(start);
+
+        if (preset === 'next-30') {
+          end.setDate(end.getDate() + 30);
+        } else if (preset === 'next-90') {
+          end.setDate(end.getDate() + 90);
+        } else if (preset === 'end-month') {
+          end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        } else if (preset === 'new-year') {
+          const nextYear = now.getMonth() === 11 && now.getDate() >= 31 ? now.getFullYear() + 2 : now.getFullYear() + 1;
+          end = new Date(nextYear, 0, 1);
+        }
+
+        if (startDateInput) startDateInput.value = formatDateForInput(start);
+        if (endDateInput) endDateInput.value = formatDateForInput(end);
+        calculateES();
+      });
+    });
+
+    function calculateES() {
+      if (!startDateInput || !endDateInput) return;
+
+      const start = new Date(startDateInput.value + 'T00:00:00');
+      const end = new Date(endDateInput.value + 'T00:00:00');
+      
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) return;
+
+      let diff = calculateDateDiff(start, end);
+      
+      if (includeEndDateCheckbox && includeEndDateCheckbox.checked) {
+        diff.days += 1;
+        if (end.getDay() !== 0 && end.getDay() !== 6) {
+          diff.businessDays += 1;
+        }
+      }
+
+      const weekendCount = Math.max(0, diff.days - diff.businessDays);
+      const totalHours = diff.days * 24;
+
+      if (resultDays) resultDays.innerText = diff.days.toLocaleString('es-ES');
+      if (resultBusiness) resultBusiness.innerText = diff.businessDays.toLocaleString('es-ES');
+      if (resultWeeks) resultWeeks.innerText = diff.weeks.toLocaleString('es-ES');
+      if (resultWeekends) resultWeekends.innerText = weekendCount.toLocaleString('es-ES');
+      
+      if (resultBreakdown) {
+        resultBreakdown.innerText = `${diff.months} meses, o ${diff.weeks} semanas y ${diff.days % 7} días.`;
+      }
+      
+      if (resultPercentage) {
+        const pct = ((diff.days / 365) * 100).toFixed(2);
+        resultPercentage.innerText = `${pct}% de un año estándar de 365 días`;
+      }
+
+      if (resultHours) {
+        resultHours.innerText = `${totalHours.toLocaleString('es-ES')} horas`;
+      }
+
+      if (copyResultBtn && copyResultText) {
+        copyResultBtn.onclick = () => {
+          const textToCopy = `Entre ${startDateInput.value} y ${endDateInput.value}: ${diff.days} días naturales (${diff.businessDays} días hábiles, ${weekendCount} fines de semana, ${diff.weeks} semanas). Calculado en countdaysbetween.com/es/`;
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            copyResultText.innerText = '¡Copiado! ✅';
+            setTimeout(() => {
+              copyResultText.innerText = 'Copiar Resumen';
+            }, 2500);
+          });
+        };
+      }
+
+      resultsDiv?.classList.remove('hidden');
+      resultsDiv?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    calculateBtn?.addEventListener('click', calculateES);
+  }
+
+  initCalculatorES();
+  document.addEventListener('astro:page-load', initCalculatorES);
+</script>

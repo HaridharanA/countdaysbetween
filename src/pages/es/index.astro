@@ -1,0 +1,183 @@
+---
+import LayoutEs from "../../layouts/LayoutEs.astro";
+import CalculatorEs from "../../components/CalculatorEs.astro";
+import holidaysEs from "../../data/holidays-es.json";
+
+const upcomingHolidays = holidaysEs.filter((h) => h.year === 2026).slice(0, 6);
+
+const pageTitle = "Calculadora de Días Entre Dos Fechas — Días Hábiles y Naturales";
+const pageDescription = "Calcula la cantidad exacta de días naturales, días hábiles y semanas entre dos fechas. Herramienta online gratuita con festivos para España y Latinoamérica.";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Calculadora de Días Entre Fechas",
+      "url": "https://www.countdaysbetween.com/es/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "description": "Calculadora online para contar días naturales y días hábiles entre dos fechas."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuál es la diferencia entre días naturales y días hábiles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los días naturales (o calendario) incluyen todos los días del año de forma ininterrumpida (de lunes a domingo, incluidos festivos). Los días hábiles (o laborables) corresponden únicamente a los días laborables de lunes a viernes, excluyendo fines de semana y festivos oficiales."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo se cuentan los plazos administrativos y judiciales en días hábiles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Conforme a las leyes de procedimiento administrativo (como la Ley 39/2015 en España o el Código de Procedimiento en México), cuando un plazo se fija en días hábiles se excluyen los sábados, domingos y los días declarados festivos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo calcular días entre dos fechas en Excel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En Excel, para días hábiles se utiliza la fórmula =DIAS.LAB(fecha_inicial; fecha_final). Para días naturales totales se resta directamente =fecha_final - fecha_inicial."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<LayoutEs title={pageTitle} description={pageDescription}>
+  <!-- Hero Section -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="mb-8" style="width:100%;">
+      <div class="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-link border border-hairline bg-canvas-soft mb-4">
+        <span>🇪🇸 🇲🇽</span>
+        <span>Calculadora para España y Latinoamérica</span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
+        Calculadora de <span class="text-link">Días Entre Fechas</span>
+      </h1>
+      <p class="text-lg text-body" style="width:100%; max-width:650px;">
+        Descubre el número exacto de días naturales, días hábiles, semanas y porcentaje del año entre cualquier intervalo de fechas.
+      </p>
+    </div>
+
+    <!-- Main Calculator Embed -->
+    <div id="tool" class="scroll-mt-24">
+      <CalculatorEs />
+    </div>
+  </section>
+
+  <!-- Popular Holiday Countdowns Shortcut Section -->
+  <section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Festivos y Vacaciones Populares</h2>
+        <p class="text-sm text-mute mt-1">Cuenta regresiva en tiempo real para los principales días festivos de 2026</p>
+      </div>
+      <a href="/es/cuenta-regresiva/" class="text-xs font-semibold text-link hover:underline">Ver Todos →</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {upcomingHolidays.map((h) => (
+        <a
+          href={`/es/dias-hasta/${h.slug}/`}
+          class="flex items-center gap-3 p-4 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all group card-shadow"
+        >
+          <span class="text-2xl flex-shrink-0">{h.icon}</span>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-semibold text-sm text-ink group-hover:text-link transition-colors truncate">{h.name}</h3>
+            <p class="text-xs text-mute truncate">{h.dayOfWeek}, {h.date}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Key Tool Cards in Spanish -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <a href="/es/dias-habiles/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink group-hover:text-link"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Días Hábiles →</h3>
+        <p class="text-xs text-body">Excluye fines de semana para cálculo de plazos laborales, legales y contractuales.</p>
+      </div>
+    </a>
+
+    <a href="/es/cuenta-regresiva/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-violet transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-violet transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-violet transition-colors">Cuenta de Vacaciones →</h3>
+        <p class="text-xs text-body">Conoce cuántos días exactos faltan para el verano, puentes festivos y Navidad.</p>
+      </div>
+    </a>
+
+    <a href="#tool" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Desglose Detallado</h3>
+        <p class="text-xs text-body">Resultados precisos en días, semanas, meses, horas totales y porcentaje del año.</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- Educational Context in Spanish -->
+  <section class="mb-20 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="prose-content w-full" style="width:100%;">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+        Cómo Calcular Días Entre Fechas: Reglas de Cómputo
+      </h2>
+      <p class="text-body leading-relaxed mb-4" style="width:100%;">
+        En el ámbito administrativo, legal y laboral de España y América Latina, el cómputo de plazos varía si se trata de <strong>días naturales</strong> o <strong>días hábiles</strong>.
+      </p>
+
+      <h3 class="text-xl font-bold mt-6 mb-3 text-ink">Días Naturales vs. Días Hábiles</h3>
+      <ul class="list-disc pl-6 space-y-2 text-sm text-body" style="width:100%;">
+        <li><strong>Días Naturales:</strong> Se computan todos los días del calendario consecutivamente (incluyendo sábados, domingos y festivos). Es la norma general para contratos de alquiler, periodos de garantía civil y plazos de prescripción.</li>
+        <li><strong>Días Hábiles:</strong> Se computan únicamente los días de lunes a viernes, excluyendo los sábados, domingos y días festivos oficiales. Es la regla obligatoria en la mayoría de los trámites con la Administración Pública y tribunales de justicia.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ Section in Spanish -->
+  <section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8 text-ink" style="width:100%;">
+      Preguntas Frecuentes (FAQ)
+    </h2>
+    <div class="space-y-4" style="width:100%;">
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">¿Qué son los días hábiles en España y México?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Son los días laborables de lunes a viernes, excluyendo los fines de semana (sábados y domingos) y los días festivos oficiales declarados por el Estado o Comunidad Autónoma.
+        </p>
+      </details>
+
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">¿La calculadora contempla los años bisiestos?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Sí. El cálculo matemático incluye automáticamente el día 29 de febrero en los años bisiestos (como 2024 y 2028).
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</LayoutEs>
