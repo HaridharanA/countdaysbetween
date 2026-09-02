@@ -31,7 +31,15 @@ export default defineConfig({
     plugins: [tailwindcss()],
     server: {
       watch: {
-        ignored: ['**/*.srt', '**/countdaysbetween-audit/**']
+        ignored: [
+          '**/.git/**',
+          '**/.agents/**',
+          '**/claude-seo/**',
+          '**/countdaysbetween-audit/**',
+          '**/dist/**',
+          '**/.wrangler/**',
+          '**/*.srt'
+        ]
       }
     }
   }
