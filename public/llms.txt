@@ -27,6 +27,10 @@ CountDays provides instant, mathematically precise calendar calculations for ind
    - URL: https://www.countdaysbetween.com/countdown
    - Description: Offers live countdown timers for 80+ federal holidays, cultural events, and custom shareable countdown timers.
 
+6. **Holiday Date Differences & Seasonal Spans**
+   - URL: https://www.countdaysbetween.com/days-between/thanksgiving-and-christmas/
+   - Description: Calculates exact duration, business days, and 5-year comparison schedules between major holiday pairs (e.g., Thanksgiving to Christmas, Memorial Day to Labor Day, Halloween to Thanksgiving).
+
 ## Date Calculation Rules & Methodology
 
 - **Calendar-Based Day Counting:** Durations are calculated using standard UTC midnight-to-midnight date deltas.

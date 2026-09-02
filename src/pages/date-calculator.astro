@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import RelatedCalculators from "../components/RelatedCalculators.astro";
 
-const pageTitle = "Add or Subtract Days from Date Calculator | Date Plus Days";
-const pageDescription = "Calculate the exact future or past calendar date by adding or subtracting days, weeks, months, or business days. Fast, free, and accurate.";
+const pageTitle = "Date Calculator — Add or Subtract Days, Weeks & Months";
+const pageDescription = "Calculate future or past calendar dates by adding or subtracting days, weeks, months, or business days. Fast, free, and accurate date duration calculator.";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -14,7 +14,7 @@ const pageDescription = "Calculate the exact future or past calendar date by add
       <span>Date Duration & Offset Tool</span>
     </div>
     <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
-      Date Plus / Minus <span class="text-link">Calculator.</span>
+      Date Calculator: <span class="text-link">Add or Subtract Days</span>
     </h1>
     <p class="text-lg text-body mb-6" style="width:100%; max-width:600px;">
       Find the exact future or past date by adding or subtracting days, weeks, months, or working business days from any date.
@@ -167,23 +167,63 @@ const pageDescription = "Calculate the exact future or past calendar date by add
   <!-- Informational SEO Guide -->
   <section class="mb-24 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <div class="prose-content w-full" style="width:100%;">
-      <h2 class="text-3xl font-bold mb-6" style="width:100%;">How to Add or Subtract Days from Any Date</h2>
-      <p style="width:100%;">
-        Adding or subtracting a specific duration from a calendar date is one of the most frequent date math tasks in international travel, project management, real estate, and legal compliance. Whether you need to know <strong>"what date is 90 days from today"</strong> for a visa limitation or <strong>"what date was 30 days ago"</strong> for a billing invoice, our calculator computes the exact target date instantaneously.
+      <h2 class="text-3xl font-bold mb-6 text-ink" style="width:100%;">How to Add or Subtract Days from Any Date</h2>
+      <p style="width:100%; font-size:1.05rem; line-height:1.7;">
+        Using our <strong>Date Calculator</strong>, you can instantly determine a future or past date by offsetting calendar days, business days, weeks, months, or full years from any reference start date. Whether you are tracking <strong>visa 90/180 rule limits</strong>, managing legal filing deadlines, calculating pregnancy due dates, or planning project milestones, this tool computes exact calendar duration without requiring manual calendar flipping.
       </p>
 
-      <h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%;">Common Real-World Use Cases</h3>
-      <ul class="list-disc pl-6 space-y-2" style="width:100%;">
-        <li><strong>Visa & Travel Restrictions:</strong> The European Schengen 90/180-day rule requires calculating exactly when your 90-day tourist allowance expires.</li>
-        <li><strong>Legal & Statutory Deadlines:</strong> Legal summons, contract cooling-off periods, and FOIA requests are often measured in 14, 30, or 60 calendar days.</li>
-        <li><strong>Pregnancy Due Dates:</strong> Adding 280 days (40 weeks) from the first day of the last menstrual period is the standard medical calculation for estimated due dates (EDD).</li>
-        <li><strong>Product Warranties & Return Windows:</strong> Tracking the exact expiration date for 30-day, 60-day, or 1-year product guarantees.</li>
-        <li><strong>Finance & Interest Accrual:</strong> Calculating promissory note maturities (such as 30, 60, 90, or 180-day term deposits).</li>
-      </ul>
+      <h3 class="text-2xl font-semibold mt-8 mb-4 text-ink" style="width:100%;">Step-by-Step Instructions</h3>
+      <ol class="list-decimal pl-6 space-y-3" style="width:100%;">
+        <li><strong>Select your Start Date:</strong> Pick any starting point on the calendar. By default, it uses today's date.</li>
+        <li><strong>Choose Operation:</strong> Toggle between <em>Add Time (+)</em> for future dates or <em>Subtract Time (-)</em> for past dates.</li>
+        <li><strong>Input Duration:</strong> Enter the number of units and select Days, Weeks, Months, or Years from the dropdown menu.</li>
+        <li><strong>Toggle Business Days (Optional):</strong> Check <em>"Count business days only"</em> to automatically bypass Saturdays and Sundays.</li>
+        <li><strong>Read Target Date:</strong> Instantly view the formatted target date, weekday name, day-of-year index, and ISO week number.</li>
+      </ol>
 
-      <h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%;">Calendar Days vs. Business Days Calculation</h3>
+      <h3 class="text-2xl font-semibold mt-8 mb-4 text-ink" style="width:100%;">Worked Examples for Common Intervals</h3>
+      <div class="overflow-x-auto my-6" style="width:100%;">
+        <table class="w-full text-left border-collapse border border-hairline rounded-xl overflow-hidden text-sm" style="width:100%;">
+          <thead>
+            <tr class="bg-canvas-soft border-b border-hairline text-ink font-semibold">
+              <th class="p-3 border-r border-hairline">Preset Interval</th>
+              <th class="p-3 border-r border-hairline">Common Use Case</th>
+              <th class="p-3">Calculation Method</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-body">
+            <tr>
+              <td class="p-3 font-semibold text-ink border-r border-hairline">+30 Days</td>
+              <td class="p-3 border-r border-hairline">Invoice payment terms (Net 30), product return policy</td>
+              <td class="p-3">Adds 30 consecutive calendar days</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold text-ink border-r border-hairline">+60 Days</td>
+              <td class="p-3 border-r border-hairline">Tenant notice periods, contract renewal warnings</td>
+              <td class="p-3">Adds 60 consecutive calendar days</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold text-ink border-r border-hairline">+90 Days</td>
+              <td class="p-3 border-r border-hairline">Schengen tourist visa stays, corporate probation reviews</td>
+              <td class="p-3">Adds 90 consecutive calendar days</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold text-ink border-r border-hairline">+180 Days</td>
+              <td class="p-3 border-r border-hairline">Semi-annual financial reporting, passport validity rules</td>
+              <td class="p-3">Adds 180 consecutive calendar days</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold text-ink border-r border-hairline">+280 Days (40 Weeks)</td>
+              <td class="p-3 border-r border-hairline">Obstetric pregnancy estimated due date (EDD)</td>
+              <td class="p-3">Adds 280 calendar days from last menstrual period</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="text-2xl font-semibold mt-8 mb-4 text-ink" style="width:100%;">Calendar Days vs. Working Business Days</h3>
       <p style="width:100%;">
-        When calculating working schedules, checking <em>"Count business days only"</em> skips Saturdays and Sundays. For example, adding 10 business days to a Monday results in the second following Monday (14 calendar days total), accounting for the two intervening weekends.
+        Standard calendar calculations include every day of the week (Monday through Sunday, plus leap days). When measuring project deadlines or banking settlements, selecting <em>"Count business days only"</em> iterates exclusively through Mondays, Tuesdays, Wednesdays, Thursdays, and Fridays. For instance, adding 10 business days to a Monday lands 14 calendar days later on the second Monday, successfully skipping 4 weekend days.
       </p>
     </div>
   </section>
@@ -233,7 +273,7 @@ const pageDescription = "Calculate the exact future or past calendar date by add
     "@graph": [
       {
         "@type": "WebApplication",
-        "name": "Date Add Subtract Calculator",
+        "name": "Date Calculator — Add or Subtract Days",
         "url": "https://www.countdaysbetween.com/date-calculator/",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "All",
@@ -251,8 +291,39 @@ const pageDescription = "Calculate the exact future or past calendar date by add
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Date Add / Subtract Calculator",
+            "name": "Date Calculator",
             "item": "https://www.countdaysbetween.com/date-calculator/"
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to Add or Subtract Days from Any Date",
+        "description": "Step-by-step instructions for calculating past or future dates by offsetting days, weeks, months, or business days.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Select Start Date",
+            "text": "Choose your starting reference date on the calendar."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Choose Operation",
+            "text": "Toggle Add Time (+) for future dates or Subtract Time (-) for past dates."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Set Duration & Units",
+            "text": "Type the number of offset units and select Days, Weeks, Months, or Years."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "View Target Date",
+            "text": "Read the exact calculated target date, day of the week, and ISO week number."
           }
         ]
       },
@@ -264,7 +335,15 @@ const pageDescription = "Calculate the exact future or past calendar date by add
             "name": "What date is 90 days from today?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Click the +90 Days preset on our date calculator to compute the exact future calendar date from today."
+              "text": "Click the '+90 Days' quick preset above to instantly see the exact date, weekday, and week number 90 days into the future starting from today."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does leap year affect adding a full year (365 days)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A standard calendar year has 365 days, whereas leap years contain 366 days (including February 29th). If your interval crosses a leap day, adding 365 calendar days will fall on the day before the same date next year, while adding '1 Year' lands on the identical calendar date."
             }
           },
           {
@@ -272,7 +351,7 @@ const pageDescription = "Calculate the exact future or past calendar date by add
             "name": "Can I add working business days only?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Toggle the 'Count business days only' option to skip weekends automatically."
+              "text": "Yes. Toggle the 'Count business days only' checkbox. The calculator will advance day-by-day and exclude all Saturdays and Sundays automatically."
             }
           }
         ]

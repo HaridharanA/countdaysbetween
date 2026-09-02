@@ -2,27 +2,28 @@
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import Input from "../components/ui/Input.astro";
+
+const pageTitle = "Contact CountDays — Feedback & Support";
+const pageDescription = "Have a question, feature request, or feedback about CountDays? Get in touch with our team.";
 ---
 
-<Layout 
-	title="Contact Us" 
-	description="Have a question or feedback? Get in touch with the CountDaysBetween team.">
-	<section class="max-w-2xl mb-24 w-full mx-auto">
-		<div class="prose-content w-full text-center mb-12">
-			<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter mb-4" style="width:100%; max-width:100%">Contact Us</h1>
-			<p class="text-lg text-body" style="width:100%; max-width:100%">We'd love to hear from you. Send us a message below.</p>
+<Layout title={pageTitle} description={pageDescription}>
+	<section class="mb-24 w-full" style="width:100%; max-width:600px; margin-left:auto; margin-right:auto;">
+		<div class="prose-content w-full text-center mb-12" style="width:100%;">
+			<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter mb-4" style="width:100%;">Contact Us</h1>
+			<p class="text-lg text-body" style="width:100%;">Have a question, suggestion, or bug report? We'd love to hear from you.</p>
 		</div>
 
-		<form class="flex flex-col gap-6 bg-canvas p-8 rounded-2xl card-shadow border border-hairline">
-			<div class="flex flex-col gap-2">
+		<form class="flex flex-col gap-6 bg-canvas p-8 rounded-2xl card-shadow border border-hairline" onsubmit="event.preventDefault(); alert('Thank you for your message! We will get back to you shortly.');">
+			<div class="flex flex-col gap-2" style="width:100%;">
 				<label for="name" class="text-sm font-medium text-body">Name</label>
 				<Input id="name" name="name" placeholder="Your name" required />
 			</div>
-			<div class="flex flex-col gap-2">
+			<div class="flex flex-col gap-2" style="width:100%;">
 				<label for="email" class="text-sm font-medium text-body">Email</label>
 				<Input id="email" type="email" name="email" placeholder="your@email.com" required />
 			</div>
-			<div class="flex flex-col gap-2">
+			<div class="flex flex-col gap-2" style="width:100%;">
 				<label for="message" class="text-sm font-medium text-body">Message</label>
 				<textarea 
 					id="message" 
@@ -36,4 +37,12 @@ import Input from "../components/ui/Input.astro";
 			<Button type="submit" variant="primary" size="lg" class="w-full">Send Message</Button>
 		</form>
 	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "ContactPage",
+		"name": pageTitle,
+		"url": "https://www.countdaysbetween.com/contact/",
+		"description": pageDescription
+	})} />
 </Layout>

@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import RelatedCalculators from "../components/RelatedCalculators.astro";
 
-const pageTitle = "Exact Age Calculator | Calculate Age in Years, Months, Days & Seconds";
-const pageDescription = "Calculate your exact chronological age down to the second. Find total days lived, countdown to your next birthday, zodiac sign, and 10,000 days milestone.";
+const pageTitle = "Age Calculator — Exact Years, Months, Days & Seconds";
+const pageDescription = "Calculate your exact chronological age in years, months, days, and live seconds. Discover your total days lived, 10,000 days milestone, and zodiac sign.";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -14,7 +14,7 @@ const pageDescription = "Calculate your exact chronological age down to the seco
       <span>Chronological Age Tool</span>
     </div>
     <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
-      Exact Age <span class="text-rose-500">Calculator.</span>
+      Exact Age Calculator — <span class="text-rose-500">Years, Months & Days</span>
     </h1>
     <p class="text-lg text-body mb-6" style="width:100%; max-width:600px;">
       Discover your precise chronological age in years, months, weeks, days, hours, and live ticking seconds.
@@ -124,17 +124,31 @@ const pageDescription = "Calculate your exact chronological age down to the seco
   <!-- Informational SEO Guide -->
   <section class="mb-24 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <div class="prose-content w-full" style="width:100%;">
-      <h2 class="text-3xl font-bold mb-6" style="width:100%;">How Chronological Age Calculation Works</h2>
-      <p style="width:100%;">
-        Chronological age is the exact amount of time that has elapsed from an individual's date of birth to a specific date. While humans typically refer to their age in completed whole years (e.g., "I am 28 years old"), precise date math requires accounting for month lengths (ranging from 28 to 31 days) and leap years with February 29th.
+      <h2 class="text-3xl font-bold mb-6 text-ink" style="width:100%;">How Chronological Age Calculation Works</h2>
+      <p style="width:100%; font-size:1.05rem; line-height:1.7;">
+        <strong>Chronological age</strong> is the exact amount of elapsed time from an individual's moment of birth to a specific target date. While everyday speech measures age in completed whole years (e.g., "I am 28 years old"), precise date math requires accounting for month-length variations (28 to 31 days) and quadrennial leap years containing February 29th.
       </p>
 
-      <h3 class="text-2xl font-semibold mt-8 mb-4" style="width:100%;">Major Life Age Milestones</h3>
+      <h3 class="text-2xl font-semibold mt-8 mb-4 text-ink" style="width:100%;">Step-by-Step Instructions</h3>
+      <ol class="list-decimal pl-6 space-y-3" style="width:100%;">
+        <li><strong>Enter Date of Birth:</strong> Select your year, month, and day of birth in the input field.</li>
+        <li><strong>Set Target Date:</strong> Defaults to today's date, or pick any past or future date to calculate your age at a specific event.</li>
+        <li><strong>Read Primary Breakdown:</strong> Instantly view your exact age in years, full calendar months, and remaining days.</li>
+        <li><strong>Explore Life Metrics:</strong> Check total days lived, total weeks, hours, live ticking seconds, next birthday countdown, and astrological sign.</li>
+      </ol>
+
+      <h3 class="text-2xl font-semibold mt-8 mb-4 text-ink" style="width:100%;">Major Life Age Milestones</h3>
       <ul class="list-disc pl-6 space-y-2" style="width:100%;">
-        <li><strong>10,000 Days Alive:</strong> Typically occurs around age 27 years and 4 months. Reaching 10,000 days is one of the most celebrated personal milestones on social media.</li>
+        <li><strong>10,000 Days Alive:</strong> Typically occurs around age 27 years and 4 months. Reaching 10,000 days is one of the most popular life milestones celebrated worldwide.</li>
         <li><strong>20,000 Days Alive:</strong> Reached around age 54 years and 9 months.</li>
-        <li><strong>1 Billion Seconds:</strong> Humans celebrate their one-billionth second alive around age 31 years, 8 months, and 19 days.</li>
+        <li><strong>1 Billion Seconds:</strong> Celebrated at approximately age 31 years, 8 months, and 19 days.</li>
+        <li><strong>Legal & Retirement Milestones:</strong> Track exact progress toward legal voting age (18), adulthood (21), and full retirement benefits (62 to 67 years).</li>
       </ul>
+
+      <h3 class="text-2xl font-semibold mt-8 mb-4 text-ink" style="width:100%;">Western vs. Eastern Age Systems</h3>
+      <p style="width:100%;">
+        In international law and Western culture, a person turns 1 year old after 12 full months have passed. In traditional East Asian age reckoning (such as the traditional Korean <em>Eumryeok Nae</em>), a newborn is considered 1 year old at birth and gains an additional year on New Year's Day. Our calculator uses the international standard Western chronological age calculation.
+      </p>
     </div>
   </section>
 
@@ -197,6 +211,31 @@ const pageDescription = "Calculate your exact chronological age down to the seco
         ]
       },
       {
+        "@type": "HowTo",
+        "name": "How to Calculate Your Exact Chronological Age",
+        "description": "Step-by-step guide to calculating exact age in years, months, days, and total days lived.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Enter Date of Birth",
+            "text": "Select your exact birth date in the Date of Birth input field."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Select Target Date",
+            "text": "Leave as today or choose a past or future date."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Read Exact Age Results",
+            "text": "View completed years, months, days, total weeks, hours, and live ticking seconds."
+          }
+        ]
+      },
+      {
         "@type": "FAQPage",
         "mainEntity": [
           {
@@ -204,7 +243,15 @@ const pageDescription = "Calculate your exact chronological age down to the seco
             "name": "How is exact age in years, months, and days calculated?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The calculator determines completed whole years, full calendar months, and exact remaining days."
+              "text": "The calculator first determines total whole completed years. It then computes remaining full calendar months, followed by the remaining days, while factoring in the precise days in each intervening month."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When will I reach 10,000 days alive?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Enter your date of birth in the calculator above. The milestone card will instantly calculate the exact future date of your 10,000th day on Earth and the days remaining."
             }
           }
         ]

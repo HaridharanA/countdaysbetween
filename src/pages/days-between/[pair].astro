@@ -1,0 +1,355 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getAllHolidayPairsData, type HolidayPairData } from "../../data/holidayPairs";
+
+export async function getStaticPaths() {
+  const allPairs = getAllHolidayPairsData();
+  return allPairs.map((pair) => ({
+    params: { pair: pair.slug },
+    props: { pair }
+  }));
+}
+
+interface Props {
+  pair: HolidayPairData;
+}
+
+const { pair } = Astro.props;
+
+const pageTitle = `Days Between ${pair.holiday1.holidayName} and ${pair.holiday2.holidayName} (2026)`;
+const pageDescription = `Find out exactly how many days, weeks, and business days between ${pair.holiday1.holidayName} (${pair.currentCalculation.date1}) and ${pair.holiday2.holidayName} (${pair.currentCalculation.date2}). Free calendar duration breakdown and 5-year comparison table.`;
+
+const calc = pair.currentCalculation;
+const percentOfYear = ((calc.totalDays / 365) * 100).toFixed(1);
+
+// All pairs for related links
+const allPairs = getAllHolidayPairsData();
+const relatedPairs = allPairs
+  .filter((p) => p.slug !== pair.slug)
+  .slice(0, 6);
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- Breadcrumbs -->
+  <div class="mb-8 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <nav class="flex items-center gap-2 text-xs font-mono text-mute">
+      <a href="/" class="hover:text-ink transition-colors">Home</a>
+      <span>/</span>
+      <a href="/countdown/" class="hover:text-ink transition-colors">Calculators</a>
+      <span>/</span>
+      <span class="text-ink font-medium truncate">{pair.title}</span>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="mb-12 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="relative w-full overflow-hidden rounded-3xl border border-hairline bg-canvas p-8 md:p-12 card-shadow-lg mb-8">
+      <div class="mesh-gradient absolute -right-20 -top-20 h-64 w-64 opacity-20 pointer-events-none rounded-full blur-3xl"></div>
+      
+      <div class="relative z-10 w-full" style="width:100%;">
+        <!-- Category & Icon Badge -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-6">
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold bg-canvas-soft border border-hairline text-ink">
+            <span>{pair.holiday1.icon}</span>
+            <span>{pair.holiday1.holidayName}</span>
+          </span>
+          <span class="text-mute font-mono text-xs">➔</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold bg-canvas-soft border border-hairline text-ink">
+            <span>{pair.holiday2.icon}</span>
+            <span>{pair.holiday2.holidayName}</span>
+          </span>
+          <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-link border border-hairline">
+            {pair.category}
+          </span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink text-center mb-4" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+          Days Between <span class="text-link">{pair.holiday1.holidayName}</span> and <span class="text-link">{pair.holiday2.holidayName}</span>
+        </h1>
+
+        <p class="text-base md:text-lg text-body text-center mb-8" style="width:100%; max-width:650px; margin-left:auto; margin-right:auto;">
+          In 2026, <strong>{pair.holiday1.holidayName}</strong> is on <span class="text-ink font-semibold">{calc.dayOfWeek1}, {calc.date1}</span> and <strong>{pair.holiday2.holidayName}</strong> is on <span class="text-ink font-semibold">{calc.dayOfWeek2}, {calc.date2}</span>.
+        </p>
+
+        <!-- Main Stats Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full" style="width:100%;">
+          <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="text-3xl sm:text-4xl font-black text-primary tabular-nums">{calc.totalDays}</span>
+            <span class="text-xs uppercase font-mono tracking-wider text-mute mt-1">Total Days</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="text-3xl sm:text-4xl font-black text-link tabular-nums">{calc.businessDays}</span>
+            <span class="text-xs uppercase font-mono tracking-wider text-mute mt-1">Business Days</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="text-3xl sm:text-4xl font-black text-violet tabular-nums">{calc.weeks}w {calc.remainingDays}d</span>
+            <span class="text-xs uppercase font-mono tracking-wider text-mute mt-1">Weeks & Days</span>
+          </div>
+
+          <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="text-3xl sm:text-4xl font-black text-amber-500 tabular-nums">{calc.weekendDays}</span>
+            <span class="text-xs uppercase font-mono tracking-wider text-mute mt-1">Weekend Days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Metric Table Section -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+      2026 Duration Breakdown & Details
+    </h2>
+
+    <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas card-shadow">
+      <table class="w-full text-left text-sm" style="width:100%;">
+        <thead class="bg-canvas-soft border-b border-hairline text-xs uppercase font-mono text-mute">
+          <tr>
+            <th class="px-6 py-4">Measurement</th>
+            <th class="px-6 py-4 text-right">Value (2026)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-hairline text-body">
+          <tr>
+            <td class="px-6 py-4 font-medium text-ink">Starting Holiday ({pair.holiday1.holidayName})</td>
+            <td class="px-6 py-4 text-right font-mono">{calc.dayOfWeek1}, {calc.date1}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 font-medium text-ink">Ending Holiday ({pair.holiday2.holidayName})</td>
+            <td class="px-6 py-4 text-right font-mono">{calc.dayOfWeek2}, {calc.date2}</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 font-medium text-ink">Total Elapsed Days</td>
+            <td class="px-6 py-4 text-right font-bold text-primary">{calc.totalDays} calendar days</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 font-medium text-ink">Working Business Days</td>
+            <td class="px-6 py-4 text-right font-semibold text-link">{calc.businessDays} days (Mon–Fri)</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 font-medium text-ink">Weekend Days</td>
+            <td class="px-6 py-4 text-right text-violet">{calc.weekendDays} days (Sat–Sun)</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 font-medium text-ink">Total Approximate Hours</td>
+            <td class="px-6 py-4 text-right font-mono">{(calc.totalDays * 24).toLocaleString()} hours</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 font-medium text-ink">Share of a Standard Year</td>
+            <td class="px-6 py-4 text-right font-mono">{percentOfYear}% of 365 days</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5-Year Comparison Table (2024 - 2028) -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4 text-ink" style="width:100%;">
+      5-Year Schedule Comparison (2024–2028)
+    </h2>
+    <p class="text-sm text-body mb-6" style="width:100%;">
+      See how the day count between {pair.holiday1.holidayName} and {pair.holiday2.holidayName} shifts from year to year due to calendar shifts and leap days:
+    </p>
+
+    <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas card-shadow">
+      <table class="w-full text-left text-sm" style="width:100%;">
+        <thead class="bg-canvas-soft border-b border-hairline text-xs uppercase font-mono text-mute">
+          <tr>
+            <th class="px-6 py-4">Year</th>
+            <th class="px-6 py-4">{pair.holiday1.holidayName}</th>
+            <th class="px-6 py-4">{pair.holiday2.holidayName}</th>
+            <th class="px-6 py-4 text-right">Total Days</th>
+            <th class="px-6 py-4 text-right">Business Days</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-hairline">
+          {pair.fiveYearSchedule.map((sched) => (
+            <tr class={sched.isCurrentYear ? "bg-primary/5 font-semibold" : ""}>
+              <td class="px-6 py-4 font-medium text-ink">
+                {sched.year}
+                {sched.isCurrentYear && (
+                  <span class="ml-2 inline-block rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary font-mono">
+                    2026
+                  </span>
+                )}
+              </td>
+              <td class="px-6 py-4 text-body text-xs">
+                {sched.date1} <span class="text-mute">({sched.dayOfWeek1.slice(0, 3)})</span>
+              </td>
+              <td class="px-6 py-4 text-body text-xs">
+                {sched.date2} <span class="text-mute">({sched.dayOfWeek2.slice(0, 3)})</span>
+              </td>
+              <td class="px-6 py-4 text-right font-mono font-bold text-primary">
+                {sched.totalDays} days
+              </td>
+              <td class="px-6 py-4 text-right font-mono text-link">
+                {sched.businessDays} days
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Context & Why People Calculate This Section -->
+  <section class="mb-16 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="prose-content w-full" style="width:100%;">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+        Why Track the Days Between {pair.holiday1.holidayName} and {pair.holiday2.holidayName}?
+      </h2>
+      <p class="text-body leading-relaxed mb-6" style="width:100%; max-width:800px;">
+        {pair.intentReason}
+      </p>
+
+      <!-- Holiday Cards with Direct Internal Links -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8 not-prose" style="width:100%;">
+        <div class="p-6 rounded-2xl bg-canvas border border-hairline card-shadow flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl p-2 rounded-xl bg-canvas-soft border border-hairline">{pair.holiday1.icon}</span>
+              <div>
+                <h3 class="font-bold text-base text-ink">{pair.holiday1.holidayName}</h3>
+                <span class="text-xs text-mute font-mono">{pair.holiday1.category}</span>
+              </div>
+            </div>
+            <p class="text-xs text-body line-clamp-3 mb-4">{pair.holiday1.summary}</p>
+          </div>
+          <a
+            href={`/days-until/${pair.holiday1.slug2026}/`}
+            class="inline-flex items-center gap-1.5 text-xs font-semibold text-link hover:underline pt-3 border-t border-hairline"
+          >
+            <span>{pair.holiday1.holidayName} Countdown Page</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-canvas border border-hairline card-shadow flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-2xl p-2 rounded-xl bg-canvas-soft border border-hairline">{pair.holiday2.icon}</span>
+              <div>
+                <h3 class="font-bold text-base text-ink">{pair.holiday2.holidayName}</h3>
+                <span class="text-xs text-mute font-mono">{pair.holiday2.category}</span>
+              </div>
+            </div>
+            <p class="text-xs text-body line-clamp-3 mb-4">{pair.holiday2.summary}</p>
+          </div>
+          <a
+            href={`/days-until/${pair.holiday2.slug2026}/`}
+            class="inline-flex items-center gap-1.5 text-xs font-semibold text-link hover:underline pt-3 border-t border-hairline"
+          >
+            <span>{pair.holiday2.holidayName} Countdown Page</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Date Math Quick Links -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="p-8 rounded-3xl bg-canvas-soft border border-hairline flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="text-left" style="width:100%;">
+        <h3 class="text-xl font-bold text-ink mb-1">Need a custom date calculation?</h3>
+        <p class="text-sm text-body">Calculate exact days, working business days, or weeks between any two custom calendar dates.</p>
+      </div>
+      <a
+        href="/#tool"
+        class="flex-shrink-0 h-12 flex items-center rounded-pill bg-primary px-8 text-on-primary font-medium hover:scale-105 transition-all shadow-md"
+      >
+        Open Calculator
+      </a>
+    </div>
+  </section>
+
+  <!-- Contextual FAQ Section -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8 text-ink" style="width:100%;">
+      Frequently Asked Questions
+    </h2>
+    <div class="space-y-4" style="width:100%;">
+      {pair.faqs.map((faq) => (
+        <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-ink list-none">
+            <span class="text-base md:text-lg">{faq.question}</span>
+            <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+            {faq.answer}
+          </p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- Other Related Holiday Pairs -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="flex items-center justify-between gap-4 mb-6">
+      <h2 class="text-xl md:text-2xl font-bold text-ink">Other Popular Date Calculations</h2>
+      <a href="/countdown/" class="text-xs font-semibold text-link hover:underline">All Countdowns →</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {relatedPairs.map((rp) => (
+        <a
+          href={`/days-between/${rp.slug}/`}
+          class="group p-4 rounded-xl bg-canvas border border-hairline hover:border-link transition-all card-shadow hover:shadow-md flex flex-col justify-between"
+        >
+          <div>
+            <span class="text-xs font-mono text-mute">{rp.category}</span>
+            <h3 class="font-semibold text-sm text-ink group-hover:text-link transition-colors mt-1">
+              {rp.title}
+            </h3>
+          </div>
+          <span class="text-xs text-link font-semibold mt-3 flex items-center gap-1">
+            Calculate →
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Schema Markup: BreadcrumbList + FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.countdaysbetween.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Calculators",
+            "item": "https://www.countdaysbetween.com/countdown/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": pair.title,
+            "item": `https://www.countdaysbetween.com/days-between/${pair.slug}/`
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": pair.faqs.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
+      }
+    ]
+  })} />
+</Layout>

@@ -7,11 +7,44 @@ interface Props {
 }
 
 const { title, description = "Calculate days between dates easily." } = Astro.props;
-const pageTitle = title.includes("|") ? title : `${title} | Days Between Dates`;
+const pageTitle = title.includes("|") || title.includes("—") ? title : `${title} | CountDays`;
 
 const rawPathname = Astro.url.pathname;
 const canonicalPath = rawPathname.endsWith("/") ? rawPathname : `${rawPathname}/`;
 const canonicalUrl = `https://www.countdaysbetween.com${canonicalPath}`;
+
+const globalSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.countdaysbetween.com/#website",
+      "url": "https://www.countdaysbetween.com/",
+      "name": "CountDays",
+      "description": "Calculate exact days between dates, business days, age, and holiday countdowns.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.countdaysbetween.com/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.countdaysbetween.com/#organization",
+      "name": "CountDays",
+      "url": "https://www.countdaysbetween.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.countdaysbetween.com/favicon-96x96.png",
+        "width": 96,
+        "height": 96
+      }
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -52,6 +85,8 @@ const canonicalUrl = `https://www.countdaysbetween.com${canonicalPath}`;
 		<meta property="twitter:title" content={pageTitle} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content="https://www.countdaysbetween.com/og-image.png" />
+
+		<script type="application/ld+json" set:html={JSON.stringify(globalSchema)} />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -4,20 +4,22 @@ import CustomCountdown from "../components/CustomCountdown.astro";
 import YearProgress from "../components/YearProgress.astro";
 import RelatedCalculators from "../components/RelatedCalculators.astro";
 import holidays from "../data/holidays.json";
+import { holidayPairsConfig } from "../data/holidayPairs";
 
 const holidays2026 = holidays.filter((h) => h.year === 2026);
 const holidays2027 = holidays.filter((h) => h.year === 2027);
 const holidays2028 = holidays.filter((h) => h.year === 2028);
+const featuredPairs = holidayPairsConfig.slice(0, 8);
 ---
 
 <Layout 
-	title="Countdown Between Dates | Live Holiday & Event Countdowns" 
-	description="Calculate how many days until any future event. Browse live countdown timers for major US holidays and events across 2026, 2027, and 2028.">
+	title="Holiday Countdown Timer — Days Until Any Event" 
+	description="Browse live countdown timers for major US holidays or create custom event timers. Real-time days, hours, and minutes remaining.">
 	
 	<section class="mb-12 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
 		<a href="/" class="text-sm text-link hover:underline mb-6 inline-block">← Back to home</a>
 		<h1 class="text-4xl md:text-6xl font-semibold tracking-tighter leading-tight mb-6" style="width:100%;">
-			Countdown <span class="text-violet">Hub.</span>
+			Holiday Countdown Timer — <span class="text-violet">Days Until Events</span>
 		</h1>
 		<p class="text-lg text-body mb-6" style="width:100%; max-width:600px;">
 			Find out exactly how many days, hours, and minutes are left until your next big milestone, holiday, or personal event.
@@ -128,8 +130,72 @@ const holidays2028 = holidays.filter((h) => h.year === 2028);
 		</div>
 	</section>
 
+	<!-- Popular Holiday Date Differences -->
+	<section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+		<div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
+			<div>
+				<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Holiday Date Differences & Spans</h2>
+				<p class="text-sm text-mute mt-1">Exact calendar duration and working business days between major holidays</p>
+			</div>
+			<span class="rounded-full bg-link/10 px-3 py-1 text-xs font-bold font-mono text-link">Duration Math</span>
+		</div>
+
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+			{featuredPairs.map((pair) => (
+				<a 
+					href={`/days-between/${pair.slug}/`}
+					class="flex flex-col justify-between p-4 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all group card-shadow hover:shadow-md"
+				>
+					<div>
+						<span class="text-[10px] font-mono uppercase tracking-wider text-mute block mb-1">{pair.category}</span>
+						<h3 class="font-semibold text-xs text-ink group-hover:text-link transition-colors line-clamp-2">{pair.title}</h3>
+					</div>
+					<span class="text-xs text-link font-semibold mt-3 flex items-center gap-1">
+						Calculate →
+					</span>
+				</a>
+			))}
+		</div>
+	</section>
+
 	<!-- Related Calculators Cross-Links -->
 	<RelatedCalculators current="countdown" />
+
+	<!-- FAQ Section -->
+	<section class="mb-24 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+		<h2 class="text-3xl font-bold mb-8 text-center text-ink" style="width:100%;">Frequently Asked Questions</h2>
+		<div class="space-y-4" style="width:100%;">
+			<details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+				<summary class="flex items-center justify-between font-semibold text-ink list-none">
+					<span class="text-lg">How do I calculate the days until a specific holiday?</span>
+					<span class="text-link group-open:rotate-180 transition-transform">▼</span>
+				</summary>
+				<p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+					Select any holiday card from the 2026, 2027, or 2028 countdown schedules above to open its dedicated live countdown page showing exact days, hours, minutes, and working business days remaining.
+				</p>
+			</details>
+
+			<details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+				<summary class="flex items-center justify-between font-semibold text-ink list-none">
+					<span class="text-lg">Can I create my own custom event countdown?</span>
+					<span class="text-link group-open:rotate-180 transition-transform">▼</span>
+				</summary>
+				<p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+					Yes! Use the Custom Timer builder at the top of this page to type your event title and date. You can copy a shareable link to send to friends, family, or colleagues.
+				</p>
+			</details>
+
+			<details class="faq-accordion group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+				<summary class="flex items-center justify-between font-semibold text-ink list-none">
+					<span class="text-lg">Does the countdown update in real time?</span>
+					<span class="text-link group-open:rotate-180 transition-transform">▼</span>
+				</summary>
+				<p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+					Yes. All countdown timers on CountDays run live in your browser, ticking down seconds in real-time without reloading the page.
+				</p>
+			</details>
+		</div>
+	</section>
 
 	<!-- Clean CTA to 2-Date Calculator -->
 	<section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
@@ -159,6 +225,14 @@ const holidays2028 = holidays.filter((h) => h.year === 2028);
 				"description": "Calculate how many days until any future event. Browse live countdown timers for major US holidays and events across 2026, 2027, and 2028."
 			},
 			{
+				"@type": "WebApplication",
+				"name": "Custom Event Countdown Timer",
+				"url": "https://www.countdaysbetween.com/countdown/",
+				"applicationCategory": "UtilityApplication",
+				"operatingSystem": "All",
+				"description": "Create and share custom live event countdown timers."
+			},
+			{
 				"@type": "BreadcrumbList",
 				"itemListElement": [
 					{
@@ -172,6 +246,35 @@ const holidays2028 = holidays.filter((h) => h.year === 2028);
 						"position": 2,
 						"name": "Holiday Countdown Hub",
 						"item": "https://www.countdaysbetween.com/countdown/"
+					}
+				]
+			},
+			{
+				"@type": "FAQPage",
+				"mainEntity": [
+					{
+						"@type": "Question",
+						"name": "How do I calculate the days until a specific holiday?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Select any holiday card from the 2026, 2027, or 2028 countdown schedules above to open its dedicated live countdown page."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "Can I create my own custom event countdown?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Yes! Use the Custom Timer builder at the top of this page to type your event title and date."
+						}
+					},
+					{
+						"@type": "Question",
+						"name": "Does the countdown update in real time?",
+						"acceptedAnswer": {
+							"@type": "Answer",
+							"text": "Yes. All countdown timers on CountDays run live in your browser, ticking down seconds in real-time."
+						}
 					}
 				]
 			}
