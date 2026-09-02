@@ -4,7 +4,7 @@
 
 ---
 
-## 📌 Current Stable Baseline: Version `v0.5.0`
+## 📌 Current Stable Baseline: Version `v0.5.2`
 - **Git Commit:** In Progress
 - **Total Pre-rendered Pages:** **168 Static Routes** (Verified in `dist/sitemap-0.xml`)
 - **Hosting Target:** Cloudflare Pages (Static Site Generation, $0/month server cost)
@@ -24,7 +24,7 @@
 | `/days-until/[slug]/` | **Individual Holiday Timers (EN)** | 80+ static holiday pages with live ticking timer, 5-year comparison table (2024–2028), contextual background, and schema (`Event`, `BreadcrumbList`, `FAQPage`). |
 | `/days-between/[pair]/` | **Holiday Date Pairs Hub (EN)** | 39 curated seasonal holiday pairs (e.g. Thanksgiving ➔ Christmas, Memorial Day ➔ Labor Day) with working day breakdowns and 5-year schedules. |
 | `/pt/` | **Calculadora de Dias Entre Datas (PT-BR)** | Brazilian Portuguese homepage calculator with *dias corridos*, *dias úteis (CLT)*, Year Progress, Custom Countdown builder, and Life Days counter. Schema: `WebApplication`, `FAQPage`. |
-| `/pt/dias-uteis/` | **Dias Úteis no Brasil (PT-BR)** | Business days calculator excluding Brazilian weekends and national holidays with official 2026 holiday reference table. |
+| `/pt/dias-uteis/` | **Dias Úteis no Brasil (PT-BR)** | Business days calculator excluding Brazilian weekends and national holidays with official 2026 holiday reference table and monthly distribution. |
 | `/pt/aviso-previo/` | **Calculadora de Aviso Prévio CLT (PT-BR)** | Specialized tool for Brazilian labour law (Lei 12.506/2011) calculating 30 base + 3 days per year worked up to 90 days. |
 | `/pt/contagem-regressiva/` | **Contagem para as Férias (PT-BR)** | Target hub for *Férias Escolares de Julho*, *Férias de Verão*, *Carnaval*, and Brazilian holiday countdowns. |
 | `/pt/dias-ate/[slug]/` | **Feriados do Brasil (PT-BR)** | Individual countdown pages for Brazilian national holidays (e.g., `carnaval-2026`, `ferias-de-julho-2026`, `tiradentes-2026`). |
@@ -51,12 +51,17 @@
 
 ## 🧰 Installed Skills Suite
 - **UI & Anti-Slop:** `anti-ui-slop`, `ui-design`, `frontend-design`, `ui-radar`, `web-design-guidelines`
-- **SEO & Multi-language:** `seo-hreflang`, `seo-schema`, `seo-sxo`, `seo-geo`, `seo-technical`, `seo-audit`
+- **SEO & Multi-language:** `seo-hreflang`, `seo-schema`, `seo-sxo`, `seo-geo`, `seo-technical`, `seo-audit`, `seo-competitor-pages`, `seo-plan`, `seo-backlinks`
 
 ---
 
 ## 📜 Feature Changelog
 
+- **v0.5.2 (Sep 2, 2026):** 
+  - **Site-Wide Meta Description Guardrail:** Scanned all 168 static pages and fixed dynamic meta description formulas across 5 templates (`/es/dias-hasta/[slug]/`, `/days-until/[slug]/`, `/pt/dias-ate/[slug]/`, `/days-between/[pair]/`, and `/`) to strictly conform with Bing/Google 25–160 character standards (120–155 chars typical).
+  - **Automated Verification:** Embedded permanent automated meta description length check into `scripts/verify-all.mjs`.
+  - **Portuguese On-Page SEO:** Tuned headings, monthly working day reference tables, and rich FAQ schema on `/pt/`, `/pt/dias-uteis/`, and `/pt/aviso-previo/` based on verified Ahrefs search queries.
+  - **Competitor Blueprint:** Generated complete head-to-head comparison and alternatives artifacts (`COMPARISON-PAGE.md`, `comparison-schema.json`, `COMPETITOR-KEYWORD-STRATEGY.md`).
 - **v0.5.1 (Sep 2, 2026):** Implemented Professional "Formal Breakdown" Copy/Export across EN, PT-BR, and ES calculators (`Calculator.astro`, `CalculatorPt.astro`, `CalculatorEs.astro`) with structured plain-text formatting (calendar days, working days, weekend days, hours, and source credit), accessible buttons with active states, and automated 168-page audit verification.
 - **v0.5.0 (Sep 2, 2026):** Implemented Astro `ClientRouter` for smooth SPA cross-fade page transitions, brought 100% full feature parity to Portuguese and Spanish (Year Progress, Custom Countdown Builder, Life Days Counter), launched specialized Brazilian *Aviso Prévio CLT* (`/pt/aviso-previo/`) and Spanish *Plazos Ley 39/2015* (`/es/calculadora-plazos/`), compiling 168 static pages.
 

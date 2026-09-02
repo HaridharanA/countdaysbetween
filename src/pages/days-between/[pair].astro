@@ -17,7 +17,7 @@ interface Props {
 const { pair } = Astro.props;
 
 const pageTitle = `Days Between ${pair.holiday1.holidayName} and ${pair.holiday2.holidayName} (2026)`;
-const pageDescription = `Find out exactly how many days, weeks, and business days between ${pair.holiday1.holidayName} (${pair.currentCalculation.date1}) and ${pair.holiday2.holidayName} (${pair.currentCalculation.date2}). Free calendar duration breakdown and 5-year comparison table.`;
+const pageDescription = `Count days, weeks, and business days between ${pair.holiday1.holidayName} and ${pair.holiday2.holidayName} with duration math and schedules.`;
 
 const calc = pair.currentCalculation;
 const percentOfYear = ((calc.totalDays / 365) * 100).toFixed(1);

@@ -80,10 +80,18 @@ for (const file of htmlFiles) {
     totalErrors++;
   }
 
-  // Check <meta name="description"
-  if (!content.includes('<meta name="description"')) {
+  // Check <meta name="description" and character length (Bing/Google 25-160 chars)
+  const descMatch = content.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']/i) ||
+                    content.match(/<meta\s+content=["'](.*?)["']\s+name=["']description["']/i);
+  if (!descMatch) {
     console.warn(`⚠️ [Missing description] in ${relPath}`);
     totalWarnings++;
+  } else {
+    const descLen = descMatch[1].length;
+    if (descLen < 25 || descLen > 160) {
+      console.error(`❌ [Meta Description Length Violation: ${descLen} chars (Must be 25-160)] in ${relPath}: "${descMatch[1]}"`);
+      totalErrors++;
+    }
   }
 
   // Check <link rel="canonical"

@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { holiday } = Astro.props;
 
 const pageTitle = `Days Until ${holiday.name} | Exact Countdown & Date Math`;
-const pageDescription = `Find out exactly how many days, hours, and business days until ${holiday.name} (${holiday.dayOfWeek}, ${holiday.date}). Free live countdown timer and complete calendar breakdown.`;
+const pageDescription = `Count days, hours, and business days until ${holiday.name} (${holiday.date}) with our live countdown timer and calendar breakdown.`;
 
 const formattedTargetDate = new Date(holiday.date + "T00:00:00Z").toLocaleDateString("en-US", {
   weekday: "long",
