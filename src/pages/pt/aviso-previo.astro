@@ -1,13 +1,56 @@
 ---
 import LayoutPt from "../../layouts/LayoutPt.astro";
 
-const title = "Calculadora de Aviso Prévio Proporcional CLT — Dias e Prazos";
-const description = "Calcule o tempo exato de aviso prévio proporcional conforme a Lei 12.506/2011 e a CLT no Brasil. Descubra dias adicionais por ano de trabalho e data final.";
+const title = "Calculadora de Aviso Prévio CLT — Cálculo Proporcional e Indenizado";
+const description = "Calcule o tempo exato de aviso prévio proporcional conforme a Lei 12.506/2011 e a CLT no Brasil. Descubra dias adicionais por ano trabalhado e data de término.";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Calculadora de Aviso Prévio CLT",
+      "url": "https://www.countdaysbetween.com/pt/aviso-previo/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "description": "Calculadora oficial de aviso prévio proporcional conforme a Lei 12.506/2011 no Brasil."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Como funciona o cálculo do aviso prévio proporcional na CLT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Conforme a Lei nº 12.506/2011, todo trabalhador tem direito a 30 dias de aviso prévio base, acrescidos de 3 dias para cada ano completo de trabalho na mesma empresa, até o limite máximo de 90 dias (para 20 ou mais anos de serviço)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual é a diferença entre aviso prévio trabalhado e indenizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No aviso prévio trabalhado, o colaborador continua exercendo suas funções (com redução de 2 horas diárias ou saída 7 dias antes). No aviso indenizado, o contrato se encerra imediatamente e a empresa paga o valor correspondente aos dias de aviso."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quem pede demissão cumpre aviso prévio proporcional?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Não. Conforme entendimento jurisprudencial do TST, o aviso prévio proporcional de até 90 dias é um direito exclusivo do empregado demitido sem justa causa. No pedido de demissão, o aviso é fixo em 30 dias."
+          }
+        }
+      ]
+    }
+  ]
+};
 ---
 
 <LayoutPt title={title} description={description}>
   <div style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
-    <div class="mb-10 text-center" style="width:100%;">
+    <div class="mb-10" style="width:100%;">
       <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-4">
         <span>⚖️ Legislação Trabalhista Brasileira (Lei 12.506/2011)</span>
       </div>
@@ -139,7 +182,47 @@ const description = "Calcule o tempo exato de aviso prévio proporcional conform
         </table>
       </div>
     </div>
+
+    <!-- Frequently Asked Questions -->
+    <section class="mt-16 mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8 text-ink" style="width:100%;">
+        Perguntas Frequentes sobre Aviso Prévio CLT (FAQ)
+      </h2>
+      <div class="space-y-4" style="width:100%;">
+        <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-ink list-none">
+            <span class="text-base md:text-lg">Como funciona o cálculo do aviso prévio proporcional?</span>
+            <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+            Todo empregado tem direito a 30 dias de aviso base. A cada ano completo de trabalho na mesma empresa, são adicionados +3 dias, até o teto de 90 dias (Lei 12.506/2011).
+          </p>
+        </details>
+
+        <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-ink list-none">
+            <span class="text-base md:text-lg">Qual é a diferença entre aviso prévio trabalhado e indenizado?</span>
+            <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+            No aviso trabalhado, o colaborador continua exercendo suas atividades com redução de 2h/dia ou saindo 7 dias antes. No aviso indenizado, o contrato se encerra de imediato e o período é pago em dinheiro na rescisão.
+          </p>
+        </details>
+
+        <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-ink list-none">
+            <span class="text-base md:text-lg">Quem pede demissão cumpre aviso prévio proporcional?</span>
+            <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+            Não. Conforme a jurisprudência do Tribunal Superior do Trabalho (TST), o aviso prévio proporcional de até 90 dias beneficia exclusivamente o trabalhador demitido sem justa causa. No pedido de demissão, o aviso é fixo em 30 dias.
+          </p>
+        </details>
+      </div>
+    </section>
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </LayoutPt>
 
 <script>

@@ -5,8 +5,8 @@ import holidaysPt from "../../data/holidays-pt.json";
 
 const holidays2026 = holidaysPt.filter((h) => h.year === 2026);
 
-const pageTitle = "Calculadora de Dias Úteis no Brasil — Excluir Finais de Semana e Feriados";
-const pageDescription = "Calcule o número exato de dias úteis entre duas datas no Brasil. Desconte sábados, domingos e feriados nacionais para prazos e RH.";
+const pageTitle = "Calculadora de Dias Úteis — Calcular Dias Úteis Entre Datas no Brasil";
+const pageDescription = "Calcule o número exato de dias úteis entre duas datas no Brasil. Desconte sábados, domingos e feriados nacionais para RH e prazos trabalhistas.";
 
 const schema = {
   "@context": "https://schema.org",
@@ -17,7 +17,7 @@ const schema = {
       "url": "https://www.countdaysbetween.com/pt/dias-uteis/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
-      "description": "Calculadora online de dias úteis e prazos conforme a legislação brasileira."
+      "description": "Calculadora online de dias úteis e prazos trabalhistas no Brasil."
     },
     {
       "@type": "BreadcrumbList",
@@ -33,6 +33,43 @@ const schema = {
           "position": 2,
           "name": "Dias Úteis no Brasil",
           "item": "https://www.countdaysbetween.com/pt/dias-uteis/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Como calcular dias úteis entre duas datas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para calcular dias úteis, conte todos os dias úteis de trabalho de segunda a sexta-feira entre a data inicial e a data final, desconsiderando sábados e domingos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quantos dias úteis tem o mês no Brasil?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Um mês possui em média entre 20 e 22 dias úteis, dependendo do total de dias do mês (28, 30 ou 31) e da quantidade de finais de semana que nele recaem."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O sábado é considerado dia útil pela CLT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para fins de contagem de prazos administrativos e bancários, o sábado não é dia útil. Para jornadas de trabalho semanais de 44 horas, o sábado pode ser dia trabalhado ordinário, mas nossa ferramenta padrão considera dias úteis de segunda a sexta-feira."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como calcular dias úteis no Excel ou Google Sheets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Utilize a fórmula =DIATRABALHOTOTAL(data_inicial; data_final) para excluir finais de semana automaticamente de qualquer intervalo de datas."
+          }
         }
       ]
     }
@@ -67,6 +104,50 @@ const schema = {
     <!-- Main Calculator Embed -->
     <div id="tool" class="scroll-mt-24">
       <CalculatorPt />
+    </div>
+  </section>
+
+  <!-- Informational Monthly Breakdown Section -->
+  <section class="mb-20 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="prose-content w-full" style="width:100%;">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+        Quantos Dias Úteis Tem o Mês no Brasil? (Referência 2026)
+      </h2>
+      <p class="text-body leading-relaxed mb-6" style="width:100%;">
+        Em média, um mês comercial possui <strong>21 a 22 dias úteis</strong>. Veja a distribuição típica de dias úteis e finais de semana ao longo do ano:
+      </p>
+
+      <div class="overflow-x-auto my-6" style="width:100%;">
+        <table class="w-full text-left border-collapse border border-hairline rounded-2xl overflow-hidden text-sm" style="width:100%;">
+          <thead>
+            <tr class="bg-canvas-soft border-b border-hairline text-ink font-semibold">
+              <th class="p-3 border-r border-hairline">Mês</th>
+              <th class="p-3 border-r border-hairline">Dias Corridos</th>
+              <th class="p-3 border-r border-hairline">Finais de Semana</th>
+              <th class="p-3">Dias Úteis (Seg–Sex)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-body">
+            <tr><td class="p-3 font-semibold border-r border-hairline">Janeiro</td><td class="p-3 border-r border-hairline">31</td><td class="p-3 border-r border-hairline">9</td><td class="p-3 font-bold text-ink">22</td></tr>
+            <tr><td class="p-3 font-semibold border-r border-hairline">Fevereiro</td><td class="p-3 border-r border-hairline">28</td><td class="p-3 border-r border-hairline">8</td><td class="p-3 font-bold text-ink">20</td></tr>
+            <tr><td class="p-3 font-semibold border-r border-hairline">Março</td><td class="p-3 border-r border-hairline">31</td><td class="p-3 border-r border-hairline">9</td><td class="p-3 font-bold text-ink">22</td></tr>
+            <tr><td class="p-3 font-semibold border-r border-hairline">Abril</td><td class="p-3 border-r border-hairline">30</td><td class="p-3 border-r border-hairline">8</td><td class="p-3 font-bold text-ink">22</td></tr>
+            <tr><td class="p-3 font-semibold border-r border-hairline">Maio</td><td class="p-3 border-r border-hairline">31</td><td class="p-3 border-r border-hairline">10</td><td class="p-3 font-bold text-ink">21</td></tr>
+            <tr><td class="p-3 font-semibold border-r border-hairline">Junho</td><td class="p-3 border-r border-hairline">30</td><td class="p-3 border-r border-hairline">8</td><td class="p-3 font-bold text-ink">22</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="text-xl font-bold mt-8 mb-4 text-ink">Como Calcular Dias Úteis no Excel e Google Planilhas</h3>
+      <p class="text-body leading-relaxed mb-4" style="width:100%;">
+        Se você estiver construindo relatórios ou planilhas de folha de pagamento, use a função:
+      </p>
+      <div class="p-4 rounded-xl bg-canvas-soft border border-hairline font-mono text-sm text-ink mb-6">
+        =DIATRABALHOTOTAL(data_inicio; data_fim)
+      </div>
+      <p class="text-body text-sm" style="width:100%;">
+        Essa função calcula automaticamente o número de dias úteis excluindo sábados e domingos entre as duas datas informadas.
+      </p>
     </div>
   </section>
 
@@ -107,6 +188,44 @@ const schema = {
           ))}
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <!-- Frequently Asked Questions -->
+  <section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8 text-ink" style="width:100%;">
+      Perguntas Frequentes sobre Dias Úteis (FAQ)
+    </h2>
+    <div class="space-y-4" style="width:100%;">
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">Como calcular dias úteis entre duas datas?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Para calcular dias úteis, conte todos os dias úteis de trabalho de segunda a sexta-feira entre a data inicial e a data final, desconsiderando sábados e domingos.
+        </p>
+      </details>
+
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">Quantos dias úteis tem o mês no Brasil?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Um mês possui em média entre 20 e 22 dias úteis, dependendo do total de dias do mês (28, 30 ou 31) e da quantidade de finais de semana que nele recaem.
+        </p>
+      </details>
+
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">O sábado é considerado dia útil pela CLT?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Para fins de contagem de prazos administrativos e bancários, o sábado não é dia útil. Para jornadas de trabalho semanais de 44 horas, o sábado pode ser dia trabalhado ordinário, mas nossa ferramenta padrão considera dias úteis de segunda a sexta-feira.
+        </p>
+      </details>
     </div>
   </section>
 

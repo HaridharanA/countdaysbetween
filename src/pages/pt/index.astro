@@ -8,8 +8,8 @@ import holidaysPt from "../../data/holidays-pt.json";
 
 const upcomingHolidays = holidaysPt.filter((h) => h.year === 2026).slice(0, 6);
 
-const pageTitle = "Calculadora de Dias Entre Duas Datas — Dias Úteis e Corridos";
-const pageDescription = "Calcule o número exato de dias corridos, dias úteis e semanas entre duas datas. Calculadora gratuita com feriados nacionais do Brasil (CLT).";
+const pageTitle = "Calculadora de Dias Entre Datas — Calcular Dias Úteis e Corridos";
+const pageDescription = "Calcule o número exato de dias corridos, dias úteis e semanas entre duas datas. Contador de dias gratuito adaptado para feriados nacionais do Brasil.";
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -27,34 +27,42 @@ const faqSchema = {
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "Como calcular dias úteis entre duas datas no Brasil?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para calcular dias úteis, conte apenas os dias de segunda a sexta-feira entre a data inicial e a data final, excluindo sábados e domingos. Nossa calculadora realiza essa contagem automaticamente com um clique."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Qual é a diferença entre dias corridos e dias úteis?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Dias corridos incluem todos os dias do calendário de forma contínua, incluindo sábados, domingos e feriados. Dias úteis consideram apenas os dias úteis de trabalho (segunda a sexta-feira), excluindo finais de semana e feriados oficiais."
+            "text": "Dias corridos incluem todos os dias do calendário de forma contínua, incluindo sábados, domingos e feriados. Dias úteis consideram apenas os dias de trabalho (segunda a sexta-feira), desconsiderando finais de semana."
           }
         },
         {
           "@type": "Question",
-          "name": "A calculadora inclui feriados nacionais brasileiros?",
+          "name": "Como fazer a contagem de dias entre datas no Excel ou Google Sheets?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sim, nossa ferramenta é adaptada para as regras do Brasil (CLT e Código de Processo Civil), permitindo verificar dias úteis e datas de feriados nacionais como Carnaval, Tiradentes e Natal."
+            "text": "No Excel ou Google Planilhas, use a fórmula =DIATRABALHOTOTAL(data_inicial; data_final) para calcular dias úteis ou =data_final - data_inicial para contar dias corridos."
           }
         },
         {
           "@type": "Question",
-          "name": "Como calcular dias entre datas no Excel?",
+          "name": "Quantos dias úteis tem um mês comum no Brasil?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No Excel, você pode usar a fórmula =DIATRABALHOTOTAL(data_inicial, data_final) para dias úteis ou simplesmente =data_final - data_inicial para dias corridos."
+            "text": "Em média, um mês comercial possui entre 20 e 22 dias úteis, dependendo do total de dias do mês (28, 30 ou 31) e de onde recaem os finais de semana."
           }
         },
         {
           "@type": "Question",
-          "name": "Como funciona a opção 'Incluir data final'?",
+          "name": "A calculadora inclui anos bissextos automaticamente?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Por padrão, a calculadora mede o intervalo transcorrido (data final menos data inicial). Ao marcar 'Incluir data final', adiciona-se 1 dia para contar ambos os dias como completos."
+            "text": "Sim. O cálculo inclui o dia 29 de fevereiro em anos bissextos (como 2024 e 2028) com precisão astronômica."
           }
         }
       ]
@@ -166,7 +174,7 @@ const faqSchema = {
 
     <a href="/pt/contagem-regressiva/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-violet transition-all group">
       <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-violet transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 16 14"/></svg>
       </div>
       <div>
         <h3 class="text-lg font-semibold mb-1 group-hover:text-violet transition-colors">Contagem para as Férias →</h3>
@@ -179,16 +187,25 @@ const faqSchema = {
   <section class="mb-20 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <div class="prose-content w-full" style="width:100%;">
       <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
-        Como Contar Dias Entre Datas no Brasil: Regras e Aplicações
+        Contador de Dias Entre Datas: Como Funciona o Cálculo no Brasil
       </h2>
       <p class="text-body leading-relaxed mb-4" style="width:100%;">
-        A contagem de tempo entre datas é essencial no cotidiano de profissionais de Recursos Humanos (RH), advogados, estudantes e gestores de projetos. No Brasil, existem regras específicas que diferenciam a contagem de <strong>dias corridos</strong> e <strong>dias úteis</strong>.
+        A <strong>contagem de dias entre datas</strong> é essencial no cotidiano de profissionais de Recursos Humanos (RH), advogados, estudantes e gestores de projetos. No Brasil, existem regras específicas que diferenciam a contagem de <strong>dias corridos</strong> e <strong>dias úteis</strong>.
       </p>
 
       <h3 class="text-xl font-bold mt-6 mb-3 text-ink">Dias Corridos vs. Dias Úteis (CLT e Novo CPC)</h3>
-      <ul class="list-disc pl-6 space-y-2 text-sm text-body" style="width:100%;">
+      <ul class="list-disc pl-6 space-y-2 text-sm text-body mb-6" style="width:100%;">
         <li><strong>Dias Corridos:</strong> Contam-se todos os 365 dias do ano ininterruptamente, incluindo sábados, domingos e feriados. É a forma padrão utilizada em contratos de locação, prazos civis gerais e contagens de idade.</li>
         <li><strong>Dias Úteis:</strong> Consideram-se apenas os dias de trabalho (segunda a sexta-feira), desconsiderando sábados, domingos e feriados oficiais. Pelo Código de Processo Civil (CPC/2015), os prazos processuais são computados exclusivamente em dias úteis.</li>
+      </ul>
+
+      <h3 class="text-xl font-bold mt-6 mb-3 text-ink">Fórmulas no Excel vs. Calculadora Online de Dias</h3>
+      <p class="text-body leading-relaxed mb-4" style="width:100%;">
+        Para <strong>calcular dias entre datas no Excel</strong> ou Google Planilhas:
+      </p>
+      <ul class="list-disc pl-6 space-y-2 text-sm text-body" style="width:100%;">
+        <li><strong>Dias Úteis:</strong> Use <code class="font-mono bg-canvas-soft px-1.5 py-0.5 rounded border border-hairline">=DIATRABALHOTOTAL(data_inicial; data_final)</code>.</li>
+        <li><strong>Dias Corridos:</strong> Use a subtração direta <code class="font-mono bg-canvas-soft px-1.5 py-0.5 rounded border border-hairline">=data_final - data_inicial</code> ou a função <code class="font-mono bg-canvas-soft px-1.5 py-0.5 rounded border border-hairline">=DIAS(data_final; data_inicial)</code>.</li>
       </ul>
     </div>
   </section>
@@ -196,36 +213,56 @@ const faqSchema = {
   <!-- Frequently Asked Questions in Portuguese -->
   <section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
     <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8 text-ink" style="width:100%;">
-      Perguntas Frequentes (FAQ)
+      Perguntas Frequentes sobre Contagem de Dias Entre Datas (FAQ)
     </h2>
     <div class="space-y-4" style="width:100%;">
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">Como calcular dias úteis entre duas datas no Brasil?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Para calcular dias úteis, conte apenas os dias de segunda a sexta-feira entre a data inicial e a data final, excluindo sábados e domingos. Nossa calculadora realiza essa contagem automaticamente com um clique.
+        </p>
+      </details>
+
       <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
         <summary class="flex items-center justify-between font-semibold text-ink list-none">
           <span class="text-base md:text-lg">Qual é a diferença entre dias corridos e dias úteis?</span>
           <span class="text-link group-open:rotate-180 transition-transform">▼</span>
         </summary>
         <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
-          Dias corridos incluem todos os dias do calendário de forma contínua, incluindo sábados, domingos e feriados. Dias úteis consideram apenas os dias úteis de trabalho (segunda a sexta-feira), excluindo finais de semana e feriados oficiais.
+          Dias corridos incluem todos os dias do calendário de forma contínua, incluindo sábados, domingos e feriados. Dias úteis consideram apenas os dias úteis de trabalho (segunda a sexta-feira), desconsiderando finais de semana.
         </p>
       </details>
 
       <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
         <summary class="flex items-center justify-between font-semibold text-ink list-none">
-          <span class="text-base md:text-lg">A calculadora considera anos bissextos automaticamente?</span>
+          <span class="text-base md:text-lg">Como fazer a contagem de dias entre datas no Excel ou Google Sheets?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          No Excel ou Google Planilhas, use a fórmula <code class="font-mono bg-canvas-soft px-1.5 py-0.5 rounded border border-hairline">=DIATRABALHOTOTAL(data_inicial; data_final)</code> para calcular dias úteis ou <code class="font-mono bg-canvas-soft px-1.5 py-0.5 rounded border border-hairline">=data_final - data_inicial</code> para contar dias corridos.
+        </p>
+      </details>
+
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">Quantos dias úteis tem um mês comum no Brasil?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Em média, um mês comercial possui entre 20 e 22 dias úteis, dependendo do total de dias do mês (28, 30 ou 31) e de onde recaem os finais de semana.
+        </p>
+      </details>
+
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">A calculadora inclui anos bissextos automaticamente?</span>
           <span class="text-link group-open:rotate-180 transition-transform">▼</span>
         </summary>
         <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
           Sim. O algoritmo calcula com precisão astronômica, incluindo o dia 29 de fevereiro nos anos bissextos (como 2024 e 2028).
-        </p>
-      </details>
-
-      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
-        <summary class="flex items-center justify-between font-semibold text-ink list-none">
-          <span class="text-base md:text-lg">Como calcular dias úteis no Excel?</span>
-          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
-        </summary>
-        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
-          No Excel ou Google Planilhas, utilize a função <code class="font-mono bg-canvas-soft px-1.5 py-0.5 rounded border border-hairline">=DIATRABALHOTOTAL(data_inicial; data_final)</code> para excluir finais de semana automaticamente.
         </p>
       </details>
     </div>
