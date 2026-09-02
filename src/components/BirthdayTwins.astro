@@ -2,20 +2,20 @@
 ---
 
 <section class="w-full h-full">
-  <div class="rounded-3xl p-8 md:p-12 bg-gradient-to-br from-indigo-50 to-purple-100 dark:from-slate-900 dark:to-purple-950/30 border border-indigo-100/50 dark:border-purple-900/20 shadow-xl shadow-indigo-200/20 h-full mx-auto lg:mx-0 w-full max-w-[700px] lg:max-w-none">
-    <div class="text-center mb-10">
-      <div class="mx-auto h-12 w-12 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center border border-purple-500/20 mb-3 shadow-sm">
+  <div class="rounded-3xl p-6 md:p-10 bg-canvas border border-hairline card-shadow h-full mx-auto lg:mx-0 w-full max-w-[700px] lg:max-w-none">
+    <div class="text-center mb-8">
+      <div class="mx-auto h-12 w-12 rounded-2xl bg-canvas-soft border border-hairline text-ink flex items-center justify-center mb-3 shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
-      <h2 class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-purple-100 mb-4">Famous Birthday Twins</h2>
-      <p class="text-lg text-slate-600 dark:text-purple-200/70">Ever wondered which celebrities and iconic figures share your exact birthday?</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-ink mb-2">Famous Birthday Twins</h2>
+      <p class="text-sm md:text-base text-mute">Discover which famous icons, athletes, and artists share your exact birthday.</p>
     </div>
 
-    <div class="flex flex-col items-center gap-8 w-full text-center">
-      <div class="flex flex-row justify-center items-center gap-4 w-full mx-auto max-w-[300px] lg:max-w-[400px]">
-        <div class="flex flex-col items-center flex-1">
-          <label for="month-input" class="block text-sm font-medium text-slate-700 dark:text-purple-200 mb-2" style="white-space: nowrap;">Month</label>
-          <select id="month-input" class="w-full h-12 px-4 rounded-xl border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm">
+    <div class="flex flex-col items-center gap-6 w-full text-center">
+      <div class="flex flex-row justify-center items-center gap-3 w-full mx-auto max-w-[300px] lg:max-w-[400px]">
+        <div class="flex flex-col items-start flex-1">
+          <label for="month-input" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2" style="white-space: nowrap;">Month</label>
+          <select id="month-input" class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink focus:border-link transition-all outline-none text-sm shadow-sm cursor-pointer">
             <option value="0">January</option>
             <option value="1">February</option>
             <option value="2">March</option>
@@ -30,32 +30,32 @@
             <option value="11">December</option>
           </select>
         </div>
-        <div class="flex flex-col items-center">
-          <label for="day-input" class="block text-sm font-medium text-slate-700 dark:text-purple-200 mb-2" style="white-space: nowrap;">Day</label>
+        <div class="flex flex-col items-start">
+          <label for="day-input" class="block text-xs font-semibold uppercase tracking-wider text-mute mb-2" style="white-space: nowrap;">Day</label>
           <input 
             type="number" 
             id="day-input" 
             min="1" 
             max="31" 
             placeholder="1"
-            class="h-12 px-4 rounded-xl border border-indigo-200 dark:border-purple-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-indigo-400 dark:focus:border-purple-500 focus:ring-0 transition-all outline-none text-base shadow-sm"
+            class="h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink focus:border-link transition-all outline-none text-sm shadow-sm"
             style="width:80px;"
           />
         </div>
       </div>
 
-      <button id="find-twins" class="h-14 px-10 rounded-full bg-indigo-600 dark:bg-purple-600 text-white font-bold text-lg hover:bg-indigo-700 dark:hover:bg-purple-700 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-indigo-300/30 flex items-center justify-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <button id="find-twins" class="h-12 px-8 rounded-full bg-primary text-on-primary font-bold text-sm hover:opacity-90 transition-all active:scale-95 shadow-md flex items-center justify-center gap-2 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <span>Reveal Celebrity Twins</span>
       </button>
 
-      <div id="twins-results" class="hidden w-full space-y-6">
-        <h3 id="twins-heading" class="text-2xl font-bold text-center text-slate-800 dark:text-purple-100 mb-8">You share a birthday with...</h3>
-        <div id="twins-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div id="twins-results" class="hidden w-full space-y-6 mt-4">
+        <h3 id="twins-heading" class="text-xl font-bold text-center text-ink mb-6">You share a birthday with...</h3>
+        <div id="twins-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <!-- Twin cards go here -->
         </div>
-        <div id="fallback-twin-notice" class="hidden text-sm text-center font-medium text-indigo-600 dark:text-purple-300 p-4 rounded-2xl bg-indigo-50/70 dark:bg-purple-950/40 border border-indigo-100 dark:border-purple-900/30">
-          Showing modern icons born on and nearest to your selected birthday!
+        <div id="fallback-twin-notice" class="hidden text-xs text-center font-mono text-mute p-3 rounded-xl bg-canvas-soft border border-hairline">
+          Showing modern icons born on and nearest to your selected birthday
         </div>
       </div>
     </div>
@@ -92,143 +92,152 @@
     { name: "Chris Hemsworth", month: 8, day: 11, year: 1983, profession: "Hollywood Star (Thor, Extraction)", icon: "⚡" }
   ];
 
-  const monthSelect = document.getElementById('month-input') as HTMLSelectElement;
-  const dayInput = document.getElementById('day-input') as HTMLInputElement;
-  const findButton = document.getElementById('find-twins') as HTMLButtonElement;
-  const resultsContainer = document.getElementById('twins-results');
-  const twinsHeading = document.getElementById('twins-heading');
-  const twinsGrid = document.getElementById('twins-grid');
-  const fallbackNotice = document.getElementById('fallback-twin-notice');
+  function initBirthdayTwins() {
+    const monthSelect = document.getElementById('month-input') as HTMLSelectElement;
+    const dayInput = document.getElementById('day-input') as HTMLInputElement;
+    const findButton = document.getElementById('find-twins') as HTMLButtonElement;
+    const resultsContainer = document.getElementById('twins-results');
+    const twinsHeading = document.getElementById('twins-heading');
+    const twinsGrid = document.getElementById('twins-grid');
+    const fallbackNotice = document.getElementById('fallback-twin-notice');
 
-  findButton?.addEventListener('click', async () => {
-    const selectedMonth = parseInt(monthSelect.value);
-    const selectedDay = parseInt(dayInput.value);
+    if (!findButton) return;
 
-    if (isNaN(selectedDay) || selectedDay < 1 || selectedDay > 31) {
-      alert("Please enter a valid day between 1 and 31! 🌸");
-      return;
-    }
+    findButton.onclick = async () => {
+      const selectedMonth = parseInt(monthSelect.value);
+      const selectedDay = parseInt(dayInput.value);
 
-    findButton.disabled = true;
-    if (resultsContainer) resultsContainer.classList.remove('hidden');
-    if (fallbackNotice) fallbackNotice.classList.add('hidden');
-    if (twinsHeading) twinsHeading.innerText = "You share a birthday with...";
-
-    if (twinsGrid) {
-      twinsGrid.innerHTML = `
-        <div class="col-span-full flex flex-col items-center gap-3 py-8">
-          <div class="w-10 h-10 border-3 border-purple-500/20 border-t-purple-600 rounded-full animate-spin"></div>
-          <p class="text-sm text-slate-500 dark:text-purple-200/70 font-medium">Scanning famous celebrities & modern icons... ✨</p>
-        </div>
-      `;
-    }
-
-    try {
-      const monthStr = String(selectedMonth + 1).padStart(2, '0');
-      const dayStr = String(selectedDay).padStart(2, '0');
-      const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/births/${monthStr}/${dayStr}`;
-
-      const response = await fetch(url);
-      let selectedTwins: Array<{ name: string; description: string; year: number; icon: string }> = [];
-
-      // Check if curated icon exists on this exact date
-      const exactCurated = curatedModernIcons.filter(c => c.month === (selectedMonth + 1) && c.day === selectedDay);
-      exactCurated.forEach(c => {
-        selectedTwins.push({
-          name: c.name,
-          description: c.profession,
-          year: c.year,
-          icon: c.icon
-        });
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const allBirths = data.births || [];
-        
-        // Filter for modern era (born 1940 - 2005) and recognizable descriptions
-        const modernBirths = allBirths.filter((b: any) => {
-          return b.year >= 1940 && b.year <= 2005 && b.text && !b.text.includes("politician") && !selectedTwins.some(t => b.text.includes(t.name));
-        });
-
-        // Sort by recency & randomize
-        const shuffled = modernBirths.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedTwins.length);
-        shuffled.forEach((b: any) => {
-          const parts = b.text.split(', ');
-          const name = parts[0];
-          const desc = parts.slice(1).join(', ') || "Famous Icon & Creator";
-          selectedTwins.push({
-            name,
-            description: desc,
-            year: b.year,
-            icon: "🌟"
-          });
-        });
+      if (isNaN(selectedDay) || selectedDay < 1 || selectedDay > 31) {
+        alert("Please enter a valid day between 1 and 31!");
+        return;
       }
 
-      // If still fewer than 3, fallback to nearest modern curated icons!
-      if (selectedTwins.length < 3) {
-        if (fallbackNotice) fallbackNotice.classList.remove('hidden');
-        const remaining = curatedModernIcons
-          .filter(c => !selectedTwins.some(t => t.name === c.name))
-          .sort((a, b) => Math.abs(a.month - (selectedMonth + 1)) - Math.abs(b.month - (selectedMonth + 1)))
-          .slice(0, 3 - selectedTwins.length);
+      findButton.disabled = true;
+      if (resultsContainer) resultsContainer.classList.remove('hidden');
+      if (fallbackNotice) fallbackNotice.classList.add('hidden');
+      if (twinsHeading) twinsHeading.innerText = "You share a birthday with...";
 
-        remaining.forEach(c => {
+      if (twinsGrid) {
+        twinsGrid.innerHTML = `
+          <div class="col-span-full flex flex-col items-center gap-3 py-8">
+            <div class="w-8 h-8 border-2 border-hairline border-t-link rounded-full animate-spin"></div>
+            <p class="text-xs text-mute font-mono">Finding famous birthday twins...</p>
+          </div>
+        `;
+      }
+
+      try {
+        const monthStr = String(selectedMonth + 1).padStart(2, '0');
+        const dayStr = String(selectedDay).padStart(2, '0');
+        const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/births/${monthStr}/${dayStr}`;
+
+        const response = await fetch(url);
+        let selectedTwins: Array<{ name: string; description: string; year: number; icon: string }> = [];
+
+        // Check if curated icon exists on this exact date
+        const exactCurated = curatedModernIcons.filter(c => c.month === (selectedMonth + 1) && c.day === selectedDay);
+        exactCurated.forEach(c => {
           selectedTwins.push({
             name: c.name,
-            description: `${c.profession} (Born ${monthSelect.options[c.month - 1].text} ${c.day})`,
+            description: c.profession,
             year: c.year,
             icon: c.icon
           });
         });
-      }
 
-      if (twinsGrid) {
-        twinsGrid.innerHTML = '';
-        selectedTwins.slice(0, 3).forEach((twin, index) => {
-          const card = document.createElement('div');
-          card.className = `bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100 dark:border-purple-900/30 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 text-left flex flex-col justify-between`;
-          card.style.animationDelay = `${index * 150}ms`;
+        if (response.ok) {
+          const data = await response.json();
+          const allBirths = data.births || [];
+          
+          // Filter for modern era (born 1940 - 2005) and recognizable descriptions
+          const modernBirths = allBirths.filter((b: any) => {
+            return b.year >= 1940 && b.year <= 2005 && b.text && !b.text.includes("politician") && !selectedTwins.some(t => b.text.includes(t.name));
+          });
 
-          card.innerHTML = `
-            <div>
-              <div class="text-3xl mb-3">${twin.icon}</div>
-              <h4 class="text-xl font-bold text-slate-800 dark:text-purple-100 mb-1 leading-snug">${twin.name}</h4>
-              <p class="text-xs md:text-sm text-indigo-600 dark:text-purple-400 font-semibold mb-4 leading-relaxed">${twin.description}</p>
-            </div>
-            <div class="pt-3 border-t border-indigo-50 dark:border-purple-900/20 text-xs font-mono text-slate-500 dark:text-purple-200/60">
-              Born in ${twin.year}
-            </div>
-          `;
-          twinsGrid.appendChild(card);
-        });
+          // Sort by recency & randomize
+          const shuffled = modernBirths.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedTwins.length);
+          shuffled.forEach((b: any) => {
+            const parts = b.text.split(', ');
+            const name = parts[0];
+            const desc = parts.slice(1).join(', ') || "Famous Icon & Creator";
+            selectedTwins.push({
+              name,
+              description: desc,
+              year: b.year,
+              icon: "🌟"
+            });
+          });
+        }
+
+        // If still fewer than 3, fallback to nearest modern curated icons!
+        if (selectedTwins.length < 3) {
+          if (fallbackNotice) fallbackNotice.classList.remove('hidden');
+          const remaining = curatedModernIcons
+            .filter(c => !selectedTwins.some(t => t.name === c.name))
+            .sort((a, b) => Math.abs(a.month - (selectedMonth + 1)) - Math.abs(b.month - (selectedMonth + 1)))
+            .slice(0, 3 - selectedTwins.length);
+
+          remaining.forEach(c => {
+            selectedTwins.push({
+              name: c.name,
+              description: `${c.profession} (Born ${monthSelect.options[c.month - 1].text} ${c.day})`,
+              year: c.year,
+              icon: c.icon
+            });
+          });
+        }
+
+        if (twinsGrid) {
+          twinsGrid.innerHTML = '';
+          selectedTwins.slice(0, 3).forEach((twin, index) => {
+            const card = document.createElement('div');
+            card.className = `bg-canvas rounded-2xl p-5 border border-hairline shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 text-left flex flex-col justify-between`;
+            card.style.animationDelay = `${index * 150}ms`;
+
+            card.innerHTML = `
+              <div>
+                <div class="text-2xl mb-2">${twin.icon}</div>
+                <h4 class="text-lg font-bold text-ink mb-1 leading-snug">${twin.name}</h4>
+                <p class="text-xs text-mute font-medium mb-4 leading-relaxed">${twin.description}</p>
+              </div>
+              <div class="pt-3 border-t border-hairline text-[11px] font-mono text-mute">
+                Born in ${twin.year}
+              </div>
+            `;
+            twinsGrid.appendChild(card);
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching twins:', error);
+        // Fallback gracefully to curated modern icons
+        if (twinsGrid) {
+          twinsGrid.innerHTML = '';
+          const fallback = curatedModernIcons.slice(0, 3);
+          fallback.forEach((twin) => {
+            const card = document.createElement('div');
+            card.className = `bg-canvas rounded-2xl p-5 border border-hairline shadow-sm text-left flex flex-col justify-between`;
+            card.innerHTML = `
+              <div>
+                <div class="text-2xl mb-2">${twin.icon}</div>
+                <h4 class="text-lg font-bold text-ink mb-1 leading-snug">${twin.name}</h4>
+                <p class="text-xs text-mute font-medium mb-4 leading-relaxed">${twin.profession}</p>
+              </div>
+              <div class="pt-3 border-t border-hairline text-[11px] font-mono text-mute">
+                Born in ${twin.year}
+              </div>
+            `;
+            twinsGrid.appendChild(card);
+          });
+        }
+      } finally {
+        findButton.disabled = false;
+        resultsContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
-    } catch (error) {
-      console.error('Error fetching twins:', error);
-      // Fallback gracefully to curated modern icons
-      if (twinsGrid) {
-        twinsGrid.innerHTML = '';
-        const fallback = curatedModernIcons.slice(0, 3);
-        fallback.forEach((twin) => {
-          const card = document.createElement('div');
-          card.className = `bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100 dark:border-purple-900/30 shadow-sm text-left`;
-          card.innerHTML = `
-            <div class="text-3xl mb-3">${twin.icon}</div>
-            <h4 class="text-xl font-bold text-slate-800 dark:text-purple-100 mb-1">${twin.name}</h4>
-            <p class="text-xs md:text-sm text-indigo-600 dark:text-purple-400 font-semibold mb-4">${twin.profession}</p>
-            <div class="pt-3 border-t border-indigo-50 dark:border-purple-900/20 text-xs font-mono text-slate-500 dark:text-purple-200/60">
-              Born in ${twin.year}
-            </div>
-          `;
-          twinsGrid.appendChild(card);
-        });
-      }
-    } finally {
-      findButton.disabled = false;
-      resultsContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  });
+    };
+  }
+
+  initBirthdayTwins();
+  document.addEventListener('astro:page-load', initBirthdayTwins);
 </script>
 
 <style>

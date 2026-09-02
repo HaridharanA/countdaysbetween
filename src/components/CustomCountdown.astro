@@ -1,16 +1,16 @@
 ---
 ---
 
-<div id="custom-countdown-builder" class="w-full mb-16 rounded-3xl p-8 md:p-12 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-canvas dark:from-slate-900 dark:via-purple-950/20 dark:to-canvas border border-indigo-100/70 dark:border-purple-900/30 card-shadow-lg" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+<div id="custom-countdown-builder" class="w-full mb-16 rounded-3xl p-6 md:p-10 bg-canvas border border-hairline card-shadow" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
   <div class="text-center mb-8" style="width:100%;">
-    <div class="mx-auto h-12 w-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center border border-indigo-500/20 mb-3 shadow-sm">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    <div class="mx-auto h-12 w-12 rounded-2xl bg-canvas-soft border border-hairline text-ink flex items-center justify-center mb-3 shadow-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     </div>
-    <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-ink mb-2">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink mb-2">
       Create Your Own Custom Countdown
     </h2>
-    <p class="text-sm md:text-base text-body">
-      Counting down to a wedding, vacation, milestone, or birthday? Create a free shareable countdown timer.
+    <p class="text-sm md:text-base text-mute">
+      Counting down to a wedding, vacation, milestone, or birthday? Create a clean, shareable live countdown timer.
     </p>
   </div>
 
@@ -25,7 +25,7 @@
           id="custom-event-name"
           placeholder="e.g., Trip to Tokyo, Sarah's Wedding"
           required
-          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors shadow-sm"
+          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link transition-colors"
         />
       </div>
 
@@ -37,7 +37,7 @@
           type="date"
           id="custom-event-date"
           required
-          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas text-ink text-sm outline-none focus:border-link transition-colors shadow-sm"
+          class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link transition-colors"
         />
       </div>
     </div>
@@ -50,7 +50,7 @@
         {["🎉", "✈️", "💍", "🎓", "🎂", "🚀", "🏖️", "🎸", "👶", "🏠", "🏆", "🌟"].map((emoji, index) => (
           <button
             type="button"
-            class={`emoji-btn h-10 w-10 text-xl rounded-xl border border-hairline bg-canvas hover:border-link transition-all flex items-center justify-center ${index === 0 ? "border-link bg-link/10 scale-105" : ""}`}
+            class={`emoji-btn h-10 w-10 text-xl rounded-xl border border-hairline bg-canvas hover:border-link transition-all flex items-center justify-center cursor-pointer ${index === 0 ? "border-link bg-link/10 scale-105" : ""}`}
             data-emoji={emoji}
           >
             {emoji}
@@ -62,7 +62,7 @@
     <button
       type="submit"
       id="create-countdown-btn"
-      class="w-full h-14 rounded-full bg-primary text-on-primary font-bold text-base hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+      class="w-full h-14 rounded-full bg-primary text-on-primary font-bold text-base hover:opacity-90 active:scale-[0.99] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
     >
       <span>Generate Shareable Countdown →</span>
     </button>
@@ -70,27 +70,27 @@
 
   <!-- Live Generated Result Card -->
   <div id="custom-result" class="hidden mt-10 pt-10 border-t border-hairline animate-in fade-in slide-in-from-bottom-4 duration-500">
-    <div class="p-6 md:p-8 rounded-2xl bg-canvas border border-hairline card-shadow text-center">
+    <div class="p-6 md:p-8 rounded-2xl bg-canvas-soft border border-hairline text-center">
       <span id="res-icon" class="text-4xl block mb-2">🎉</span>
       <h3 id="res-name" class="text-2xl md:text-3xl font-bold text-ink mb-1">Trip to Tokyo</h3>
       <p id="res-date-str" class="text-sm text-mute mb-6">Target: November 20, 2026</p>
 
       <!-- Live timer units -->
       <div class="grid grid-cols-4 gap-3 max-w-[450px] mx-auto mb-8">
-        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
-          <span id="res-days" class="text-2xl sm:text-3xl font-black text-primary tabular-nums">0</span>
+        <div class="p-3 rounded-xl bg-canvas border border-hairline shadow-sm">
+          <span id="res-days" class="text-2xl sm:text-3xl font-black text-primary tabular-nums font-mono">0</span>
           <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Days</span>
         </div>
-        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
-          <span id="res-hours" class="text-2xl sm:text-3xl font-black text-ink tabular-nums">0</span>
+        <div class="p-3 rounded-xl bg-canvas border border-hairline shadow-sm">
+          <span id="res-hours" class="text-2xl sm:text-3xl font-black text-ink tabular-nums font-mono">0</span>
           <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Hours</span>
         </div>
-        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
-          <span id="res-mins" class="text-2xl sm:text-3xl font-black text-ink tabular-nums">0</span>
+        <div class="p-3 rounded-xl bg-canvas border border-hairline shadow-sm">
+          <span id="res-mins" class="text-2xl sm:text-3xl font-black text-ink tabular-nums font-mono">0</span>
           <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Mins</span>
         </div>
-        <div class="p-3 rounded-xl bg-canvas-soft border border-hairline">
-          <span id="res-secs" class="text-2xl sm:text-3xl font-black text-violet tabular-nums">0</span>
+        <div class="p-3 rounded-xl bg-canvas border border-hairline shadow-sm">
+          <span id="res-secs" class="text-2xl sm:text-3xl font-black text-link tabular-nums font-mono">0</span>
           <span class="block text-[10px] uppercase font-mono tracking-widest text-mute">Secs</span>
         </div>
       </div>
@@ -100,7 +100,7 @@
         <button
           type="button"
           id="copy-share-link"
-          class="h-11 px-6 rounded-full bg-link text-white font-medium text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-sm"
+          class="h-11 px-6 rounded-full bg-primary text-on-primary font-medium text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-sm cursor-pointer"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
           <span id="copy-btn-text">Copy Share Link</span>
