@@ -57,6 +57,7 @@
 
 ## 📜 Feature Changelog
 
+- **v0.5.1 (Sep 2, 2026):** Implemented Professional "Formal Breakdown" Copy/Export across EN, PT-BR, and ES calculators (`Calculator.astro`, `CalculatorPt.astro`, `CalculatorEs.astro`) with structured plain-text formatting (calendar days, working days, weekend days, hours, and source credit), accessible buttons with active states, and automated 168-page audit verification.
 - **v0.5.0 (Sep 2, 2026):** Implemented Astro `ClientRouter` for smooth SPA cross-fade page transitions, brought 100% full feature parity to Portuguese and Spanish (Year Progress, Custom Countdown Builder, Life Days Counter), launched specialized Brazilian *Aviso Prévio CLT* (`/pt/aviso-previo/`) and Spanish *Plazos Ley 39/2015* (`/es/calculadora-plazos/`), compiling 168 static pages.
 
 - **v0.4.0 (Sep 2, 2026):** Launched full Spanish (`/es/`) engine for Spain and Latin America with *días hábiles* calculator, vacation hub (`/es/cuenta-regresiva/`), 10 dynamic holiday countdown routes (`/es/dias-hasta/[slug]/`), 3-way language switchers, bidirectional `hreflang="es-ES"` tags, and verified clean compilation of 166 static pages.

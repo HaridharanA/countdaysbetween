@@ -144,10 +144,11 @@ const defaultEnd = formatDateForInputPT(nextMonth);
         <button
           type="button"
           id="copy-result-btn-pt"
-          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink hover:text-link transition-all cursor-pointer shadow-sm"
+          aria-label="Copiar resumo formal de cálculo de datas para a área de transferência"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-canvas border border-hairline hover:border-link text-ink hover:text-link focus-visible:ring-2 focus-visible:ring-link outline-none transition-all cursor-pointer shadow-sm"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-          <span id="copy-result-text-pt">Copiar Resumo</span>
+          <svg id="copy-icon-pt" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          <span id="copy-result-text-pt">Copiar Resumo Formal</span>
         </button>
       </div>
     </div>
@@ -241,12 +242,23 @@ const defaultEnd = formatDateForInputPT(nextMonth);
 
       if (copyResultBtn && copyResultText) {
         copyResultBtn.onclick = () => {
-          const textToCopy = `Entre ${startDateInput.value} e ${endDateInput.value}: ${diff.days} dias corridos (${diff.businessDays} dias úteis, ${weekendCount} finais de semana, ${diff.weeks} semanas). Calculado no countdaysbetween.com/pt/`;
-          navigator.clipboard.writeText(textToCopy).then(() => {
-            copyResultText.innerText = 'Copiado! ✅';
+          const formattedSummary = [
+            `📅 Resumo de Duração de Datas`,
+            `• Período: ${startDateInput.value} → ${endDateInput.value}`,
+            `• Duração Total: ${diff.days.toLocaleString('pt-BR')} dias corridos`,
+            `• Dias Úteis (Seg–Sex): ${diff.businessDays.toLocaleString('pt-BR')} dias úteis`,
+            `• Finais de Semana: ${weekendCount.toLocaleString('pt-BR')} dias (Sáb e Dom)`,
+            `• Equivalente: ${diff.weeks.toLocaleString('pt-BR')} semanas, ${diff.days % 7} dias (${totalHours.toLocaleString('pt-BR')} horas)`,
+            `• Fonte: countdaysbetween.com/pt/`
+          ].join('\n');
+
+          navigator.clipboard.writeText(formattedSummary).then(() => {
+            copyResultText.innerText = 'Copiado para a Área de Transferência! ✓';
+            copyResultBtn.classList.add('border-primary', 'bg-primary/10');
             setTimeout(() => {
-              copyResultText.innerText = 'Copiar Resumo';
-            }, 2500);
+              copyResultText.innerText = 'Copiar Resumo Formal';
+              copyResultBtn.classList.remove('border-primary', 'bg-primary/10');
+            }, 2200);
           });
         };
       }
