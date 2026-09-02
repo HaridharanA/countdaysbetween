@@ -38,8 +38,7 @@
 
 ---
 
-## 📜 Feature Changelog
-
+- **v0.2.1 (Sep 2, 2026):** Upgraded `Calculator.astro` with tactile quick date presets (+30d, +90d, End of Month, New Year), structured weekend metrics, approximate hours, and 1-click summary clipboard copying, maintaining strict Vercel design tokens and zero layout shifts.
 - **v0.2.0 (Sep 2, 2026):** Generated 39 curated holiday-pair duration routes (`/days-between/[pair]/`), full SEO audit suite artifacts (`countdaysbetween-audit/`), fixed Vite `.srt` watcher ignore rule, updated `public/llms.txt`, and verified clean build of 135 static pages.
 - **v0.1.0 (Aug 25, 2026):** Implemented 301 WWW canonical redirects (`_redirects`), HTTP security headers (`_headers`), high-res 1200x630 `og-image.png`, `WebApplication` schema, and dynamic sitemap timestamps.
 
