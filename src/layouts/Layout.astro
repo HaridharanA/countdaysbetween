@@ -72,6 +72,11 @@ const globalSchema = {
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
 
+		<!-- International hreflang tags -->
+		<link rel="alternate" hreflang="en" href={canonicalUrl} />
+		<link rel="alternate" hreflang="pt-BR" href="https://www.countdaysbetween.com/pt/" />
+		<link rel="alternate" hreflang="x-default" href="https://www.countdaysbetween.com/" />
+
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonicalUrl} />
@@ -130,7 +135,13 @@ const globalSchema = {
 					</div>
 					<div class="h-4 w-px bg-hairline hidden md:block"></div>
 					
-					<button id="theme-toggle" class="flex h-8 w-8 items-center justify-center rounded-md border border-hairline bg-canvas hover:bg-canvas-soft-2 transition-colors" aria-label="Toggle Dark Mode">
+					<!-- Language Switcher -->
+					<div class="flex items-center gap-1 bg-canvas-soft border border-hairline rounded-full p-1 text-xs">
+						<span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold">EN</span>
+						<a href="/pt/" class="px-2 py-0.5 rounded-full text-mute hover:text-ink transition-colors font-medium">PT</a>
+					</div>
+
+					<button id="theme-toggle" class="flex h-8 w-8 items-center justify-center rounded-md border border-hairline bg-canvas hover:bg-canvas-soft-2 transition-colors cursor-pointer" aria-label="Toggle Dark Mode">
 						<svg id="sun-icon" class="hidden dark:block" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 						<svg id="moon-icon" class="block dark:hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 					</button>
@@ -162,8 +173,11 @@ const globalSchema = {
 						<a href="/contact/" class="text-sm text-body hover:text-ink">Contact</a>
 					</div>
 					<div class="flex flex-col gap-3">
-						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Subscribe</span>
-						<p class="text-sm text-mute">Get updates on new tools.</p>
+						<span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Languages</span>
+						<div class="flex flex-wrap gap-2 pt-1">
+							<span class="text-xs px-2.5 py-1 rounded-md bg-primary text-on-primary font-bold">English</span>
+							<a href="/pt/" class="text-xs px-2.5 py-1 rounded-md border border-hairline text-body hover:text-ink">Português</a>
+						</div>
 					</div>
 				</div>
 				<div class="mt-8 pt-8 border-t border-hairline flex flex-col md:flex-row justify-between items-center gap-4">

@@ -1,0 +1,202 @@
+---
+import LayoutPt from "../../layouts/LayoutPt.astro";
+import CalculatorPt from "../../components/CalculatorPt.astro";
+import holidaysPt from "../../data/holidays-pt.json";
+
+const upcomingHolidays = holidaysPt.filter((h) => h.year === 2026).slice(0, 6);
+
+const pageTitle = "Calculadora de Dias Entre Duas Datas — Dias Úteis e Corridos";
+const pageDescription = "Calcule o número exato de dias corridos, dias úteis e semanas entre duas datas. Calculadora gratuita com feriados nacionais do Brasil (CLT).";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Calculadora de Dias Entre Datas",
+      "url": "https://www.countdaysbetween.com/pt/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "description": "Calculadora online para contar dias corridos e dias úteis entre duas datas no Brasil."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Qual é a diferença entre dias corridos e dias úteis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dias corridos incluem todos os dias do calendário de forma contínua, incluindo sábados, domingos e feriados. Dias úteis consideram apenas os dias úteis de trabalho (segunda a sexta-feira), excluindo finais de semana e feriados oficiais."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "A calculadora inclui feriados nacionais brasileiros?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim, nossa ferramenta é adaptada para as regras do Brasil (CLT e Código de Processo Civil), permitindo verificar dias úteis e datas de feriados nacionais como Carnaval, Tiradentes e Natal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como calcular dias entre datas no Excel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No Excel, você pode usar a fórmula =DIATRABALHOTOTAL(data_inicial, data_final) para dias úteis ou simplesmente =data_final - data_inicial para dias corridos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como funciona a opção 'Incluir data final'?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Por padrão, a calculadora mede o intervalo transcorrido (data final menos data inicial). Ao marcar 'Incluir data final', adiciona-se 1 dia para contar ambos os dias como completos."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<LayoutPt title={pageTitle} description={pageDescription}>
+  <!-- Hero Section -->
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="mb-8" style="width:100%;">
+      <div class="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-link border border-hairline bg-canvas-soft mb-4">
+        <span>🇧🇷</span>
+        <span>Calculadora Oficial para o Brasil</span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
+        Calculadora de <span class="text-link">Dias Entre Datas</span>
+      </h1>
+      <p class="text-lg text-body" style="width:100%; max-width:650px;">
+        Descubra a quantidade exata de dias corridos, dias úteis, semanas e tempo restante entre quaisquer duas datas no Brasil.
+      </p>
+    </div>
+
+    <!-- Main Calculator Embed -->
+    <div id="tool" class="scroll-mt-24">
+      <CalculatorPt />
+    </div>
+  </section>
+
+  <!-- Popular Brazilian Holiday Countdowns Shortcut Section -->
+  <section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="flex items-center justify-between mb-8 pb-4 border-b border-hairline">
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-ink">Feriados e Férias Populares no Brasil</h2>
+        <p class="text-sm text-mute mt-1">Acompanhe a contagem regressiva para os principais feriadões de 2026</p>
+      </div>
+      <a href="/pt/contagem-regressiva/" class="text-xs font-semibold text-link hover:underline">Ver Todos →</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {upcomingHolidays.map((h) => (
+        <a
+          href={`/pt/dias-ate/${h.slug}/`}
+          class="flex items-center gap-3 p-4 rounded-2xl bg-canvas border border-hairline hover:border-link transition-all group card-shadow"
+        >
+          <span class="text-2xl flex-shrink-0">{h.icon}</span>
+          <div class="min-w-0 flex-1">
+            <h3 class="font-semibold text-sm text-ink group-hover:text-link transition-colors truncate">{h.name}</h3>
+            <p class="text-xs text-mute truncate">{h.dayOfWeek}, {h.date}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Key Tool Cards in Portuguese -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <a href="/pt/dias-uteis/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink group-hover:text-link"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Dias Úteis no Brasil →</h3>
+        <p class="text-xs text-body">Exclua finais de semana e feriados para contagem precisa de prazos trabalhistas e judiciais.</p>
+      </div>
+    </a>
+
+    <a href="/pt/contagem-regressiva/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-violet transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-violet transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-violet transition-colors">Contagem para as Férias →</h3>
+        <p class="text-xs text-body">Saiba quantos dias faltam para o recesso de julho, fim de ano e feriadões prolongados.</p>
+      </div>
+    </a>
+
+    <a href="#tool" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Detalhamento Completo</h3>
+        <p class="text-xs text-body">Resultados em dias, semanas, meses, horas aproximadas e percentual do ano padrão.</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- Educational Context Section in Portuguese -->
+  <section class="mb-20 w-full prose dark:prose-invert" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="prose-content w-full" style="width:100%;">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-6 text-ink" style="width:100%;">
+        Como Contar Dias Entre Datas no Brasil: Regras e Aplicações
+      </h2>
+      <p class="text-body leading-relaxed mb-4" style="width:100%;">
+        A contagem de tempo entre datas é essencial no cotidiano de profissionais de Recursos Humanos (RH), advogados, estudantes e gestores de projetos. No Brasil, existem regras específicas que diferenciam a contagem de <strong>dias corridos</strong> e <strong>dias úteis</strong>.
+      </p>
+
+      <h3 class="text-xl font-bold mt-6 mb-3 text-ink">Dias Corridos vs. Dias Úteis (CLT e Novo CPC)</h3>
+      <ul class="list-disc pl-6 space-y-2 text-sm text-body" style="width:100%;">
+        <li><strong>Dias Corridos:</strong> Contam-se todos os 365 dias do ano ininterruptamente, incluindo sábados, domingos e feriados. É a forma padrão utilizada em contratos de locação, prazos civis gerais e contagens de idade.</li>
+        <li><strong>Dias Úteis:</strong> Consideram-se apenas os dias de trabalho (segunda a sexta-feira), desconsiderando sábados, domingos e feriados oficiais. Pelo Código de Processo Civil (CPC/2015), os prazos processuais são computados exclusivamente em dias úteis.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Frequently Asked Questions in Portuguese -->
+  <section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8 text-ink" style="width:100%;">
+      Perguntas Frequentes (FAQ)
+    </h2>
+    <div class="space-y-4" style="width:100%;">
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">Qual é a diferença entre dias corridos e dias úteis?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Dias corridos incluem todos os dias do calendário de forma contínua, incluindo sábados, domingos e feriados. Dias úteis consideram apenas os dias úteis de trabalho (segunda a sexta-feira), excluindo finais de semana e feriados oficiais.
+        </p>
+      </details>
+
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">A calculadora considera anos bissextos automaticamente?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          Sim. O algoritmo calcula com precisão astronômica, incluindo o dia 29 de fevereiro nos anos bissextos (como 2024 e 2028).
+        </p>
+      </details>
+
+      <details class="group p-6 rounded-2xl bg-canvas border border-hairline card-shadow cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-ink list-none">
+          <span class="text-base md:text-lg">Como calcular dias úteis no Excel?</span>
+          <span class="text-link group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-body leading-relaxed mt-4 pt-4 border-t border-hairline text-sm">
+          No Excel ou Google Planilhas, utilize a função <code class="font-mono bg-canvas-soft px-1.5 py-0.5 rounded border border-hairline">=DIATRABALHOTOTAL(data_inicial; data_final)</code> para excluir finais de semana automaticamente.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Schema Markup Injection -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</LayoutPt>

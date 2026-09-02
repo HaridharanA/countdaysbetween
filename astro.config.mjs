@@ -7,9 +7,23 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://www.countdaysbetween.com',
   trailingSlash: 'always',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'pt'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   integrations: [
     sitemap({
-      lastmod: new Date()
+      lastmod: new Date(),
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          pt: 'pt-BR'
+        }
+      }
     })
   ],
   vite: {

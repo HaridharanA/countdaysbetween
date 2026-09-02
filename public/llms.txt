@@ -31,6 +31,10 @@ CountDays provides instant, mathematically precise calendar calculations for ind
    - URL: https://www.countdaysbetween.com/days-between/thanksgiving-and-christmas/
    - Description: Calculates exact duration, business days, and 5-year comparison schedules between major holiday pairs (e.g., Thanksgiving to Christmas, Memorial Day to Labor Day, Halloween to Thanksgiving).
 
+7. **Calculadora de Dias e Dias Úteis no Brasil (Português)**
+   - URL: https://www.countdaysbetween.com/pt/
+   - Description: Calculadora oficial para o Brasil de dias corridos, dias úteis (CLT) e contagem regressiva para férias escolares e feriados nacionais.
+
 ## Date Calculation Rules & Methodology
 
 - **Calendar-Based Day Counting:** Durations are calculated using standard UTC midnight-to-midnight date deltas.

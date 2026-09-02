@@ -1,0 +1,114 @@
+---
+import LayoutPt from "../../layouts/LayoutPt.astro";
+import CalculatorPt from "../../components/CalculatorPt.astro";
+import holidaysPt from "../../data/holidays-pt.json";
+
+const holidays2026 = holidaysPt.filter((h) => h.year === 2026);
+
+const pageTitle = "Calculadora de Dias Úteis no Brasil — Excluir Finais de Semana e Feriados";
+const pageDescription = "Calcule o número exato de dias úteis entre duas datas no Brasil. Desconte sábados, domingos e feriados nacionais para prazos e RH.";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Calculadora de Dias Úteis Brasil",
+      "url": "https://www.countdaysbetween.com/pt/dias-uteis/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "description": "Calculadora online de dias úteis e prazos conforme a legislação brasileira."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://www.countdaysbetween.com/pt/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Dias Úteis no Brasil",
+          "item": "https://www.countdaysbetween.com/pt/dias-uteis/"
+        }
+      ]
+    }
+  ]
+};
+---
+
+<LayoutPt title={pageTitle} description={pageDescription}>
+  <!-- Breadcrumbs -->
+  <div class="mb-8 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <nav class="flex items-center gap-2 text-xs font-mono text-mute">
+      <a href="/pt/" class="hover:text-ink transition-colors">Início</a>
+      <span>/</span>
+      <span class="text-ink font-medium">Dias Úteis no Brasil</span>
+    </nav>
+  </div>
+
+  <section class="mb-16 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="mb-8" style="width:100%;">
+      <div class="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold text-link border border-hairline bg-canvas-soft mb-4">
+        <span>💼</span>
+        <span>Prazos Trabalhistas e Judiciais</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
+        Calculadora de <span class="text-link">Dias Úteis no Brasil</span>
+      </h1>
+      <p class="text-base md:text-lg text-body" style="width:100%; max-width:650px;">
+        Conte apenas os dias de trabalho úteis (segunda a sexta-feira) entre duas datas, excluindo sábados e domingos automaticamente.
+      </p>
+    </div>
+
+    <!-- Main Calculator Embed -->
+    <div id="tool" class="scroll-mt-24">
+      <CalculatorPt />
+    </div>
+  </section>
+
+  <!-- 2026 Brazilian National Holidays Reference Table -->
+  <section class="mb-20 w-full" style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-4 text-ink" style="width:100%;">
+      Tabela de Feriados Nacionais no Brasil (2026)
+    </h2>
+    <p class="text-sm text-body mb-6" style="width:100%;">
+      Consulte as datas oficiais de feriados nacionais que impactam a contagem de dias úteis em 2026:
+    </p>
+
+    <div class="overflow-hidden rounded-2xl border border-hairline bg-canvas card-shadow">
+      <table class="w-full text-left text-sm" style="width:100%;">
+        <thead class="bg-canvas-soft border-b border-hairline text-xs uppercase font-mono text-mute">
+          <tr>
+            <th class="px-6 py-4">Feriado / Evento</th>
+            <th class="px-6 py-4">Data Oficial</th>
+            <th class="px-6 py-4">Dia da Semana</th>
+            <th class="px-6 py-4 text-right">Contagem</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-hairline">
+          {holidays2026.map((h) => (
+            <tr>
+              <td class="px-6 py-4 font-medium text-ink flex items-center gap-2">
+                <span>{h.icon}</span>
+                <span>{h.holidayName}</span>
+              </td>
+              <td class="px-6 py-4 font-mono text-xs text-body">{h.date}</td>
+              <td class="px-6 py-4 text-xs text-link font-semibold">{h.dayOfWeek}</td>
+              <td class="px-6 py-4 text-right">
+                <a href={`/pt/dias-ate/${h.slug}/`} class="text-xs font-semibold text-link hover:underline">
+                  Ver →
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</LayoutPt>

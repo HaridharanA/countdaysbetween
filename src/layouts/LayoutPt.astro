@@ -1,0 +1,205 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Calcule dias entre datas facilmente no Brasil." } = Astro.props;
+const pageTitle = title.includes("|") || title.includes("—") ? title : `${title} | CountDays Brasil`;
+
+const rawPathname = Astro.url.pathname;
+const canonicalPath = rawPathname.endsWith("/") ? rawPathname : `${rawPathname}/`;
+const canonicalUrl = `https://www.countdaysbetween.com${canonicalPath}`;
+
+const globalSchemaPt = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.countdaysbetween.com/pt/#website",
+      "url": "https://www.countdaysbetween.com/pt/",
+      "name": "CountDays Brasil",
+      "inLanguage": "pt-BR",
+      "description": "Calculadora de dias corridos, dias úteis e contagem regressiva para férias no Brasil.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.countdaysbetween.com/pt/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.countdaysbetween.com/#organization",
+      "name": "CountDays",
+      "url": "https://www.countdaysbetween.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.countdaysbetween.com/favicon-96x96.png",
+        "width": 96,
+        "height": 96
+      }
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKG8KSWV3M"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FKG8KSWV3M');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="CountDays" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- International hreflang tags -->
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href="https://www.countdaysbetween.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.countdaysbetween.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://www.countdaysbetween.com/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://www.countdaysbetween.com/og-image.png" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(globalSchemaPt)} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+    
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+    </script>
+  </head>
+  <body class="selection:bg-primary selection:text-on-primary min-h-screen bg-canvas-soft text-ink flex flex-col">
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+      <div class="mesh-gradient absolute -top-[30%] left-0 right-0 h-[70%]"></div>
+    </div>
+    
+    <nav class="sticky top-0 z-50 h-16 border-b border-hairline bg-canvas/80 backdrop-blur-md">
+      <div class="mx-auto flex h-full max-w-[1400px] items-center justify-between px-6 md:px-8">
+        <a href="/pt/" class="flex items-center gap-2 font-semibold tracking-tight">
+          <span class="text-xl">CountDays</span>
+          <span class="text-[10px] font-mono uppercase tracking-wider bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">BR</span>
+        </a>
+        
+        <div class="flex items-center gap-4 sm:gap-6">
+          <div class="hidden items-center gap-6 md:flex">
+            <a href="/pt/" class="text-sm text-body hover:text-ink">Calculadora</a>
+            <a href="/pt/dias-uteis/" class="text-sm text-body hover:text-ink">Dias Úteis</a>
+            <a href="/pt/contagem-regressiva/" class="text-sm text-body hover:text-ink">Férias & Feriados</a>
+          </div>
+
+          <div class="h-4 w-px bg-hairline hidden md:block"></div>
+
+          <!-- Language Switcher -->
+          <div class="flex items-center gap-1 bg-canvas-soft border border-hairline rounded-full p-1 text-xs">
+            <a href="/" class="px-2 py-0.5 rounded-full text-mute hover:text-ink transition-colors font-medium">EN</a>
+            <span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-bold">PT</span>
+          </div>
+
+          <button id="theme-toggle" class="flex h-8 w-8 items-center justify-center rounded-md border border-hairline bg-canvas hover:bg-canvas-soft-2 transition-colors cursor-pointer" aria-label="Alternar Modo Escuro">
+            <svg id="sun-icon" class="hidden dark:block" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg id="moon-icon" class="block dark:hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="w-full max-w-[1400px] mx-auto px-6 md:px-8 pt-8 pb-16 flex-grow overflow-x-hidden">
+      <slot />
+    </main>
+
+    <footer class="border-t border-hairline bg-canvas py-16 mt-24">
+      <div class="mx-auto max-w-[1400px] px-6 md:px-8">
+        <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div class="flex flex-col gap-3">
+            <span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Calculadoras</span>
+            <a href="/pt/" class="text-sm text-body hover:text-ink">Dias Entre Datas</a>
+            <a href="/pt/dias-uteis/" class="text-sm text-body hover:text-ink">Dias Úteis no Brasil</a>
+            <a href="/pt/contagem-regressiva/" class="text-sm text-body hover:text-ink">Contagem Regressiva</a>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Feriados Populares</span>
+            <a href="/pt/dias-ate/carnaval-2026/" class="text-sm text-body hover:text-ink">Carnaval 2026</a>
+            <a href="/pt/dias-ate/ferias-de-julho-2026/" class="text-sm text-body hover:text-ink">Férias de Julho 2026</a>
+            <a href="/pt/dias-ate/natal-2026/" class="text-sm text-body hover:text-ink">Natal 2026</a>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Institucional</span>
+            <a href="/about/" class="text-sm text-body hover:text-ink">Sobre Nós</a>
+            <a href="/privacy-policy/" class="text-sm text-body hover:text-ink">Privacidade</a>
+            <a href="/terms/" class="text-sm text-body hover:text-ink">Termos</a>
+            <a href="/contact/" class="text-sm text-body hover:text-ink">Contato</a>
+          </div>
+          <div class="flex flex-col gap-3">
+            <span class="font-mono text-xs font-medium uppercase tracking-wider text-mute">Idiomas</span>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <a href="/" class="text-xs px-2.5 py-1 rounded-md border border-hairline text-body hover:text-ink">English</a>
+              <span class="text-xs px-2.5 py-1 rounded-md bg-primary text-on-primary font-bold">Português</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-hairline flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-xs text-mute">© 2026 CountDays Brasil. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle?.addEventListener('click', () => {
+        const element = document.documentElement;
+        element.classList.toggle('dark');
+        const isDark = element.classList.contains('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    </script>
+  </body>
+</html>
