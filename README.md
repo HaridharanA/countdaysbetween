@@ -4,9 +4,9 @@
 
 ---
 
-## 📌 Current Stable Baseline: Version `v0.3.0`
-- **Git Commit:** `783c4d1`
-- **Total Pre-rendered Pages:** **153 Static Routes** (Verified in `dist/sitemap-0.xml`)
+## 📌 Current Stable Baseline: Version `v0.4.0`
+- **Git Commit:** `a9cbf7e`
+- **Total Pre-rendered Pages:** **166 Static Routes** (Verified in `dist/sitemap-0.xml`)
 - **Hosting Target:** Cloudflare Pages (Static Site Generation, $0/month server cost)
 - **Framework:** Astro v6.4.5 + Tailwind CSS v4 + Vercel Design Tokens (`DESIGN.md`)
 
@@ -27,6 +27,10 @@
 | `/pt/dias-uteis/` | **Dias Úteis no Brasil (PT-BR)** | Business days calculator excluding Brazilian weekends and national holidays with official 2026 holiday reference table. |
 | `/pt/contagem-regressiva/` | **Contagem para as Férias (PT-BR)** | Target hub for *Férias Escolares de Julho*, *Férias de Verão*, *Carnaval*, and Brazilian holiday countdowns. |
 | `/pt/dias-ate/[slug]/` | **Feriados do Brasil (PT-BR)** | Individual countdown pages for Brazilian national holidays (e.g., `carnaval-2026`, `ferias-de-julho-2026`, `tiradentes-2026`). |
+| `/es/` | **Calculadora de Días Entre Fechas (ES)** | Spanish homepage calculator with *días naturales*, *días hábiles*, and quick presets. Schema: `WebApplication`, `FAQPage`. |
+| `/es/dias-habiles/` | **Días Hábiles (ES)** | Business days calculator excluding weekends and holidays for Spain and Latin America. |
+| `/es/cuenta-regresiva/` | **Vacaciones y Festivos (ES)** | Holiday & vacation countdown hub for Spain, Mexico & Latin America (*Semana Santa, Vacaciones de Verano, Reyes*). |
+| `/es/dias-hasta/[slug]/` | **Festivos en Español (ES)** | Individual countdown pages for Hispanic holidays (*Día de Reyes, Viernes Santo, Vacaciones de Verano, Día de Muertos*). |
 | `/timeline-wars/` | **Gamified History Trivia** | Standalone fullscreen game page testing knowledge of historical dates. |
 | `/about/`, `/privacy-policy/`, `/terms/`, `/contact/` | **Trust & Company Pages** | Static E-E-A-T trust pages. |
 
@@ -50,6 +54,7 @@
 
 ## 📜 Feature Changelog
 
+- **v0.4.0 (Sep 2, 2026):** Launched full Spanish (`/es/`) engine for Spain and Latin America with *días hábiles* calculator, vacation hub (`/es/cuenta-regresiva/`), 10 dynamic holiday countdown routes (`/es/dias-hasta/[slug]/`), 3-way language switchers, bidirectional `hreflang="es-ES"` tags, and verified clean compilation of 166 static pages.
 - **v0.3.0 (Sep 2, 2026):** Launched full Brazilian Portuguese (`/pt/`) engine with native CLT business days calculator, dedicated holiday/vacation hub (`/pt/contagem-regressiva/`), 15 dynamic countdown routes (`/pt/dias-ate/[slug]/`), bidirectional `hreflang="pt-BR"` tags, and verified clean compilation of 153 static pages.
 - **v0.2.1 (Sep 2, 2026):** Upgraded `Calculator.astro` with tactile quick date presets (+30d, +90d, End of Month, New Year), structured weekend metrics, approximate hours, and 1-click summary clipboard copying, maintaining strict Vercel design tokens and zero layout shifts.
 - **v0.2.0 (Sep 2, 2026):** Generated 39 curated holiday-pair duration routes (`/days-between/[pair]/`), full SEO audit suite artifacts (`countdaysbetween-audit/`), fixed Vite `.srt` watcher ignore rule, updated `public/llms.txt`, and verified clean build of 135 static pages.
