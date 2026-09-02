@@ -1,0 +1,61 @@
+---
+interface Props {
+  currentLocale: 'en' | 'pt' | 'es';
+}
+
+const { currentLocale } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+// Intelligent mapping of equivalent pages across languages
+function getEquivalentUrls(path: string) {
+  // Normalize path (ensure trailing slash)
+  const p = path.endsWith('/') ? path : `${path}/`;
+
+  if (p === '/' || p === '/pt/' || p === '/es/') {
+    return { en: '/', pt: '/pt/', es: '/es/' };
+  }
+  if (p.includes('/business-days/') || p.includes('/dias-uteis/') || p.includes('/dias-habiles/')) {
+    return { en: '/business-days/', pt: '/pt/dias-uteis/', es: '/es/dias-habiles/' };
+  }
+  if (p.includes('/countdown/') || p.includes('/contagem-regressiva/') || p.includes('/cuenta-regresiva/')) {
+    return { en: '/countdown/', pt: '/pt/contagem-regressiva/', es: '/es/cuenta-regresiva/' };
+  }
+
+  // Default fallback to locale home
+  return { en: '/', pt: '/pt/', es: '/es/' };
+}
+
+const targetUrls = getEquivalentUrls(currentPath);
+
+const locales = [
+  { code: 'en', label: 'EN', flag: '🇺🇸', name: 'English', url: targetUrls.en },
+  { code: 'pt', label: 'PT', flag: '🇧🇷', name: 'Português', url: targetUrls.pt },
+  { code: 'es', label: 'ES', flag: '🇪🇸', name: 'Español', url: targetUrls.es }
+];
+---
+
+<nav aria-label="Language selector" class="relative inline-flex items-center rounded-full bg-canvas-soft p-1 border border-hairline shadow-inner">
+  <div class="flex items-center gap-0.5">
+    {locales.map((loc) => {
+      const isActive = loc.code === currentLocale;
+      return isActive ? (
+        <span
+          class="relative z-10 flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-on-primary bg-primary shadow-sm transition-all duration-300 ease-out select-none"
+          aria-current="page"
+        >
+          <span class="text-[11px] leading-none">{loc.flag}</span>
+          <span>{loc.label}</span>
+        </span>
+      ) : (
+        <a
+          href={loc.url}
+          class="relative z-0 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-mute hover:text-ink hover:bg-canvas transition-all duration-200 ease-out active:scale-95"
+          title={`Mudar para ${loc.name}`}
+        >
+          <span class="text-[11px] leading-none opacity-80">{loc.flag}</span>
+          <span>{loc.label}</span>
+        </a>
+      );
+    })}
+  </div>
+</nav>
