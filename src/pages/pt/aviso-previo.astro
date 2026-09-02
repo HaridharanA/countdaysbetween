@@ -1,0 +1,221 @@
+---
+import LayoutPt from "../../layouts/LayoutPt.astro";
+
+const title = "Calculadora de Aviso Prévio Proporcional CLT — Dias e Prazos";
+const description = "Calcule o tempo exato de aviso prévio proporcional conforme a Lei 12.506/2011 e a CLT no Brasil. Descubra dias adicionais por ano de trabalho e data final.";
+---
+
+<LayoutPt title={title} description={description}>
+  <div style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="mb-10 text-center" style="width:100%;">
+      <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-4">
+        <span>⚖️ Legislação Trabalhista Brasileira (Lei 12.506/2011)</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight text-ink mb-4">
+        Calculadora de Aviso Prévio Proporcional CLT
+      </h1>
+      <p class="text-base md:text-lg text-body" style="width:100%;">
+        Calcule instantaneamente o número de dias de aviso prévio (30 dias base + 3 dias por ano completo trabalhado, até o teto de 90 dias) e a data exata do término do contrato.
+      </p>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="p-6 md:p-8 rounded-3xl bg-canvas border border-hairline card-shadow mb-12">
+      <form id="aviso-form" class="space-y-6" onsubmit="event.preventDefault();">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="data-admissao" class="block text-xs font-bold uppercase tracking-wider text-mute mb-2">
+              Data de Admissão (Início)
+            </label>
+            <input
+              type="date"
+              id="data-admissao"
+              required
+              class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="data-aviso" class="block text-xs font-bold uppercase tracking-wider text-mute mb-2">
+              Data da Comunicação do Aviso
+            </label>
+            <input
+              type="date"
+              id="data-aviso"
+              required
+              class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link transition-colors"
+            />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-mute mb-2">
+              Tipo de Rescisão
+            </label>
+            <select id="tipo-rescisao" class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link">
+              <option value="demissao-sem-justa-causa">Demissão Sem Justa Causa (Empregador)</option>
+              <option value="pedido-demissao">Pedido de Demissão (Empregado - Fixo 30 dias)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-mute mb-2">
+              Cumprimento do Aviso
+            </label>
+            <select id="tipo-cumprimento" class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link">
+              <option value="trabalhado">Aviso Trabalhado (Redução de 2h ou 7 dias corridos)</option>
+              <option value="indenizado">Aviso Indenizado (Pago em dinheiro)</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="btn-calcular-aviso"
+          class="w-full h-14 rounded-full bg-primary text-on-primary font-bold text-base hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span>Calcular Prazo e Dias de Aviso →</span>
+        </button>
+      </form>
+
+      <!-- Live Result Container -->
+      <div id="aviso-resultado" class="hidden mt-8 pt-8 border-t border-hairline animate-in fade-in duration-300">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div class="p-4 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="block text-xs uppercase font-mono text-mute mb-1">Tempo de Serviço</span>
+            <span id="res-tempo-servico" class="text-xl md:text-2xl font-black text-ink font-mono">0 anos</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="block text-xs uppercase font-mono text-mute mb-1">Dias Adicionais</span>
+            <span id="res-dias-adicionais" class="text-xl md:text-2xl font-black text-blue-500 font-mono">+0 dias</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="block text-xs uppercase font-mono text-mute mb-1">Total de Aviso</span>
+            <span id="res-total-dias" class="text-xl md:text-2xl font-black text-primary font-mono">30 dias</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="block text-xs uppercase font-mono text-mute mb-1">Último Dia</span>
+            <span id="res-data-fim" class="text-base md:text-lg font-bold text-emerald-600 dark:text-emerald-400">--/--/----</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-primary/5 border border-primary/20 text-sm text-body">
+          <h4 class="font-bold text-ink mb-1">📋 Resumo Legal CLT:</h4>
+          <p id="res-explicacao-legal">
+            Conforme a Lei nº 12.506/2011, o empregado tem direito a 30 dias de aviso prévio mais 3 dias para cada ano completo de serviço prestado na mesma empresa, até o limite de 90 dias (20 anos de trabalho).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Guide -->
+    <div class="space-y-6 text-body leading-relaxed">
+      <h2 class="text-2xl font-bold text-ink">Como funciona o Aviso Prévio Proporcional no Brasil?</h2>
+      <p>
+        Desde a sanção da <strong>Lei nº 12.506/2011</strong>, o aviso prévio no Brasil deixou de ser fixo em 30 dias para todas as demissões sem justa causa. O cálculo segue uma tabela progressiva baseada no tempo de casa do trabalhador:
+      </p>
+      
+      <div class="overflow-x-auto rounded-2xl border border-hairline bg-canvas p-4 my-6">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-hairline text-mute">
+              <th class="py-2 px-3 font-semibold">Anos Completos</th>
+              <th class="py-2 px-3 font-semibold">Dias Adicionais (+3d/ano)</th>
+              <th class="py-2 px-3 font-semibold">Total de Dias de Aviso</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-ink">
+            <tr><td class="py-2 px-3 font-mono">Menos de 1 ano</td><td class="py-2 px-3 font-mono text-mute">0 dias</td><td class="py-2 px-3 font-bold font-mono">30 dias</td></tr>
+            <tr><td class="py-2 px-3 font-mono">1 ano completo</td><td class="py-2 px-3 font-mono text-blue-500">+3 dias</td><td class="py-2 px-3 font-bold font-mono">33 dias</td></tr>
+            <tr><td class="py-2 px-3 font-mono">2 anos completos</td><td class="py-2 px-3 font-mono text-blue-500">+6 dias</td><td class="py-2 px-3 font-bold font-mono">36 dias</td></tr>
+            <tr><td class="py-2 px-3 font-mono">5 anos completos</td><td class="py-2 px-3 font-mono text-blue-500">+15 dias</td><td class="py-2 px-3 font-bold font-mono">45 dias</td></tr>
+            <tr><td class="py-2 px-3 font-mono">10 anos completos</td><td class="py-2 px-3 font-mono text-blue-500">+30 dias</td><td class="py-2 px-3 font-bold font-mono">60 dias</td></tr>
+            <tr><td class="py-2 px-3 font-mono">20+ anos (Teto Máximo)</td><td class="py-2 px-3 font-mono text-blue-500">+60 dias</td><td class="py-2 px-3 font-bold font-mono text-emerald-600">90 dias</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</LayoutPt>
+
+<script>
+  function initAvisoPrevio() {
+    const form = document.getElementById('aviso-form') as HTMLFormElement;
+    const inputAdmissao = document.getElementById('data-admissao') as HTMLInputElement;
+    const inputAviso = document.getElementById('data-aviso') as HTMLInputElement;
+    const selectTipo = document.getElementById('tipo-rescisao') as HTMLSelectElement;
+    const resultado = document.getElementById('aviso-resultado');
+
+    const resTempo = document.getElementById('res-tempo-servico');
+    const resAdicionais = document.getElementById('res-dias-adicionais');
+    const resTotal = document.getElementById('res-total-dias');
+    const resFim = document.getElementById('res-data-fim');
+    const resExplicacao = document.getElementById('res-explicacao-legal');
+
+    if (!inputAdmissao || !inputAviso) return;
+
+    // Set sensible default dates
+    if (!inputAdmissao.value) {
+      const today = new Date();
+      const threeYearsAgo = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
+      inputAdmissao.value = threeYearsAgo.toISOString().split('T')[0];
+      inputAviso.value = today.toISOString().split('T')[0];
+    }
+
+    form?.addEventListener('submit', () => {
+      const admissao = new Date(inputAdmissao.value + "T00:00:00");
+      const comunicacao = new Date(inputAviso.value + "T00:00:00");
+      const isPedidoDemissao = selectTipo.value === 'pedido-demissao';
+
+      if (isNaN(admissao.getTime()) || isNaN(comunicacao.getTime())) return;
+      if (comunicacao < admissao) {
+        alert('A data de comunicação não pode ser anterior à data de admissão.');
+        return;
+      }
+
+      // Calculate full complete years of service
+      let fullYears = comunicacao.getFullYear() - admissao.getFullYear();
+      const monthDiff = comunicacao.getMonth() - admissao.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && comunicacao.getDate() < admissao.getDate())) {
+        fullYears--;
+      }
+      fullYears = Math.max(0, fullYears);
+
+      // Proportional days: 30 base + (fullYears * 3), capped at 90
+      let totalDias = 30;
+      let diasAdicionais = 0;
+
+      if (!isPedidoDemissao) {
+        diasAdicionais = Math.min(60, fullYears * 3);
+        totalDias = 30 + diasAdicionais;
+      }
+
+      // Calculate projected final date (Dies a quo starts next day)
+      const dataFinal = new Date(comunicacao.getTime());
+      dataFinal.setDate(dataFinal.getDate() + totalDias);
+
+      if (resTempo) resTempo.innerText = `${fullYears} ano${fullYears === 1 ? '' : 's'}`;
+      if (resAdicionais) resAdicionais.innerText = isPedidoDemissao ? '0 dias (Pedido)' : `+${diasAdicionais} dias`;
+      if (resTotal) resTotal.innerText = `${totalDias} dias`;
+      if (resFim) resFim.innerText = dataFinal.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+      if (resExplicacao) {
+        if (isPedidoDemissao) {
+          resExplicacao.innerText = `No pedido de demissão pelo empregado, a jurisprudência predominante do TST determina aviso fixo de 30 dias, não se aplicando a proporcionalidade de 3 dias por ano a favor do empregador.`;
+        } else {
+          resExplicacao.innerText = `Com ${fullYears} ano(s) completo(s) de serviço, o trabalhador tem direito aos 30 dias básicos da CLT mais ${diasAdicionais} dias proporcionais da Lei 12.506/2011, totalizando ${totalDias} dias de aviso com término projetado para ${dataFinal.toLocaleDateString('pt-BR')}.`;
+        }
+      }
+
+      resultado?.classList.remove('hidden');
+      resultado?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  initAvisoPrevio();
+  document.addEventListener('astro:page-load', initAvisoPrevio);
+</script>

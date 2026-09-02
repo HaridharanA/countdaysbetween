@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -98,6 +99,8 @@ const globalSchemaEs = {
     <meta property="twitter:image" content="https://www.countdaysbetween.com/og-image.png" />
 
     <script type="application/ld+json" set:html={JSON.stringify(globalSchemaEs)} />
+
+    <ClientRouter />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

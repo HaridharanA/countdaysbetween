@@ -4,9 +4,9 @@
 
 ---
 
-## 📌 Current Stable Baseline: Version `v0.4.0`
-- **Git Commit:** `a9cbf7e`
-- **Total Pre-rendered Pages:** **166 Static Routes** (Verified in `dist/sitemap-0.xml`)
+## 📌 Current Stable Baseline: Version `v0.5.0`
+- **Git Commit:** In Progress
+- **Total Pre-rendered Pages:** **168 Static Routes** (Verified in `dist/sitemap-0.xml`)
 - **Hosting Target:** Cloudflare Pages (Static Site Generation, $0/month server cost)
 - **Framework:** Astro v6.4.5 + Tailwind CSS v4 + Vercel Design Tokens (`DESIGN.md`)
 
@@ -23,12 +23,14 @@
 | `/countdown/` | **Holiday Hub (EN)** | Central schedule for 80+ federal holidays across 2026, 2027, and 2028 (Leap Year) + custom countdown builder. |
 | `/days-until/[slug]/` | **Individual Holiday Timers (EN)** | 80+ static holiday pages with live ticking timer, 5-year comparison table (2024–2028), contextual background, and schema (`Event`, `BreadcrumbList`, `FAQPage`). |
 | `/days-between/[pair]/` | **Holiday Date Pairs Hub (EN)** | 39 curated seasonal holiday pairs (e.g. Thanksgiving ➔ Christmas, Memorial Day ➔ Labor Day) with working day breakdowns and 5-year schedules. |
-| `/pt/` | **Calculadora de Dias Entre Datas (PT-BR)** | Brazilian Portuguese homepage calculator with *dias corridos*, *dias úteis (CLT)*, and quick presets. Schema: `WebApplication`, `FAQPage`. |
+| `/pt/` | **Calculadora de Dias Entre Datas (PT-BR)** | Brazilian Portuguese homepage calculator with *dias corridos*, *dias úteis (CLT)*, Year Progress, Custom Countdown builder, and Life Days counter. Schema: `WebApplication`, `FAQPage`. |
 | `/pt/dias-uteis/` | **Dias Úteis no Brasil (PT-BR)** | Business days calculator excluding Brazilian weekends and national holidays with official 2026 holiday reference table. |
+| `/pt/aviso-previo/` | **Calculadora de Aviso Prévio CLT (PT-BR)** | Specialized tool for Brazilian labour law (Lei 12.506/2011) calculating 30 base + 3 days per year worked up to 90 days. |
 | `/pt/contagem-regressiva/` | **Contagem para as Férias (PT-BR)** | Target hub for *Férias Escolares de Julho*, *Férias de Verão*, *Carnaval*, and Brazilian holiday countdowns. |
 | `/pt/dias-ate/[slug]/` | **Feriados do Brasil (PT-BR)** | Individual countdown pages for Brazilian national holidays (e.g., `carnaval-2026`, `ferias-de-julho-2026`, `tiradentes-2026`). |
-| `/es/` | **Calculadora de Días Entre Fechas (ES)** | Spanish homepage calculator with *días naturales*, *días hábiles*, and quick presets. Schema: `WebApplication`, `FAQPage`. |
+| `/es/` | **Calculadora de Días Entre Fechas (ES)** | Spanish homepage calculator with *días naturales*, *días hábiles*, Year Progress, Custom Countdown builder, and Life Days counter. Schema: `WebApplication`, `FAQPage`. |
 | `/es/dias-habiles/` | **Días Hábiles (ES)** | Business days calculator excluding weekends and holidays for Spain and Latin America. |
+| `/es/calculadora-plazos/` | **Calculadora de Plazos Ley 39/2015 (ES)** | Specialized administrative and judicial deadline calculator (*dies a quo* to *dies ad quem*) for Spain and Latin America. |
 | `/es/cuenta-regresiva/` | **Vacaciones y Festivos (ES)** | Holiday & vacation countdown hub for Spain, Mexico & Latin America (*Semana Santa, Vacaciones de Verano, Reyes*). |
 | `/es/dias-hasta/[slug]/` | **Festivos en Español (ES)** | Individual countdown pages for Hispanic holidays (*Día de Reyes, Viernes Santo, Vacaciones de Verano, Día de Muertos*). |
 | `/timeline-wars/` | **Gamified History Trivia** | Standalone fullscreen game page testing knowledge of historical dates. |
@@ -53,6 +55,8 @@
 ---
 
 ## 📜 Feature Changelog
+
+- **v0.5.0 (Sep 2, 2026):** Implemented Astro `ClientRouter` for smooth SPA cross-fade page transitions, brought 100% full feature parity to Portuguese and Spanish (Year Progress, Custom Countdown Builder, Life Days Counter), launched specialized Brazilian *Aviso Prévio CLT* (`/pt/aviso-previo/`) and Spanish *Plazos Ley 39/2015* (`/es/calculadora-plazos/`), compiling 168 static pages.
 
 - **v0.4.0 (Sep 2, 2026):** Launched full Spanish (`/es/`) engine for Spain and Latin America with *días hábiles* calculator, vacation hub (`/es/cuenta-regresiva/`), 10 dynamic holiday countdown routes (`/es/dias-hasta/[slug]/`), 3-way language switchers, bidirectional `hreflang="es-ES"` tags, and verified clean compilation of 166 static pages.
 - **v0.3.0 (Sep 2, 2026):** Launched full Brazilian Portuguese (`/pt/`) engine with native CLT business days calculator, dedicated holiday/vacation hub (`/pt/contagem-regressiva/`), 15 dynamic countdown routes (`/pt/dias-ate/[slug]/`), bidirectional `hreflang="pt-BR"` tags, and verified clean compilation of 153 static pages.

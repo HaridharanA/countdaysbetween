@@ -1,6 +1,9 @@
 ---
 import LayoutPt from "../../layouts/LayoutPt.astro";
 import CalculatorPt from "../../components/CalculatorPt.astro";
+import YearProgressPt from "../../components/YearProgressPt.astro";
+import CustomCountdownPt from "../../components/CustomCountdownPt.astro";
+import LifeCounterPt from "../../components/LifeCounterPt.astro";
 import holidaysPt from "../../data/holidays-pt.json";
 
 const upcomingHolidays = holidaysPt.filter((h) => h.year === 2026).slice(0, 6);
@@ -71,14 +74,45 @@ const faqSchema = {
       <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
         Calculadora de <span class="text-link">Dias Entre Datas</span>
       </h1>
-      <p class="text-lg text-body" style="width:100%; max-width:650px;">
+      <p class="text-lg text-body mb-6" style="width:100%; max-width:650px;">
         Descubra a quantidade exata de dias corridos, dias úteis, semanas e tempo restante entre quaisquer duas datas no Brasil.
       </p>
+
+      <!-- Quick Selector Chips -->
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <a href="#tool" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-on-primary hover:opacity-90 transition-all shadow-sm">
+          <span>📅 Calculadora Principal</span>
+        </a>
+        <a href="/pt/aviso-previo/" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+          <span>⚖️ Aviso Prévio CLT</span>
+        </a>
+        <a href="#custom-countdown" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+          <span>🎉 Criar Contador</span>
+        </a>
+        <a href="#life-tools" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+          <span>❤️ Dias de Vida</span>
+        </a>
+      </div>
     </div>
 
     <!-- Main Calculator Embed -->
-    <div id="tool" class="scroll-mt-24">
+    <div id="tool" class="scroll-mt-24 mb-16">
       <CalculatorPt />
+    </div>
+
+    <!-- Live Year Progress Indicator in Portuguese -->
+    <div id="year-progress" class="scroll-mt-24">
+      <YearProgressPt />
+    </div>
+
+    <!-- Create Custom Countdown in Portuguese -->
+    <div id="custom-countdown" class="scroll-mt-24">
+      <CustomCountdownPt />
+    </div>
+
+    <!-- Life Days Counter in Portuguese -->
+    <div id="life-tools" class="mb-20 w-full scroll-mt-24">
+      <LifeCounterPt />
     </div>
   </section>
 
@@ -120,6 +154,16 @@ const faqSchema = {
       </div>
     </a>
 
+    <a href="/pt/aviso-previo/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink group-hover:text-link"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Aviso Prévio CLT →</h3>
+        <p class="text-xs text-body">Calcule 30 dias base + 3 dias por ano trabalhado conforme a Lei 12.506/2011.</p>
+      </div>
+    </a>
+
     <a href="/pt/contagem-regressiva/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-violet transition-all group">
       <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-violet transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-violet"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -127,16 +171,6 @@ const faqSchema = {
       <div>
         <h3 class="text-lg font-semibold mb-1 group-hover:text-violet transition-colors">Contagem para as Férias →</h3>
         <p class="text-xs text-body">Saiba quantos dias faltam para o recesso de julho, fim de ano e feriadões prolongados.</p>
-      </div>
-    </a>
-
-    <a href="#tool" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
-      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-link"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Detalhamento Completo</h3>
-        <p class="text-xs text-body">Resultados em dias, semanas, meses, horas aproximadas e percentual do ano padrão.</p>
       </div>
     </a>
   </section>

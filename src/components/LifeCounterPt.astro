@@ -1,0 +1,177 @@
+---
+---
+
+<section class="w-full h-full">
+  <div class="rounded-3xl p-8 md:p-12 bg-gradient-to-br from-orange-50 to-rose-100 dark:from-slate-900 dark:to-rose-950/30 border border-orange-100/50 dark:border-rose-900/20 shadow-xl shadow-orange-200/20 h-full mx-auto lg:mx-0 w-full max-w-[700px] lg:max-w-none">
+    <div class="text-center mb-10">
+      <div class="mx-auto h-12 w-12 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center border border-orange-500/20 mb-3 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-rose-100 mb-4">Quantos dias você já viveu?</h2>
+      <p class="text-lg text-slate-600 dark:text-rose-200/70">Cada dia vivido é uma conquista. Descubra seus marcos de vida!</p>
+    </div>
+
+    <div class="flex flex-col items-center gap-8 w-full text-center">
+      <div class="w-full mx-auto max-w-[300px] lg:max-w-[400px]">
+        <label for="birthday-input-pt" class="block text-sm font-medium text-slate-700 dark:text-rose-200 mb-2" style="white-space: nowrap;">Qual é a sua data de nascimento?</label>
+        <input 
+          type="date" 
+          id="birthday-input-pt" 
+          class="w-full h-12 px-4 rounded-xl border border-orange-200 dark:border-rose-900/50 bg-white dark:bg-slate-800 text-slate-800 dark:text-white focus:border-orange-400 dark:focus:border-rose-500 focus:ring-0 transition-all outline-none text-base shadow-sm"
+        />
+      </div>
+
+      <div id="life-stats-pt" class="hidden w-full grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div class="md:col-span-2 bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 text-center border border-orange-100 dark:border-rose-900/30 shadow-sm">
+          <p class="text-slate-500 dark:text-rose-200/60 font-medium mb-1 uppercase tracking-wider text-sm">Você está no planeta Terra há</p>
+          <div id="days-lived-pt" class="text-6xl md:text-7xl font-black text-orange-500 dark:text-rose-400 tabular-nums">0</div>
+          <p class="text-2xl font-bold text-slate-700 dark:text-rose-100 mt-1">dias incríveis</p>
+          
+          <div class="mt-8 pt-8 border-t border-orange-50 dark:border-rose-900/20">
+            <p class="text-slate-500 dark:text-rose-200/60 text-sm mb-2">Total de segundos vividos (e contando!):</p>
+            <div id="seconds-lived-pt" class="text-3xl font-bold text-slate-800 dark:text-white tabular-nums">0</div>
+          </div>
+        </div>
+
+        <!-- Next Big Life Milestone Card -->
+        <div class="md:col-span-2 bg-gradient-to-r from-orange-500/10 to-rose-500/10 dark:from-orange-500/20 dark:to-rose-500/20 rounded-2xl p-6 border border-orange-200/50 dark:border-rose-800/30 text-left">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="h-8 w-8 rounded-lg bg-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45.99-.99 1H7c-.55 0-1-.45-1-1v-2.34"/><path d="M14 14.66V17c0 .55.45.99.99 1H17c.55 0 1-.45 1-1v-2.34"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+            </div>
+            <h3 class="font-bold text-slate-800 dark:text-rose-100 text-base">Seu Próximo Grande Marco de Vida</h3>
+          </div>
+          <p id="next-milestone-text-pt" class="text-sm md:text-base font-semibold text-orange-600 dark:text-rose-300">
+            Calculando seu próximo marco...
+          </p>
+          <p id="milestone-countdown-pt" class="text-xs text-slate-600 dark:text-rose-200/70 mt-1">
+            ...
+          </p>
+        </div>
+
+        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20 text-left">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="h-8 w-8 rounded-lg bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h3 class="font-bold text-slate-800 dark:text-rose-100">Divisão Detalhada</h3>
+          </div>
+          <ul class="space-y-2 text-slate-600 dark:text-rose-200/70 text-sm">
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-orange-400"></span><span id="weeks-lived-pt" class="font-bold text-slate-800 dark:text-white">0</span> semanas</li>
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-orange-400"></span><span id="months-lived-pt" class="font-bold text-slate-800 dark:text-white">0</span> meses</li>
+            <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-orange-400"></span><span id="hours-lived-pt" class="font-bold text-slate-800 dark:text-white">0</span> horas (aprox.)</li>
+          </ul>
+        </div>
+
+        <div class="bg-white/60 dark:bg-slate-800/40 rounded-2xl p-6 border border-orange-50 dark:border-rose-900/20 flex flex-col justify-center text-left">
+          <div class="flex items-center gap-4 mb-3">
+            <span class="text-2xl">🌍</span>
+            <h3 class="font-bold text-slate-800 dark:text-rose-100">Curiosidade</h3>
+          </div>
+          <p id="leap-years-msg-pt" class="text-slate-600 dark:text-rose-200/70 italic leading-relaxed text-sm">
+            Escolha uma data para ver sua jornada!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initLifeCounterPT() {
+    const birthdayInput = document.getElementById('birthday-input-pt') as HTMLInputElement;
+    const statsContainer = document.getElementById('life-stats-pt');
+    const daysDisplay = document.getElementById('days-lived-pt');
+    const secondsDisplay = document.getElementById('seconds-lived-pt');
+    const weeksDisplay = document.getElementById('weeks-lived-pt');
+    const monthsDisplay = document.getElementById('months-lived-pt');
+    const hoursDisplay = document.getElementById('hours-lived-pt');
+    const leapYearsMsg = document.getElementById('leap-years-msg-pt');
+    const nextMilestoneText = document.getElementById('next-milestone-text-pt');
+    const milestoneCountdown = document.getElementById('milestone-countdown-pt');
+
+    let timerInterval: number | null = null;
+
+    function isLeapYear(year: number) {
+      return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+
+    function calculateStatsPT() {
+      if (!birthdayInput || !birthdayInput.value) return;
+      const birthDate = new Date(birthdayInput.value + "T00:00:00");
+      if (isNaN(birthDate.getTime())) return;
+
+      const now = new Date();
+      const diffMs = now.getTime() - birthDate.getTime();
+      
+      if (diffMs < 0) {
+        if (statsContainer) statsContainer.classList.add('hidden');
+        return;
+      }
+
+      if (statsContainer) statsContainer.classList.remove('hidden');
+
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const diffWeeks = Math.floor(diffDays / 7);
+      
+      let months = (now.getFullYear() - birthDate.getFullYear()) * 12;
+      months -= birthDate.getMonth();
+      months += now.getMonth();
+      if (now.getDate() < birthDate.getDate()) months--;
+
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+      let leapYears = 0;
+      for (let y = birthDate.getFullYear(); y <= now.getFullYear(); y++) {
+        if (isLeapYear(y)) {
+          const feb29 = new Date(y, 1, 29);
+          if (feb29 >= birthDate && feb29 <= now) {
+            leapYears++;
+          }
+        }
+      }
+
+      const milestoneSteps = [1000, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000, 40000];
+      const nextMilestoneDays = milestoneSteps.find(m => m > diffDays) || (Math.ceil(diffDays / 5000) * 5000);
+      
+      const milestoneDate = new Date(birthDate.getTime() + (nextMilestoneDays * 24 * 60 * 60 * 1000));
+      const daysUntilMilestone = nextMilestoneDays - diffDays;
+
+      if (nextMilestoneText && milestoneCountdown) {
+        const formattedMilestoneDate = milestoneDate.toLocaleDateString('pt-BR', {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+        nextMilestoneText.innerHTML = `Seu <span class="font-black underline">${nextMilestoneDays.toLocaleString('pt-BR')}º Dia na Terra</span> será em <span class="font-bold">${formattedMilestoneDate}</span>!`;
+        milestoneCountdown.innerHTML = `Faltam apenas <strong class="text-orange-500 dark:text-rose-400 font-bold">${daysUntilMilestone.toLocaleString('pt-BR')} dias</strong> para atingir esse marco histórico! 🎉`;
+      }
+
+      if (daysDisplay) daysDisplay.textContent = diffDays.toLocaleString('pt-BR');
+      if (weeksDisplay) weeksDisplay.textContent = diffWeeks.toLocaleString('pt-BR');
+      if (monthsDisplay) monthsDisplay.textContent = months.toLocaleString('pt-BR');
+      if (hoursDisplay) hoursDisplay.textContent = diffHours.toLocaleString('pt-BR');
+      
+      if (leapYearsMsg) {
+        leapYearsMsg.innerHTML = `Você já presenciou <span class="font-bold text-orange-500 dark:text-rose-400">${leapYears}</span> anos bissextos! A Terra completou <span class="font-bold text-orange-500 dark:text-rose-400">${(diffDays / 365.25).toFixed(1)}</span> voltas ao redor do Sol desde que você nasceu. 🚀`;
+      }
+
+      if (timerInterval) clearInterval(timerInterval);
+      
+      const updateSeconds = () => {
+        const currentNow = new Date();
+        const currentDiffSecs = Math.floor((currentNow.getTime() - birthDate.getTime()) / 1000);
+        if (secondsDisplay) secondsDisplay.textContent = currentDiffSecs.toLocaleString('pt-BR');
+      };
+      
+      updateSeconds();
+      timerInterval = window.setInterval(updateSeconds, 1000);
+    }
+
+    birthdayInput?.addEventListener('change', calculateStatsPT);
+  }
+
+  initLifeCounterPT();
+  document.addEventListener('astro:page-load', initLifeCounterPT);
+</script>

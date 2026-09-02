@@ -1,6 +1,9 @@
 ---
 import LayoutEs from "../../layouts/LayoutEs.astro";
 import CalculatorEs from "../../components/CalculatorEs.astro";
+import YearProgressEs from "../../components/YearProgressEs.astro";
+import CustomCountdownEs from "../../components/CustomCountdownEs.astro";
+import LifeCounterEs from "../../components/LifeCounterEs.astro";
 import holidaysEs from "../../data/holidays-es.json";
 
 const upcomingHolidays = holidaysEs.filter((h) => h.year === 2026).slice(0, 6);
@@ -63,14 +66,45 @@ const faqSchema = {
       <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-ink mb-4" style="width:100%;">
         Calculadora de <span class="text-link">Días Entre Fechas</span>
       </h1>
-      <p class="text-lg text-body" style="width:100%; max-width:650px;">
+      <p class="text-lg text-body mb-6" style="width:100%; max-width:650px;">
         Descubre el número exacto de días naturales, días hábiles, semanas y porcentaje del año entre cualquier intervalo de fechas.
       </p>
+
+      <!-- Quick Selector Chips -->
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <a href="#tool" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-on-primary hover:opacity-90 transition-all shadow-sm">
+          <span>📅 Calculadora Principal</span>
+        </a>
+        <a href="/es/calculadora-plazos/" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+          <span>⚖️ Plazos Ley 39/2015</span>
+        </a>
+        <a href="#custom-countdown" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+          <span>🎉 Crear Contador</span>
+        </a>
+        <a href="#life-tools" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-canvas border border-hairline text-ink hover:border-link transition-all">
+          <span>❤️ Días Vividos</span>
+        </a>
+      </div>
     </div>
 
     <!-- Main Calculator Embed -->
-    <div id="tool" class="scroll-mt-24">
+    <div id="tool" class="scroll-mt-24 mb-16">
       <CalculatorEs />
+    </div>
+
+    <!-- Live Year Progress Indicator in Spanish -->
+    <div id="year-progress" class="scroll-mt-24">
+      <YearProgressEs />
+    </div>
+
+    <!-- Create Custom Countdown in Spanish -->
+    <div id="custom-countdown" class="scroll-mt-24">
+      <CustomCountdownEs />
+    </div>
+
+    <!-- Life Days Counter in Spanish -->
+    <div id="life-tools" class="mb-20 w-full scroll-mt-24">
+      <LifeCounterEs />
     </div>
   </section>
 
@@ -109,6 +143,16 @@ const faqSchema = {
       <div>
         <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Días Hábiles →</h3>
         <p class="text-xs text-body">Excluye fines de semana para cálculo de plazos laborales, legales y contractuales.</p>
+      </div>
+    </a>
+
+    <a href="/es/calculadora-plazos/" class="card-shadow rounded-2xl bg-canvas p-6 flex flex-col gap-4 border border-hairline hover:border-link transition-all group">
+      <div class="h-10 w-10 rounded-xl bg-canvas-soft flex items-center justify-center border border-hairline group-hover:border-link transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-ink group-hover:text-link"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-1 group-hover:text-link transition-colors">Plazos Ley 39/2015 →</h3>
+        <p class="text-xs text-body">Calcula el vencimiento exacto de notificaciones y plazos administrativos en España.</p>
       </div>
     </a>
 

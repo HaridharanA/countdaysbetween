@@ -1,0 +1,190 @@
+---
+import LayoutEs from "../../layouts/LayoutEs.astro";
+
+const title = "Calculadora de Plazos Administrativos y Judiciales — Ley 39/2015";
+const description = "Calcula el vencimiento exacto de plazos en días hábiles y naturales conforme a la Ley 39/2015 y LEC en España. Excluye sábados, domingos y festivos nacionales.";
+---
+
+<LayoutEs title={title} description={description}>
+  <div style="width:100%; max-width:800px; margin-left:auto; margin-right:auto;">
+    <div class="mb-10 text-center" style="width:100%;">
+      <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-4">
+        <span>⚖️ Cómputo Legal Ley 39/2015 (LPACAP) y LEC</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight text-ink mb-4">
+        Calculadora de Plazos Procesales y Administrativos
+      </h1>
+      <p class="text-base md:text-lg text-body" style="width:100%;">
+        Calcula la fecha exacta de vencimiento (*dies ad quem*) para alegaciones, recursos, requerimientos y notificaciones oficiales, excluyendo fines de semana e inhábiles.
+      </p>
+    </div>
+
+    <!-- Calculator Card -->
+    <div class="p-6 md:p-8 rounded-3xl bg-canvas border border-hairline card-shadow mb-12">
+      <form id="plazos-form" class="space-y-6" onsubmit="event.preventDefault();">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="fecha-notificacion" class="block text-xs font-bold uppercase tracking-wider text-mute mb-2">
+              Fecha de Notificación / Acto
+            </label>
+            <input
+              type="date"
+              id="fecha-notificacion"
+              required
+              class="w-full h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link transition-colors"
+            />
+          </div>
+
+          <div>
+            <label for="duracion-plazo" class="block text-xs font-bold uppercase tracking-wider text-mute mb-2">
+              Duración del Plazo
+            </label>
+            <div class="flex gap-2">
+              <input
+                type="number"
+                id="duracion-plazo"
+                min="1"
+                max="365"
+                value="10"
+                required
+                class="w-24 h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link font-mono font-bold"
+              />
+              <select id="unidad-plazo" class="flex-grow h-12 px-4 rounded-xl border border-hairline bg-canvas-soft text-ink text-sm outline-none focus:border-link">
+                <option value="habiles">Días Hábiles (Lunes a Viernes)</option>
+                <option value="naturales">Días Naturales (Calendario Corrido)</option>
+                <option value="meses">Meses (De fecha a fecha)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="btn-calcular-plazo"
+          class="w-full h-14 rounded-full bg-primary text-on-primary font-bold text-base hover:scale-[1.01] active:scale-[0.99] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span>Calcular Fecha Límite de Vencimiento →</span>
+        </button>
+      </form>
+
+      <!-- Live Result Container -->
+      <div id="plazos-resultado" class="hidden mt-8 pt-8 border-t border-hairline animate-in fade-in duration-300">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div class="p-4 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="block text-xs uppercase font-mono text-mute mb-1">Inicio del Cómputo</span>
+            <span id="res-dies-a-quo" class="text-base md:text-lg font-bold text-ink">--/--/----</span>
+            <span class="block text-[10px] text-mute mt-1">Día siguiente hábil</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center">
+            <span class="block text-xs uppercase font-mono text-emerald-600 dark:text-emerald-400 font-bold mb-1">Fecha Límite Final</span>
+            <span id="res-dies-ad-quem" class="text-xl md:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">--/--/----</span>
+            <span class="block text-[10px] text-emerald-600/80 mt-1">Último día para presentar</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-canvas-soft border border-hairline text-center">
+            <span class="block text-xs uppercase font-mono text-mute mb-1">Días Inhábiles Ignorados</span>
+            <span id="res-inhabiles" class="text-xl md:text-2xl font-black text-blue-500 font-mono">0</span>
+            <span class="block text-[10px] text-mute mt-1">Fines de semana</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-primary/5 border border-primary/20 text-sm text-body">
+          <h4 class="font-bold text-ink mb-1">⚖️ Criterio de Cómputo (Art. 30 Ley 39/2015):</h4>
+          <p id="res-explicacion-plazo">
+            El cómputo de los plazos fijados por días hábiles comienza a contar desde el día siguiente a la notificación (*dies a quo*), quedando excluidos los sábados, domingos y los días declarados festivos inhábiles.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Guide -->
+    <div class="space-y-6 text-body leading-relaxed">
+      <h2 class="text-2xl font-bold text-ink">Reglas Básicas de Cómputo de Plazos en España</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Días Hábiles:</strong> Tras la reforma de la Ley 39/2015, los <em>sábados son días inhábiles</em> tanto en vía administrativa como judicial (LEC). Solo cuentan de lunes a viernes no festivos.</li>
+        <li><strong>Día Inicial (*Dies a quo*):</strong> Los plazos en días se cuentan siempre <em>a partir del día siguiente</em> a aquel en que tenga lugar la notificación o publicación.</li>
+        <li><strong>Vencimiento en Día Inhábil:</strong> Si el último día del plazo es inhábil (sábado, domingo o festivo), el plazo se prorroga automáticamente al primer día hábil siguiente.</li>
+        <li><strong>Plazos por Meses:</strong> Se computan de fecha a fecha. Si en el mes de vencimiento no hubiera día equivalente, el plazo concluye el último día del mes.</li>
+      </ul>
+    </div>
+  </div>
+</LayoutEs>
+
+<script>
+  function initCalculadoraPlazos() {
+    const form = document.getElementById('plazos-form') as HTMLFormElement;
+    const inputFecha = document.getElementById('fecha-notificacion') as HTMLInputElement;
+    const inputDuracion = document.getElementById('duracion-plazo') as HTMLInputElement;
+    const selectUnidad = document.getElementById('unidad-plazo') as HTMLSelectElement;
+    const resultado = document.getElementById('plazos-resultado');
+
+    const resInicio = document.getElementById('res-dies-a-quo');
+    const resFin = document.getElementById('res-dies-ad-quem');
+    const resInhabiles = document.getElementById('res-inhabiles');
+    const resExplicacion = document.getElementById('res-explicacion-plazo');
+
+    if (!inputFecha) return;
+
+    if (!inputFecha.value) {
+      inputFecha.value = new Date().toISOString().split('T')[0];
+    }
+
+    form?.addEventListener('submit', () => {
+      const fechaNotif = new Date(inputFecha.value + "T00:00:00");
+      const duracion = parseInt(inputDuracion.value, 10);
+      const unidad = selectUnidad.value;
+
+      if (isNaN(fechaNotif.getTime()) || isNaN(duracion) || duracion <= 0) return;
+
+      let currentDate = new Date(fechaNotif.getTime());
+      currentDate.setDate(currentDate.getDate() + 1); // Dies a quo (next day)
+      const diesAQuo = new Date(currentDate.getTime());
+
+      let inhabilesCount = 0;
+
+      if (unidad === 'habiles') {
+        let addedDays = 0;
+        while (addedDays < duracion) {
+          const dayOfWeek = currentDate.getDay(); // 0 = Sun, 6 = Sat
+          if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+            addedDays++;
+          } else {
+            inhabilesCount++;
+          }
+          if (addedDays < duracion) {
+            currentDate.setDate(currentDate.getDate() + 1);
+          }
+        }
+      } else if (unidad === 'naturales') {
+        currentDate.setDate(currentDate.getDate() + (duracion - 1));
+        // If last day is weekend, it shifts to Monday
+        while (currentDate.getDay() === 0 || currentDate.getDay() === 6) {
+          inhabilesCount++;
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      } else if (unidad === 'meses') {
+        currentDate = new Date(fechaNotif.getTime());
+        currentDate.setMonth(currentDate.getMonth() + duracion);
+        while (currentDate.getDay() === 0 || currentDate.getDay() === 6) {
+          inhabilesCount++;
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      }
+
+      if (resInicio) resInicio.innerText = diesAQuo.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      if (resFin) resFin.innerText = currentDate.toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' });
+      if (resInhabiles) resInhabiles.innerText = `${inhabilesCount} días`;
+
+      if (resExplicacion) {
+        resExplicacion.innerText = `Para una notificación del ${fechaNotif.toLocaleDateString('es-ES')} con un plazo de ${duracion} ${unidad === 'habiles' ? 'días hábiles' : unidad === 'meses' ? 'mes(es)' : 'días naturales'}, el cómputo inicia el ${diesAQuo.toLocaleDateString('es-ES')} y concluye el ${currentDate.toLocaleDateString('es-ES')}, habiéndose omitido ${inhabilesCount} días de fin de semana.`;
+      }
+
+      resultado?.classList.remove('hidden');
+      resultado?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  initCalculadoraPlazos();
+  document.addEventListener('astro:page-load', initCalculadoraPlazos);
+</script>
