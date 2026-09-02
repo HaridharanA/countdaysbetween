@@ -45,6 +45,7 @@
 3. **Game Pages:** Always keep `/timeline-wars/` as standalone HTML without `Layout.astro`.
 4. **URL Consistency:** Trailing slash is enforced (`trailingSlash: 'always'`). Canonical URLs must always use `https://www.countdaysbetween.com/.../`.
 5. **Static Performance:** Zero heavy client-side JavaScript frameworks. Use lightweight vanilla inline/module scripts to keep INP < 50ms and CLS at 0.00.
+6. **Strict Validation & Page Cap Rule:** Cap is held at **168 static pages**. No new programmatic routes or keyword-targeted pages may be created based on assumptions. Every future keyword must be validated with verified Ahrefs + actual Google SERP evidence first. Focus strictly on UX polish, performance, and monitoring real indexing.
 
 ---
 
